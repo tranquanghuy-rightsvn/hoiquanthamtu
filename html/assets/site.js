@@ -167,8 +167,7 @@
       '<li><a href="' + url('ve-chung-toi.html#doi-ngu') + '">Đội ngũ</a></li>' +
       '<li><a href="' + url('ve-chung-toi.html#faq') + '">Câu hỏi thường gặp</a></li>' +
       '<li><a href="' + url('ve-chung-toi.html#lien-he') + '">Liên hệ</a></li></ul></div></div>' +
-      '<div class="foot-base"><span>&copy; 2026 HQTT</span>' +
-      '<span>Biên soạn tại Việt Nam</span></div>'
+      '<div class="foot-base"><span>&copy; 2026 HQTT</span></div>'
     );
   }
 
