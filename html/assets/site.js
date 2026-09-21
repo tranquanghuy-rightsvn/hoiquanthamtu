@@ -168,7 +168,6 @@
       '<li><a href="' + url('ve-chung-toi.html#faq') + '">Câu hỏi thường gặp</a></li>' +
       '<li><a href="' + url('ve-chung-toi.html#lien-he') + '">Liên hệ</a></li></ul></div></div>' +
       '<div class="foot-base"><span>&copy; 2026 HQTT</span>' +
-      '<span class="foot-demo">Bản demo &middot; không có giao dịch thật</span>' +
       '<span>Biên soạn tại Việt Nam</span></div>'
     );
   }

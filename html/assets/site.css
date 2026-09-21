@@ -199,6 +199,13 @@
   padding-left: 22px;
 }
 
+/* Flex column: grid stretches cả 2 .drop-col bằng chiều cao,
+   margin-top:auto trên .drop-list đẩy list xuống đáy → bottom-align. */
+.drop-col {
+  display: flex;
+  flex-direction: column;
+}
+
 .drop-col-head {
   display: flex;
   align-items: center;
@@ -206,6 +213,11 @@
   text-decoration: none;
   color: var(--ink);
   margin-bottom: 14px;
+}
+
+.drop-col-head > span:last-child {
+  flex: 1;
+  min-width: 0;
 }
 
 .drop-icon {
@@ -250,6 +262,7 @@
   list-style: none;
   margin: 0;
   padding: 0;
+  margin-top: auto;
 }
 
 .drop-list a {
@@ -364,6 +377,21 @@
   background-size: 46px 46px;
   pointer-events: none;
 }
+
+/* --------------------------------------------------------------------------
+   2. HERO TRANG CHỦ
+   -------------------------------------------------------------------------- */
+
+/* Đẩy h1 xa eyebrow trên desktop — tránh dính nhau. */
+@media (min-width: 1051px) {
+  .hero h1 {
+    margin-top: 44px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   3. PAGE HERO
+   -------------------------------------------------------------------------- */
 
 .page-hero > * {
   position: relative;
@@ -2011,15 +2039,18 @@ body.font-sm .prose {
 .site-footer {
   background: var(--ink);
   color: var(--paper);
-  padding: clamp(56px, 7vw, 84px) clamp(24px, 5vw, 86px) 34px;
+  /* style.css cũ có rule `footer { display:flex; justify-content:space-between }`
+     đè lên đây → grid và copyright bị xếp NGANG. Ép block để foot-grid (grid)
+     và foot-base (flex column) xếp DỌC đúng ý đồ. */
+  display: block;
+  padding: clamp(56px, 7vw, 84px) 0 0;
 }
 
 .foot-grid {
   display: grid;
   grid-template-columns: 1.7fr 1fr 1fr 1fr;
   gap: 44px;
-  padding-bottom: 46px;
-  border-bottom: 1px solid rgba(244, 239, 227, .14);
+  padding: 0 clamp(24px, 5vw, 86px) 46px;
 }
 
 .site-footer .brand {
@@ -2086,22 +2117,15 @@ body.font-sm .prose {
 
 .foot-base {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 14px;
-  padding-top: 26px;
+  width: 100%;
+  padding: 20px clamp(24px, 5vw, 86px) 28px;
   font-size: 12px;
+  text-align: center;
   color: rgba(244, 239, 227, .45);
-}
-
-.foot-demo {
-  border: 1px solid rgba(244, 239, 227, .2);
-  padding: 6px 12px;
-  letter-spacing: 1.4px;
-  text-transform: uppercase;
-  font-weight: 700;
-  font-size: 10.5px;
+  border-top: 1px solid rgba(244, 239, 227, .14);
+  gap: 6px;
 }
 
 /* --------------------------------------------------------------------------
