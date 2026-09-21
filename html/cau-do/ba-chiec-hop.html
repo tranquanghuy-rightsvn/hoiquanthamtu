@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101c2b">
+  <meta name="description" content="Ba chiếc hộp, ba cái nhãn, và một điều chắc chắn: không có nhãn nào đúng.">
+  <title>Ba chiếc hộp dán nhãn sai — Hội Quán Thám Tử</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Special+Elite&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+  <link rel="stylesheet" href="../assets/style.css">
+  <link rel="stylesheet" href="../assets/site.css">
+  <script>window.HQ_BASE = '../';</script>
+  <script src="../assets/site.js"></script>
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="read-progress" data-read-progress aria-hidden="true"></div>
+  <header class="site-header is-solid" data-hq-header></header>
+  <script>HQ.header('cau-do');</script>
+
+  <main>
+    <section class="page-hero">
+      <nav class="breadcrumb" aria-label="Đường dẫn"><a href="../index.html">Trang chủ</a><span>/</span><a href="../cau-do.html">Câu đố</a><span>/</span><b>Ba chiếc hộp dán nhãn sai</b></nav>
+      <p class="eyebrow"><span></span> Câu đố số 47 &middot; Logic</p>
+      <h1>Ba chiếc hộp dán nhãn sai</h1>
+      <p class="lede">Ba chiếc hộp, ba cái nhãn, và một điều chắc chắn: không có nhãn nào đúng.</p>
+      <div class="hero-meta"><span>2.907 lượt thử</span><span>78% giải đúng</span></div>
+      <span class="watermark" aria-hidden="true">#47</span>
+    </section>
+    <div class="page-main narrow">
+      <article class="riddle-paper">
+        <div class="post-meta" style="margin-bottom:6px"><span class="chip">Logic</span><span class="stars" aria-label="Độ khó 2 trên 4"><i class="on"></i><i class="on"></i><i></i><i></i></span></div>
+        <h2>Đề bài</h2>
+        <div class="statement"><p>Trên bàn có ba chiếc hộp đóng kín. Hộp thứ nhất dán nhãn ĐỎ, hộp thứ hai dán nhãn XANH, hộp thứ ba dán nhãn HỖN HỢP.</p><p>Một hộp chứa toàn bi đỏ. Một hộp chứa toàn bi xanh. Hộp còn lại chứa cả bi đỏ lẫn bi xanh.</p><p>Bạn được cho biết chắc chắn một điều: cả ba chiếc nhãn đều bị dán sai. Không một nhãn nào khớp với thứ bên trong.</p><p>Bạn được phép mở đúng một hộp và lấy ra đúng một viên bi, không được nhìn vào trong hộp.</p></div>
+        <p class="statement" style="margin-top:22px"><strong>Bạn mở hộp nào để xác định chắc chắn nội dung của cả ba chiếc hộp?</strong></p>
+
+        <form class="answer-form" data-answer="hon hop|hop hon hop|hop dan nhan hon hop|hop thu ba|nhan hon hop" novalidate>
+          <input type="text" placeholder="Mở hộp dán nhãn nào?" aria-label="Đáp án của bạn" autocomplete="off">
+          <button type="submit">Kiểm tra đáp án</button>
+        </form>
+        <p class="verdict" role="status"></p>
+
+        <div class="hint-stack">
+          <button type="button" id="hintBtn">Mở gợi ý 1 / 3</button>
+          <div class="hint"><b>Gợi ý 1</b>Với hai chiếc hộp dán nhãn ĐỎ và XANH, một viên bi lấy ra vẫn để lại cho bạn hai khả năng. Như thế là chưa đủ.</div><div class="hint"><b>Gợi ý 2</b>Có đúng một chiếc hộp mà khi biết một viên bi bên trong, bạn lập tức biết toàn bộ nội dung của nó. Hộp nào có tính chất đó?</div><div class="hint"><b>Gợi ý 3</b>"Tất cả nhãn đều sai" mạnh hơn "một số nhãn sai" rất nhiều. Nó loại trừ chứ không chỉ gợi ý.</div>
+        </div>
+      </article>
+
+      <div class="spoiler">
+        <button type="button" data-accordion aria-expanded="false" aria-controls="sol">Xem lời giải đầy đủ</button>
+        <div class="spoiler-body prose" id="sol" hidden><p>Mở chiếc hộp dán nhãn HỖN HỢP.</p><p>Vì mọi nhãn đều sai, hộp này chắc chắn không phải hộp hỗn hợp. Nó chỉ có thể là toàn đỏ hoặc toàn xanh. Viên bi bạn lấy ra sẽ nói cho bạn biết là loại nào — một viên là đủ, vì hộp này thuần một màu.</p><p>Giả sử bạn lấy ra viên đỏ. Vậy hộp này là hộp ĐỎ. Xét tiếp hộp dán nhãn XANH: nó không thể là xanh (nhãn sai) và cũng không thể là đỏ (đỏ đã bị lấy mất). Vậy nó là hộp HỖN HỢP. Chiếc còn lại, dán nhãn ĐỎ, buộc phải là hộp XANH.</p><p>Nếu viên lấy ra là xanh, lập luận diễn ra y hệt theo chiều ngược lại. Trong cả hai trường hợp, một viên bi duy nhất đủ để xác định cả ba hộp.</p><p>Lý do hai hộp kia không dùng được: nếu mở hộp dán nhãn ĐỎ và rút ra viên xanh, hộp đó có thể là hộp XANH hoặc hộp HỖN HỢP. Bạn vẫn còn hai khả năng, và không còn lượt mở nào.</p></div>
+      </div>
+
+      <div class="post-nav"><a class="prev" href="can-phong-khoa-kin.html"><small>&larr; Câu trước</small><b>Căn phòng khoá kín</b></a><a class="next" href="mat-thu-cua-ga.html"><small>Câu tiếp theo &rarr;</small><b>Mật thư của Gà</b></a></div>
+    </div>
+
+  </main>
+
+  <footer class="site-footer" data-hq-footer></footer>
+  <script>HQ.footer();</script>
+  <script src="../assets/riddle.js"></script>
+</body>
+</html>

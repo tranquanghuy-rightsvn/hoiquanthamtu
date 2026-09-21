@@ -11,20 +11,14 @@
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Special+Elite&display=swap" rel="stylesheet">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23101c2b'/%3E%3Ccircle cx='28' cy='27' r='15' fill='none' stroke='%23e7b74b' stroke-width='6'/%3E%3Cpath d='M39 39l14 14' stroke='%23e7b74b' stroke-width='7' stroke-linecap='round'/%3E%3Cpath d='M22 28l5 5 10-13' fill='none' stroke='%23f4efe3' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
   <link rel="stylesheet" href="assets/style.css">
+  <link rel="stylesheet" href="assets/site.css">
+  <link rel="stylesheet" href="assets/game.css">
+  <script src="assets/site.js"></script>
 </head>
 <body>
   <div class="grain" aria-hidden="true"></div>
-  <header class="site-header">
-    <a class="brand" href="#top" aria-label="Hội Quán Thám Tử - Trang chủ">
-      <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 48 48"><circle cx="20" cy="20" r="12"/><path d="m29 29 11 11"/><path d="M15 21l4 4 7-10"/></svg></span>
-      <span><strong>HỘI QUÁN</strong><em>THÁM TỬ</em></span>
-    </a>
-    <button class="menu-toggle" aria-label="Mở menu" aria-expanded="false"><span></span><span></span></button>
-    <nav class="main-nav" aria-label="Điều hướng chính">
-      <a href="#vu-an">Vụ án</a><a href="#tham-tu">Thám tử</a><a href="#ho-so">Hồ sơ mật</a>
-      <a class="nav-cta" href="#vu-an">Nhận vụ án <span>→</span></a>
-    </nav>
-  </header>
+  <header class="site-header" data-hq-header></header>
+  <script>HQ.header('home');</script>
 
   <main id="top">
     <section class="hero">
@@ -63,20 +57,144 @@
     <section class="cases" id="vu-an">
       <div class="section-heading">
         <div><p class="eyebrow"><span></span> Hồ sơ mới nhất</p><h2>VỤ ÁN ĐANG MỞ</h2></div>
-        <div class="case-switch" role="tablist" aria-label="Lọc vụ án"><button class="active">Tất cả</button><button>Khó</button><button>Bí ẩn</button></div>
+        <div class="case-switch" role="tablist" aria-label="Lọc vụ án"><button class="active" data-level="all">Tất cả</button><button data-level="kho">Khó</button><button data-level="bi-an">Bí ẩn</button></div>
       </div>
       <div class="case-grid">
-        <article class="case-card featured">
+        <article class="case-card featured" data-level="kho">
           <div class="case-visual taxi"><span class="case-no">HỒ SƠ 031</span><svg viewBox="0 0 360 220" aria-hidden="true"><path d="M40 160h280l-25-73H100L67 160Z"/><path d="M116 87 145 48h95l38 39"/><circle cx="105" cy="166" r="25"/><circle cx="278" cy="166" r="25"/><path d="M180 49v108M99 88h196"/><path d="m42 120-22 8m303-8 20 8"/></svg><span class="question">?</span></div>
-          <div class="case-info"><div class="difficulty"><span></span><span></span><span></span><i>Khó</i></div><h3>Tài xế taxi giả điếc</h3><p>Một hành khách biến mất, một tài xế không nghe thấy gì — và một chi tiết không thể nói dối.</p><a href="#ho-so">Mở hồ sơ <span>→</span></a></div>
+          <div class="case-info"><div class="difficulty"><span></span><span></span><span></span><i>Khó</i></div><h3>Tài xế taxi giả điếc</h3><p>Một hành khách biến mất, một tài xế không nghe thấy gì — và một chi tiết không thể nói dối.</p><a href="vu-an/ho-so-031-tai-xe-taxi.html">Mở hồ sơ <span>→</span></a></div>
         </article>
-        <article class="case-card">
+        <article class="case-card" data-level="vua">
           <div class="case-visual vault"><span class="case-no">HỒ SƠ 030</span><svg viewBox="0 0 360 220" aria-hidden="true"><rect x="75" y="28" width="210" height="172" rx="8"/><circle cx="180" cy="112" r="48"/><circle cx="180" cy="112" r="12"/><path d="M180 64v35m0 26v35m-48-48h35m26 0h35"/><rect x="278" y="85" width="15" height="58"/></svg></div>
-          <div class="case-info"><div class="difficulty medium"><span></span><span></span><span></span><i>Vừa</i></div><h3>Mật mã két sắt</h3><p>Những mảnh giấy trong thùng rác là lời nhắn cuối cùng hay một cái bẫy?</p><a href="#ho-so">Mở hồ sơ <span>→</span></a></div>
+          <div class="case-info"><div class="difficulty medium"><span></span><span></span><span></span><i>Vừa</i></div><h3>Mật mã két sắt</h3><p>Những mảnh giấy trong thùng rác là lời nhắn cuối cùng hay một cái bẫy?</p><a href="vu-an/ho-so-030-mat-ma-ket-sat.html">Mở hồ sơ <span>→</span></a></div>
         </article>
-        <article class="case-card">
+        <article class="case-card" data-level="bi-an">
           <div class="case-visual gourd"><span class="case-no">HỒ SƠ 029</span><svg viewBox="0 0 360 220" aria-hidden="true"><path d="M183 25c-29 0-44 16-36 39 6 15 22 19 15 34-9 19-48 22-48 65 0 39 31 51 69 51s69-12 69-51c0-43-39-46-48-65-7-15 9-19 15-34 8-23-7-39-36-39Z"/><path d="M153 79h60M146 92h74"/><path d="M183 126c-18 0-27 16-18 28s27 5 27 22"/></svg></div>
-          <div class="case-info"><div class="difficulty hard"><span></span><span></span><span></span><i>Rất khó</i></div><h3>Bóng hồ lô số 6</h3><p>Mười một điều kiện, bảy chiếc bóng. Chỉ một chiếc chứa Gà ở bên trong.</p><a href="#ho-so">Mở hồ sơ <span>→</span></a></div>
+          <div class="case-info"><div class="difficulty hard"><span></span><span></span><span></span><i>Rất khó</i></div><h3>Bóng hồ lô số 6</h3><p>Mười một điều kiện, bảy chiếc bóng. Chỉ một chiếc chứa Gà ở bên trong.</p><a href="vu-an/ho-so-029-bong-ho-lo.html">Mở hồ sơ <span>→</span></a></div>
+        </article>
+      </div>
+    </section>
+
+
+    <section class="band cream" id="cau-do-home">
+      <div class="band-head" data-reveal>
+        <div><p class="eyebrow"><span></span> Thử thách mỗi ngày</p><h2>CÂU ĐỐ HÔM NAY</h2></div>
+        <a class="see-all" href="cau-do.html">Xem tất cả câu đố <span>&rarr;</span></a>
+      </div>
+      <div class="riddle-home">
+        <article class="riddle-paper" data-reveal>
+          <p class="eyebrow"><span></span> Câu đố số 48 &middot; Logic</p>
+          <h2>Căn phòng khoá kín</h2>
+          <p class="statement">Đồng hồ dừng ở 9:15. Cửa sổ đóng chặt, nền nhà khô ráo, nhưng chiếc ô dựng cạnh bàn vẫn còn nhỏ nước. Trong phòng không có ai ngoài nạn nhân. Vậy nước trên chiếc ô từ đâu ra — và tại sao điều đó quan trọng?</p>
+          <div class="post-meta" style="margin-top:26px">
+            <span class="chip">Logic</span>
+            <span class="stars" aria-label="Độ khó 3 trên 4"><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span>
+            <span>1.284 người đã thử</span>
+          </div>
+          <div class="answer-form" style="margin-top:24px">
+            <a class="buy-btn coins" href="cau-do/can-phong-khoa-kin.html" style="text-decoration:none">Vào giải câu đố</a>
+          </div>
+        </article>
+        <div class="riddle-side">
+          <a class="post-card" href="cau-do/ba-chiec-hop.html" data-reveal data-delay="1">
+            <div class="post-body">
+              <div class="post-meta"><span class="chip">Suy luận</span><span class="stars"><i class="on"></i><i class="on"></i><i></i><i></i></span></div>
+              <h3>Ba chiếc hộp dán nhãn sai</h3>
+              <p>Cả ba nhãn đều sai. Bạn chỉ được mở một hộp và lấy ra đúng một viên bi.</p>
+              <div class="post-foot"><span>4 phút</span><span class="go">Giải <span>&rarr;</span></span></div>
+            </div>
+          </a>
+          <a class="post-card" href="cau-do/mat-thu-cua-ga.html" data-reveal data-delay="2">
+            <div class="post-body">
+              <div class="post-meta"><span class="chip">Mật mã</span><span class="stars"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></div>
+              <h3>Mật thư của Gà</h3>
+              <p>Gà để lại một dòng chữ không ai đọc nổi. Kể cả Gà, sau ba ngày.</p>
+              <div class="post-foot"><span>9 phút</span><span class="go">Giải <span>&rarr;</span></span></div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="band dark game-page" id="game-home">
+      <div class="band-head" data-reveal>
+        <div><p class="eyebrow"><span></span> Khu giải trí</p><h2>VÀO VAI THÁM TỬ</h2></div>
+        <a class="see-all" href="game.html">Vào sảnh game <span>&rarr;</span></a>
+      </div>
+      <div class="game-strip">
+        <a class="game-card" href="game/truy-tim-thu-pham.html" data-reveal>
+          <div class="game-cover"><span class="game-tag">Suy luận</span><span class="best-score" data-best-for="truy-tim-thu-pham"></span><svg viewBox="0 0 120 90"><path d="M8 82V24l52-16 52 16v58"/><path d="M8 82h104"/><rect x="44" y="50" width="32" height="32"/><circle cx="70" cy="66" r="2.5"/><path d="M24 36h18v16H24zM78 36h18v16H78z"/></svg></div>
+          <div class="game-body"><h3>Truy Tìm Thủ Phạm</h3><p>Ba nghi phạm, một cánh cửa khoá trong. Mười một phút camera bị mù.</p><span class="play-btn">Chơi ngay</span></div>
+        </a>
+        <a class="game-card" href="game/giai-ma-mat-thu.html" data-reveal data-delay="1">
+          <div class="game-cover"><span class="game-tag">Mật mã</span><span class="best-score" data-best-for="giai-ma-mat-thu"></span><svg viewBox="0 0 120 90"><rect x="10" y="16" width="100" height="62" rx="3"/><path d="m10 22 50 34 50-34"/><path d="M34 70h22"/></svg></div>
+          <div class="game-body"><h3>Giải Mã Mật Thư</h3><p>Một dòng chữ vô nghĩa, một khoá dịch ba bậc và bốn chữ số bị bôi đen.</p><span class="play-btn">Chơi ngay</span></div>
+        </a>
+        <a class="game-card" href="game/tim-diem-khac-biet.html" data-reveal data-delay="2">
+          <div class="game-cover"><span class="game-tag">Quan sát</span><span class="best-score" data-best-for="tim-diem-khac-biet"></span><svg viewBox="0 0 120 120"><circle cx="50" cy="50" r="34"/><path d="m75 75 36 36"/><path d="M36 48a14 14 0 0 1 14-14"/></svg></div>
+          <div class="game-body"><h3>Tìm Điểm Khác Biệt</h3><p>Hai bức ảnh cùng căn phòng, cách nhau bốn tiếng. Bảy thứ đã đổi chỗ.</p><span class="play-btn">Chơi ngay</span></div>
+        </a>
+        <a class="game-card" href="game/dong-thoi-gian.html" data-reveal data-delay="3">
+          <div class="game-cover"><span class="game-tag">Sắp xếp</span><span class="best-score" data-best-for="dong-thoi-gian"></span><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="46"/><path d="M60 30v32l22 13"/><path d="M60 8v8M60 104v8M8 60h8M104 60h8"/></svg></div>
+          <div class="game-body"><h3>Dòng Thời Gian</h3><p>Sáu lời khai lệch nhau. Xếp lại đúng thứ tự để lộ ra khoảng trống.</p><span class="play-btn">Chơi ngay</span></div>
+        </a>
+      </div>
+    </section>
+
+    <section class="band" id="truyen-home">
+      <div class="band-head" data-reveal>
+        <div><p class="eyebrow"><span></span> Tủ sách hội quán</p><h2>TRUYỆN TRINH THÁM</h2></div>
+        <a class="see-all" href="truyen-ngan.html">Vào tủ sách <span>&rarr;</span></a>
+      </div>
+      <div class="story-grid">
+        <a class="story-card" href="truyen/vet-muc-tren-tay-ao.html" data-reveal>
+          <div class="cover"><span class="spine"></span><span class="badge-free">Miễn phí</span><svg class="art" viewBox="0 0 100 130"><path d="M32 18h36v16H32z"/><path d="M28 34h44l8 76H20z"/><path d="M34 62h32M34 78h32M34 94h20"/></svg><span class="cover-title">Vết mực trên tay áo</span></div>
+          <div class="meta"><span>Truyện ngắn</span><span>18 phút đọc</span></div>
+          <p class="sub">Một lá đơn từ chức viết tay, và người viết thuận tay trái.</p>
+        </a>
+        <a class="story-card" href="truyen/nguoi-khach-luc-3h15.html" data-reveal data-delay="1">
+          <div class="cover"><span class="spine"></span><span class="badge-vip"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg> Trả phí</span><svg class="art" viewBox="0 0 100 130"><circle cx="50" cy="52" r="30"/><path d="M50 32v20l14 9"/><path d="M26 96h48M34 110h32"/></svg><span class="cover-title">Người khách lúc 3h15</span></div>
+          <div class="meta"><span>Truyện ngắn</span><span>26 phút đọc</span></div>
+          <p class="sub">Chuông cửa reo đúng 3h15 mỗi đêm, suốt chín đêm liền.</p>
+        </a>
+        <a class="story-card" href="truyen/an-mang-pho-den-do/" data-reveal data-delay="2">
+          <div class="cover"><span class="spine"></span><span class="badge-free">Miễn phí</span><svg class="art" viewBox="0 0 100 130"><rect x="30" y="16" width="40" height="84" rx="18"/><circle cx="50" cy="34" r="8"/><circle cx="50" cy="58" r="8"/><circle cx="50" cy="82" r="8"/><path d="M50 100v18M34 118h32"/></svg><span class="cover-title">Án mạng phố Đèn Đỏ</span></div>
+          <div class="meta"><span>Truyện dài</span><span>24 chương</span></div>
+          <p class="sub">Một ngã tư, ba nhân chứng, và cái đèn đỏ dài bất thường.</p>
+        </a>
+        <a class="story-card" href="truyen-dai.html#vip" data-reveal data-delay="3">
+          <div class="cover"><span class="spine"></span><span class="badge-vip"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg> Trả phí</span><svg class="art" viewBox="0 0 100 130"><path d="M50 14 22 40v66h56V40z"/><path d="M40 106V74h20v32"/><path d="M50 14v-6M34 54h12M54 54h12"/></svg><span class="cover-title">Ngôi nhà thứ mười ba</span></div>
+          <div class="meta"><span>Truyện dài</span><span>31 chương</span></div>
+          <p class="sub">Con phố có mười hai số nhà. Bưu tá vẫn giao thư cho số mười ba.</p>
+        </a>
+      </div>
+    </section>
+
+    <section class="band cream" id="blog-home">
+      <div class="band-head" data-reveal>
+        <div><p class="eyebrow"><span></span> Góc riêng</p><h2>BLOG CỦA GÀ</h2></div>
+        <a class="see-all" href="blog-ga.html">Đọc cả cuốn nhật ký <span>&rarr;</span></a>
+      </div>
+      <div class="journal">
+        <article class="entry" data-reveal>
+          <span class="tape"></span>
+          <p class="date">NGÀY 14 THÁNG 9</p>
+          <h3>Hôm nay tôi lại làm rơi kính</h3>
+          <div class="body">
+            <p>Chuyện là thế này. Tôi cúi xuống nhặt một mẩu giấy dưới gầm bàn hiện trường, kính rơi ra, và khi sờ soạng tìm lại thì tay tôi chạm phải một thứ lạnh ngắt dán dưới mặt bàn.</p>
+            <p>Hiraku nói đó là chìa khoá dự phòng. Anh ấy nói bằng cái giọng bình thản như thể ai cũng biết. Nhưng tôi biết chắc là anh ấy chưa nhìn xuống gầm bàn lần nào.</p>
+          </div>
+          <span class="mood">Tâm trạng: hơi tự hào</span>
+        </article>
+        <article class="entry" data-reveal data-delay="1">
+          <span class="tape"></span>
+          <p class="date">NGÀY 2 THÁNG 9</p>
+          <h3>Ghi chú về việc uống cà phê trong lúc điều tra</h3>
+          <div class="body">
+            <p>Đừng. Đặc biệt là đừng đặt cốc xuống bàn hiện trường. Tôi đã học được bài học này theo cách tốn kém nhất, và bây giờ trong hồ sơ 029 có vĩnh viễn một vòng tròn nâu mà không ai giải thích được.</p>
+            <p>Hiraku đã khoanh tròn nó và viết bên cạnh: "manh mối do nội bộ tạo ra".</p>
+          </div>
+          <span class="mood">Tâm trạng: xin lỗi</span>
         </article>
       </div>
     </section>
@@ -92,9 +210,24 @@
     <section class="secret" id="ho-so">
       <div class="secret-paper"><span class="paperclip"></span><div class="secret-copy"><p class="eyebrow"><span></span> Thử thách hôm nay</p><h2>BẠN NHÌN THẤY<br>ĐIỀU GÌ BẤT THƯỜNG?</h2><p>Trong căn phòng khóa kín, đồng hồ dừng ở 9:15. Cửa sổ đóng, nền nhà khô, nhưng chiếc ô bên cạnh bàn vẫn còn nhỏ nước.</p><button id="revealBtn">Xem manh mối đầu tiên</button><div id="clue" class="hidden-clue" aria-live="polite">Chiếc ô không nhất thiết vừa được mang từ ngoài trời vào. Hãy nhìn xem nó được đặt cạnh thứ gì.</div></div><div class="secret-art" aria-hidden="true"><svg viewBox="0 0 430 330"><rect x="38" y="38" width="354" height="250"/><circle cx="284" cy="104" r="46"/><path d="M284 104V72m0 32 25 14"/><path d="M72 288v-82h153v82M96 206v-35h105v35"/><path d="M330 154c-37 30-39 74-4 112m4-112c36 31 39 74 3 112M302 191h56"/><path d="M330 266v31"/><path d="m146 168 14-48 14 48M160 120V95"/></svg><span class="water w1"></span><span class="water w2"></span><span class="water w3"></span></div></div>
     </section>
+
+    <section class="band dark join">
+      <div data-reveal>
+        <p class="eyebrow" style="justify-content:center"><span></span> Gia nhập hội quán</p>
+        <h2>MỖI TUẦN MỘT HỒ SƠ<br>GỬI THẲNG CHO BẠN</h2>
+        <p>Vụ án mới, câu đố mới, và đôi khi là một trang nhật ký Gà chưa kịp xin phép đăng. Không quảng cáo, không thư rác.</p>
+        <form id="joinForm" novalidate>
+          <input type="email" required placeholder="dia-chi@email.com" aria-label="Địa chỉ email">
+          <button type="submit">Ghi tên vào sổ</button>
+        </form>
+        <p id="joinOk" class="verdict ok" style="max-width:520px;margin:22px auto 0" role="status"></p>
+      </div>
+    </section>
   </main>
 
-  <footer><a class="brand footer-brand" href="#top"><span class="brand-mark"><svg viewBox="0 0 48 48"><circle cx="20" cy="20" r="12"/><path d="m29 29 11 11"/><path d="M15 21l4 4 7-10"/></svg></span><span><strong>HỘI QUÁN</strong><em>THÁM TỬ</em></span></a><p>Nơi mọi chi tiết đều đáng ngờ.</p><span>© 2026 HQTT</span></footer>
+  <footer class="site-footer" data-hq-footer></footer>
+  <script>HQ.footer();</script>
+  <script src="assets/game.js"></script>
   <script src="assets/app.js"></script>
 </body>
 </html>

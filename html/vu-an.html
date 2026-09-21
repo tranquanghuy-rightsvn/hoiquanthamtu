@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101c2b">
+  <meta name="description" content="Toàn bộ hồ sơ vụ án của Hội Quán Thám Tử, sắp xếp theo độ khó.">
+  <title>Vụ án — Hội Quán Thám Tử</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Special+Elite&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="stylesheet" href="assets/style.css">
+  <link rel="stylesheet" href="assets/site.css">
+  <script>window.HQ_BASE = '';</script>
+  <script src="assets/site.js"></script>
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+  <header class="site-header is-solid" data-hq-header></header>
+  <script>HQ.header('vu-an');</script>
+
+  <main>
+    <section class="page-hero">
+      <nav class="breadcrumb" aria-label="Đường dẫn"><a href="index.html">Trang chủ</a><span>/</span><b>Vụ án</b></nav>
+      <p class="eyebrow"><span></span> Hồ sơ đang mở</p>
+      <h1>VỤ ÁN</h1>
+      <p class="lede">Những vụ việc Gà và Hiraku đang theo đuổi. Mỗi hồ sơ được viết lại theo đúng thứ tự hai người đã nhìn thấy chúng — bạn có toàn bộ dữ kiện họ có, không hơn một chữ nào.</p>
+      <div class="hero-meta"><span><b>6</b> hồ sơ trong danh sách</span><span><b>3</b> đã công bố</span><span><b>3</b> đang biên tập</span></div>
+      <span class="watermark" aria-hidden="true">CASE</span>
+    </section>
+    <div class="page-main">
+      <div class="toolbar">
+        <div class="filter-bar" role="tablist" aria-label="Lọc theo độ khó"
+             data-filter-bar="level" data-filter-target="#caseGrid"
+             data-filter-empty="#caseEmpty" data-filter-count="#caseCount" data-filter-hash>
+          <button type="button" role="tab" class="active" aria-selected="true" data-filter="all">Tất cả</button>
+          <button type="button" role="tab" aria-selected="false" data-filter="vua">Vừa</button>
+          <button type="button" role="tab" aria-selected="false" data-filter="kho">Khó</button>
+          <button type="button" role="tab" aria-selected="false" data-filter="bi-an">Bí ẩn</button>
+        </div>
+        <div class="search-box"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m16 16 5 5"/></svg>
+          <input type="search" placeholder="Tìm theo tên hồ sơ…" aria-label="Tìm hồ sơ"
+                 data-search="#caseGrid" data-search-empty="#caseEmpty">
+        </div>
+      </div>
+      <p class="result-count">Đang hiện <b id="caseCount">6</b> hồ sơ</p>
+      <div class="card-grid" id="caseGrid">
+        <a class="post-card" href="vu-an/ho-so-031-tai-xe-taxi.html" data-level="kho" data-reveal>
+          <div class="post-visual"><span class="post-no">HỒ SƠ 031</span><svg viewBox="0 0 360 220"><path d="M40 160h280l-25-73H100L67 160Z"/><path d="M116 87 145 48h95l38 39"/><circle cx="105" cy="166" r="25"/><circle cx="278" cy="166" r="25"/><path d="M180 49v108M99 88h196"/><path d="m42 120-22 8m303-8 20 8"/></svg></div>
+          <div class="post-body">
+            <div class="post-meta"><span class="chip">Khó</span><span class="stars" aria-label="Độ khó 3 trên 4"><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span></div>
+            <h3>Tài xế taxi giả điếc</h3>
+            <p>Một hành khách biến mất, một tài xế không nghe thấy gì — và một chi tiết không thể nói dối.</p>
+            <div class="post-foot"><span>14/09/2026</span><span class="go">Mở hồ sơ <span>&rarr;</span></span></div>
+          </div>
+        </a>
+        <a class="post-card" href="vu-an/ho-so-030-mat-ma-ket-sat.html" data-level="vua" data-reveal>
+          <div class="post-visual"><span class="post-no">HỒ SƠ 030</span><svg viewBox="0 0 360 220"><rect x="75" y="28" width="210" height="172" rx="8"/><circle cx="180" cy="112" r="48"/><circle cx="180" cy="112" r="12"/><path d="M180 64v35m0 26v35m-48-48h35m26 0h35"/><rect x="278" y="85" width="15" height="58"/></svg></div>
+          <div class="post-body">
+            <div class="post-meta"><span class="chip">Vừa</span><span class="stars" aria-label="Độ khó 2 trên 4"><i class="on"></i><i class="on"></i><i></i><i></i></span></div>
+            <h3>Mật mã két sắt</h3>
+            <p>Những mảnh giấy trong thùng rác là lời nhắn cuối cùng hay một cái bẫy được dựng công phu?</p>
+            <div class="post-foot"><span>02/09/2026</span><span class="go">Mở hồ sơ <span>&rarr;</span></span></div>
+          </div>
+        </a>
+        <a class="post-card" href="vu-an/ho-so-029-bong-ho-lo.html" data-level="bi-an" data-reveal>
+          <div class="post-visual"><span class="post-no">HỒ SƠ 029</span><svg viewBox="0 0 360 220"><path d="M183 25c-29 0-44 16-36 39 6 15 22 19 15 34-9 19-48 22-48 65 0 39 31 51 69 51s69-12 69-51c0-43-39-46-48-65-7-15 9-19 15-34 8-23-7-39-36-39Z"/><path d="M153 79h60M146 92h74"/><path d="M183 126c-18 0-27 16-18 28s27 5 27 22"/></svg></div>
+          <div class="post-body">
+            <div class="post-meta"><span class="chip">Bí ẩn</span><span class="stars" aria-label="Độ khó 4 trên 4"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></div>
+            <h3>Bóng hồ lô số 6</h3>
+            <p>Mười một điều kiện, bảy chiếc bóng. Chỉ một chiếc có Gà ở bên trong — và Gà không nhớ là chiếc nào.</p>
+            <div class="post-foot"><span>21/08/2026</span><span class="go">Mở hồ sơ <span>&rarr;</span></span></div>
+          </div>
+        </a>
+        <article class="post-card is-soon" data-level="kho" data-reveal>
+          <div class="post-visual"><span class="post-no">HỒ SƠ 028</span><svg viewBox="0 0 360 220"><ellipse cx="180" cy="112" rx="118" ry="52"/><path d="M62 112v46M298 112v46M180 164v34M120 190h120"/><circle cx="96" cy="78" r="13"/><circle cx="180" cy="62" r="13"/><circle cx="264" cy="78" r="13"/><circle cx="96" cy="148" r="13"/><circle cx="264" cy="148" r="13"/></svg></div>
+          <div class="post-body">
+            <div class="post-meta"><span class="soon-tag">Sắp mở</span><span class="chip">Khó</span><span class="stars" aria-label="Độ khó 3 trên 4"><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span></div>
+            <h3>Bữa tối của bảy người lạ</h3>
+            <p>Bảy thực khách chưa từng gặp nhau, một lời mời không có người gửi, và chiếc ghế thứ tám bỏ trống.</p>
+            <div class="post-foot"><span>Mở 28/09</span><span style="color:var(--muted)">Đang biên tập</span></div>
+          </div>
+        </article>
+        <article class="post-card is-soon" data-level="vua" data-reveal>
+          <div class="post-visual"><span class="post-no">HỒ SƠ 027</span><svg viewBox="0 0 360 220"><rect x="58" y="44" width="244" height="112" rx="16"/><rect x="92" y="72" width="60" height="44"/><rect x="208" y="72" width="60" height="44"/><circle cx="112" cy="178" r="18"/><circle cx="248" cy="178" r="18"/><path d="M58 156h244M180 44v112"/><path d="M40 196h280"/></svg></div>
+          <div class="post-body">
+            <div class="post-meta"><span class="soon-tag">Sắp mở</span><span class="chip">Vừa</span><span class="stars" aria-label="Độ khó 2 trên 4"><i class="on"></i><i class="on"></i><i></i><i></i></span></div>
+            <h3>Chuyến tàu không dừng ga</h3>
+            <p>Tàu rời ga đúng giờ với 84 hành khách. Khi tới ga cuối, bảng điện tử báo 83.</p>
+            <div class="post-foot"><span>Mở 05/10</span><span style="color:var(--muted)">Đang biên tập</span></div>
+          </div>
+        </article>
+        <article class="post-card is-soon" data-level="bi-an" data-reveal>
+          <div class="post-visual"><span class="post-no">HỒ SƠ 026</span><svg viewBox="0 0 360 220"><rect x="112" y="30" width="136" height="150" rx="68"/><path d="M180 180v22M140 202h80"/><path d="M148 78a34 34 0 0 1 34-26"/></svg></div>
+          <div class="post-body">
+            <div class="post-meta"><span class="soon-tag">Sắp mở</span><span class="chip">Bí ẩn</span><span class="stars" aria-label="Độ khó 4 trên 4"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></div>
+            <h3>Người đàn ông nhớ sai ngày sinh</h3>
+            <p>Ông khai sinh nhật mình ba lần, ba ngày khác nhau, và cả ba lần đều không hề nói dối.</p>
+            <div class="post-foot"><span>Mở 12/10</span><span style="color:var(--muted)">Đang biên tập</span></div>
+          </div>
+        </article>
+      </div>
+      <div class="empty-state" id="caseEmpty" hidden>
+        <b>Không có hồ sơ nào khớp</b>
+        <p>Thử bỏ bớt điều kiện lọc, hoặc tìm bằng một từ khoá ngắn hơn.</p>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="site-footer" data-hq-footer></footer>
+  <script>HQ.footer();</script>
+</body>
+</html>

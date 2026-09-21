@@ -1,0 +1,717 @@
+/* ==========================================================================
+   Khu vực Game — bảng màu tối, chỉ nạp ở game.html và game/*.html
+   ========================================================================== */
+
+.game-page {
+  --deep: #0b1420;
+  --deep2: #111e2e;
+  --neon: #45e0c8;
+  background: var(--deep);
+  color: var(--paper);
+}
+
+.game-page .grain {
+  opacity: .1;
+}
+
+/* Header tối ------------------------------------------------------------ */
+
+.site-header.is-dark {
+  background: rgba(11, 20, 32, .9);
+  border-bottom-color: rgba(244, 239, 227, .12);
+}
+
+.site-header.is-dark .brand,
+.site-header.is-dark .main-nav .nav-link,
+.site-header.is-dark .nav-drop-btn,
+.site-header.is-dark .coin-wallet {
+  color: var(--paper);
+}
+
+.site-header.is-dark .brand-mark {
+  background: var(--paper);
+}
+
+.site-header.is-dark .brand-mark svg {
+  stroke: var(--ink);
+}
+
+.site-header.is-dark .coin-wallet {
+  background: rgba(244, 239, 227, .07);
+  border-color: rgba(244, 239, 227, .22);
+}
+
+.site-header.is-dark .main-nav .nav-cta {
+  background: var(--neon);
+  color: var(--deep);
+}
+
+.site-header.is-dark .nav-cta span {
+  color: var(--deep);
+}
+
+.site-header.is-dark .menu-toggle {
+  background: rgba(244, 239, 227, .07);
+  border-color: rgba(244, 239, 227, .22);
+}
+
+.site-header.is-dark .menu-toggle span {
+  background: var(--paper);
+}
+
+@media (max-width: 980px) {
+  .site-header.is-dark + .main-nav,
+  .game-page .main-nav {
+    background: var(--deep);
+  }
+  .game-page .main-nav .nav-link,
+  .game-page .nav-drop-btn {
+    color: var(--paper);
+    border-bottom-color: rgba(244, 239, 227, .14);
+  }
+  .game-page .nav-drop {
+    border-bottom-color: rgba(244, 239, 227, .14);
+  }
+  .game-page .drop-panel {
+    background: var(--deep2);
+  }
+  .game-page .drop-col-head,
+  .game-page .drop-list a {
+    color: var(--paper);
+  }
+  .game-page .drop-list a:hover {
+    background: rgba(244, 239, 227, .07);
+  }
+}
+
+/* Sảnh game ------------------------------------------------------------- */
+
+.arcade-hero {
+  position: relative;
+  padding: 82px clamp(24px, 5vw, 86px) 72px;
+  overflow: hidden;
+}
+
+.arcade-hero:before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(760px 420px at 68% 8%, rgba(69, 224, 200, .16), transparent 68%),
+    radial-gradient(560px 380px at 8% 92%, rgba(181, 67, 56, .18), transparent 70%);
+}
+
+.arcade-hero:after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(69, 224, 200, .07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(69, 224, 200, .07) 1px, transparent 1px);
+  background-size: 54px 54px;
+  mask-image: linear-gradient(180deg, #000, transparent 88%);
+  -webkit-mask-image: linear-gradient(180deg, #000, transparent 88%);
+}
+
+.arcade-hero > * {
+  position: relative;
+}
+
+.arcade-hero .eyebrow {
+  color: var(--neon);
+}
+
+.arcade-hero .eyebrow span {
+  background: var(--neon);
+}
+
+.arcade-hero h1 {
+  font: clamp(42px, 6vw, 84px)/.98 "Special Elite", serif;
+  letter-spacing: -2px;
+  margin: 18px 0 0;
+  text-shadow: 0 0 34px rgba(69, 224, 200, .3);
+}
+
+.arcade-hero h1 mark {
+  background: none;
+  color: var(--neon);
+}
+
+.arcade-hero .lede {
+  max-width: 58ch;
+  margin: 22px 0 0;
+  font-size: 16.5px;
+  line-height: 1.85;
+  color: rgba(244, 239, 227, .68);
+}
+
+.arcade-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 34px;
+  margin-top: 40px;
+}
+
+.arcade-stats div {
+  padding: 0 26px;
+  border-left: 1px solid rgba(244, 239, 227, .16);
+}
+
+.arcade-stats div:first-child {
+  padding-left: 0;
+  border: 0;
+}
+
+.arcade-stats strong {
+  display: block;
+  font: 28px/1 "Special Elite", serif;
+  color: var(--neon);
+}
+
+.arcade-stats span {
+  display: block;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: rgba(244, 239, 227, .5);
+  margin-top: 8px;
+}
+
+.game-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+}
+
+.game-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: var(--deep2);
+  border: 1px solid rgba(244, 239, 227, .14);
+  text-decoration: none;
+  color: var(--paper);
+  overflow: hidden;
+  transition: transform .25s, border-color .25s, box-shadow .25s;
+}
+
+.game-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--neon);
+  box-shadow: 0 22px 50px rgba(0, 0, 0, .45), 0 0 0 1px rgba(69, 224, 200, .25);
+}
+
+.game-cover {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  display: grid;
+  place-items: center;
+  background: radial-gradient(circle at 50% 42%, rgba(69, 224, 200, .2), transparent 62%), #0a1119;
+  overflow: hidden;
+}
+
+.game-cover svg {
+  width: 44%;
+  fill: none;
+  stroke: var(--neon);
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 0 12px rgba(69, 224, 200, .45));
+  transition: transform .45s;
+}
+
+.game-card:hover .game-cover svg {
+  transform: scale(1.09);
+}
+
+.game-cover:after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(rgba(0, 0, 0, .28) 0 1px, transparent 1px 3px);
+  opacity: .55;
+  pointer-events: none;
+}
+
+.game-tag {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  z-index: 2;
+  font: 700 10.5px/1 "Be Vietnam Pro", sans-serif;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  padding: 6px 11px;
+  background: rgba(69, 224, 200, .16);
+  color: var(--neon);
+  border: 1px solid rgba(69, 224, 200, .4);
+}
+
+.game-body {
+  padding: 26px 26px 28px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.game-body h3 {
+  font: 25px/1.2 "Special Elite", serif;
+  margin: 0 0 12px;
+  letter-spacing: -.4px;
+}
+
+.game-card:hover h3 {
+  color: var(--neon);
+}
+
+.game-body p {
+  font-size: 14.5px;
+  line-height: 1.75;
+  color: rgba(244, 239, 227, .62);
+  margin: 0 0 22px;
+}
+
+.game-stat-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.3px;
+  text-transform: uppercase;
+  color: rgba(244, 239, 227, .45);
+  margin-bottom: 22px;
+}
+
+.game-stat-row b {
+  color: var(--neon);
+  font-family: "Special Elite", serif;
+  font-size: 13.5px;
+  letter-spacing: 0;
+  margin-right: 5px;
+}
+
+.play-btn {
+  margin-top: auto;
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 11px;
+  background: var(--neon);
+  color: var(--deep);
+  padding: 13px 22px;
+  font: 800 13.5px/1 "Be Vietnam Pro", sans-serif;
+  letter-spacing: .6px;
+  transition: .2s;
+}
+
+.game-card:hover .play-btn {
+  box-shadow: 0 0 22px rgba(69, 224, 200, .55);
+}
+
+.play-btn:before {
+  content: "\25B6";
+  font-size: 11px;
+}
+
+.best-score {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 2;
+  font: 11px/1 "Special Elite", serif;
+  letter-spacing: 1.2px;
+  color: var(--gold);
+  background: rgba(11, 20, 32, .78);
+  border: 1px solid rgba(231, 183, 75, .4);
+  padding: 6px 10px;
+}
+
+/* Màn chơi -------------------------------------------------------------- */
+
+.stage-wrap {
+  max-width: 1020px;
+  margin: 0 auto;
+  padding: 44px clamp(20px, 4vw, 40px) 80px;
+}
+
+.game-stage {
+  position: relative;
+  background: var(--deep2);
+  border: 1px solid rgba(69, 224, 200, .26);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, .5), 0 30px 70px rgba(0, 0, 0, .55);
+}
+
+.game-stage:after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(rgba(0, 0, 0, .2) 0 1px, transparent 1px 3px);
+  pointer-events: none;
+  z-index: 5;
+}
+
+.hud {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px 24px;
+  padding: 16px 22px;
+  border-bottom: 1px solid rgba(244, 239, 227, .12);
+  background: rgba(10, 17, 25, .7);
+}
+
+.hud-title {
+  font: 15px/1 "Special Elite", serif;
+  letter-spacing: 1.4px;
+  color: var(--neon);
+}
+
+.hud-group {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.hud-item {
+  text-align: right;
+}
+
+.hud-item span {
+  display: block;
+  font-size: 9.5px;
+  font-weight: 800;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  color: rgba(244, 239, 227, .42);
+}
+
+.hud-item b {
+  display: block;
+  font: 19px/1.15 "Special Elite", serif;
+  color: var(--paper);
+}
+
+.hud-item b.warn {
+  color: var(--red);
+  animation: hqPulse 1s steps(2) infinite;
+}
+
+@keyframes hqPulse {
+  50% { opacity: .35; }
+}
+
+.progress-track {
+  height: 5px;
+  background: rgba(244, 239, 227, .1);
+  position: relative;
+  overflow: hidden;
+}
+
+.progress-fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 0;
+  background: linear-gradient(90deg, var(--neon), #8af3e2);
+  box-shadow: 0 0 14px rgba(69, 224, 200, .7);
+  transition: width .45s cubic-bezier(.2, .7, .3, 1);
+}
+
+.screen {
+  padding: clamp(26px, 4vw, 44px);
+  min-height: 420px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Màn nạp --------------------------------------------------------------- */
+
+.boot {
+  font: 13.5px/2 "Special Elite", serif;
+  color: var(--neon);
+}
+
+.boot .line {
+  opacity: 0;
+  animation: hqType .3s ease forwards;
+}
+
+@keyframes hqType {
+  to { opacity: 1; }
+}
+
+.boot .bar {
+  margin-top: 18px;
+  height: 14px;
+  border: 1px solid rgba(69, 224, 200, .4);
+  padding: 2px;
+}
+
+.boot .bar i {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: var(--neon);
+  animation: hqLoad 2.1s cubic-bezier(.4, .1, .2, 1) forwards;
+}
+
+@keyframes hqLoad {
+  to { width: 100%; }
+}
+
+/* Cảnh chơi ------------------------------------------------------------- */
+
+.scene-art {
+  position: relative;
+  aspect-ratio: 16 / 7;
+  background: radial-gradient(circle at 50% 40%, rgba(69, 224, 200, .14), transparent 66%), #0a1119;
+  border: 1px solid rgba(244, 239, 227, .12);
+  display: grid;
+  place-items: center;
+  margin-bottom: 26px;
+  overflow: hidden;
+}
+
+.scene-art svg {
+  width: 34%;
+  max-height: 72%;
+  fill: none;
+  stroke: var(--neon);
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 0 14px rgba(69, 224, 200, .4));
+}
+
+.scene-label {
+  position: absolute;
+  bottom: 12px;
+  left: 14px;
+  font: 10.5px/1 "Special Elite", serif;
+  letter-spacing: 2.2px;
+  color: rgba(244, 239, 227, .5);
+}
+
+.log {
+  flex: 1;
+}
+
+.log .said {
+  margin-bottom: 18px;
+  animation: hqFade .4s ease both;
+}
+
+.log .who {
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--neon);
+  margin-bottom: 7px;
+}
+
+.log .who.ga {
+  color: var(--gold);
+}
+
+.log .who.sys {
+  color: rgba(244, 239, 227, .4);
+}
+
+.log .text {
+  font-size: 15.5px;
+  line-height: 1.82;
+  color: rgba(244, 239, 227, .82);
+  border-left: 2px solid rgba(69, 224, 200, .3);
+  padding-left: 16px;
+}
+
+.log .text.found {
+  border-left-color: var(--gold);
+  color: var(--gold);
+  font-family: "Special Elite", serif;
+  letter-spacing: .3px;
+}
+
+.choices {
+  display: grid;
+  gap: 11px;
+  margin-top: 26px;
+  padding-top: 24px;
+  border-top: 1px dashed rgba(244, 239, 227, .16);
+}
+
+.choice {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  text-align: left;
+  background: rgba(244, 239, 227, .05);
+  border: 1px solid rgba(244, 239, 227, .16);
+  color: var(--paper);
+  padding: 16px 18px;
+  font: 600 14.5px/1.5 "Be Vietnam Pro", sans-serif;
+  cursor: pointer;
+  transition: .18s;
+}
+
+.choice:hover {
+  border-color: var(--neon);
+  background: rgba(69, 224, 200, .1);
+  transform: translateX(4px);
+}
+
+.choice .key {
+  flex: none;
+  width: 26px;
+  height: 26px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(69, 224, 200, .45);
+  color: var(--neon);
+  font: 11px/1 "Special Elite", serif;
+}
+
+/* Màn kết --------------------------------------------------------------- */
+
+.result {
+  text-align: center;
+  padding: 22px 0 8px;
+  animation: hqFade .5s ease both;
+}
+
+.rank-seal {
+  width: 130px;
+  height: 130px;
+  margin: 0 auto 24px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  border: 3px solid var(--gold);
+  color: var(--gold);
+  font: 52px/1 "Special Elite", serif;
+  box-shadow: 0 0 0 7px rgba(231, 183, 75, .12), 0 0 40px rgba(231, 183, 75, .25);
+  transform: rotate(-7deg);
+}
+
+.result h2 {
+  font: clamp(28px, 4vw, 44px)/1.1 "Special Elite", serif;
+  margin: 0 0 12px;
+  letter-spacing: -.8px;
+}
+
+.result > p {
+  max-width: 52ch;
+  margin: 0 auto 28px;
+  font-size: 15.5px;
+  line-height: 1.8;
+  color: rgba(244, 239, 227, .68);
+}
+
+.score-row {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0 30px;
+  margin-bottom: 32px;
+}
+
+.score-row div {
+  padding: 0 26px;
+  border-left: 1px solid rgba(244, 239, 227, .16);
+}
+
+.score-row div:first-child {
+  border: 0;
+}
+
+.score-row b {
+  display: block;
+  font: 30px/1 "Special Elite", serif;
+  color: var(--neon);
+}
+
+.score-row span {
+  display: block;
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  color: rgba(244, 239, 227, .45);
+  margin-top: 8px;
+}
+
+.result .actions {
+  display: flex;
+  justify-content: center;
+  gap: 13px;
+  flex-wrap: wrap;
+}
+
+.result .actions a,
+.result .actions button {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 15px 26px;
+  font: 700 14px/1 "Be Vietnam Pro", sans-serif;
+  text-decoration: none;
+  cursor: pointer;
+  border: 1px solid rgba(244, 239, 227, .28);
+  background: none;
+  color: var(--paper);
+  transition: .18s;
+}
+
+.result .actions .again {
+  background: var(--neon);
+  border-color: var(--neon);
+  color: var(--deep);
+}
+
+.result .actions a:hover,
+.result .actions button:hover {
+  transform: translateY(-2px);
+  border-color: var(--neon);
+}
+
+/* Dải Game trên trang chủ ----------------------------------------------- */
+
+.game-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 22px;
+}
+
+.game-strip .game-card {
+  background: rgba(244, 239, 227, .04);
+}
+
+.game-strip .game-body {
+  padding: 20px 20px 22px;
+}
+
+.game-strip .game-body h3 {
+  font-size: 19px;
+}
+
+.game-strip .game-body p {
+  font-size: 13.5px;
+  margin-bottom: 16px;
+}
+
+@media (max-width: 1080px) {
+  .game-strip { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 760px) {
+  .game-grid,
+  .game-strip { grid-template-columns: 1fr; }
+  .hud { justify-content: flex-start; }
+  .screen { min-height: 0; }
+  .scene-art svg { width: 48%; }
+}

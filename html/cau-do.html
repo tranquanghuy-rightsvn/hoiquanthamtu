@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101c2b">
+  <meta name="description" content="Câu đố logic, quan sát, mật mã và toán của Hội Quán Thám Tử.">
+  <title>Câu đố — Hội Quán Thám Tử</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Special+Elite&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="stylesheet" href="assets/style.css">
+  <link rel="stylesheet" href="assets/site.css">
+  <script>window.HQ_BASE = '';</script>
+  <script src="assets/site.js"></script>
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+  <header class="site-header is-solid" data-hq-header></header>
+  <script>HQ.header('cau-do');</script>
+
+  <main>
+    <section class="page-hero">
+      <nav class="breadcrumb" aria-label="Đường dẫn"><a href="index.html">Trang chủ</a><span>/</span><b>Câu đố</b></nav>
+      <p class="eyebrow"><span></span> Luyện trí mỗi ngày</p>
+      <h1>CÂU ĐỐ</h1>
+      <p class="lede">Không có câu đố nào ở đây cần mẹo vặt hay kiến thức đặc biệt. Tất cả những gì bạn cần đều nằm trong đề bài — vấn đề chỉ là bạn có chịu đọc lại lần thứ hai hay không.</p>
+      <div class="hero-meta"><span><b>6</b> câu trong danh sách</span><span><b>3</b> giải được ngay</span><span><b>4</b> thể loại</span></div>
+      <span class="watermark" aria-hidden="true">RIDDLE</span>
+    </section>
+    <div class="page-main">
+      <div class="toolbar">
+        <div class="filter-bar" role="tablist" aria-label="Lọc theo thể loại"
+             data-filter-bar="type" data-filter-target="#riddleGrid"
+             data-filter-empty="#riddleEmpty" data-filter-count="#riddleCount" data-filter-hash>
+          <button type="button" role="tab" class="active" aria-selected="true" data-filter="all">Tất cả</button>
+          <button type="button" role="tab" aria-selected="false" data-filter="logic">Logic</button>
+          <button type="button" role="tab" aria-selected="false" data-filter="quan-sat">Quan sát</button>
+          <button type="button" role="tab" aria-selected="false" data-filter="mat-ma">Mật mã</button>
+          <button type="button" role="tab" aria-selected="false" data-filter="toan">Toán</button>
+        </div>
+        <div class="search-box"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m16 16 5 5"/></svg>
+          <input type="search" placeholder="Tìm câu đố…" aria-label="Tìm câu đố"
+                 data-search="#riddleGrid" data-search-empty="#riddleEmpty">
+        </div>
+      </div>
+      <p class="result-count">Đang hiện <b id="riddleCount">6</b> câu đố</p>
+      <div class="card-grid" id="riddleGrid">
+        <a class="post-card" href="cau-do/can-phong-khoa-kin.html" data-type="logic" data-reveal>
+          <div class="post-visual"><span class="post-no">CÂU 48</span><svg viewBox="0 0 360 220"><rect x="75" y="28" width="210" height="172" rx="8"/><circle cx="180" cy="112" r="48"/><circle cx="180" cy="112" r="12"/><path d="M180 64v35m0 26v35m-48-48h35m26 0h35"/><rect x="278" y="85" width="15" height="58"/></svg></div>
+          <div class="post-body">
+            <div class="post-meta"><span class="chip">Logic</span><span class="stars" aria-label="Độ khó 3 trên 4"><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span></div>
+            <h3>Căn phòng khoá kín</h3>
+            <p>Đồng hồ dừng ở 9:15, nền nhà khô ráo, nhưng chiếc ô cạnh bàn vẫn còn nhỏ nước.</p>
+            <div class="post-foot"><span>1.284 lượt thử</span><span class="go">Bắt đầu giải <span>&rarr;</span></span></div>
+          </div>
+        </a>
+        <a class="post-card" href="cau-do/ba-chiec-hop.html" data-type="logic" data-reveal>
+          <div class="post-visual"><span class="post-no">CÂU 47</span><svg viewBox="0 0 360 220"><rect x="30" y="86" width="86" height="86"/><rect x="137" y="86" width="86" height="86"/><rect x="244" y="86" width="86" height="86"/><path d="M30 110h86M137 110h86M244 110h86"/><circle cx="73" cy="146" r="12"/><circle cx="180" cy="146" r="12"/><circle cx="287" cy="146" r="12"/></svg></div>
+          <div class="post-body">
+            <div class="post-meta"><span class="chip">Logic</span><span class="stars" aria-label="Độ khó 2 trên 4"><i class="on"></i><i class="on"></i><i></i><i></i></span></div>
+            <h3>Ba chiếc hộp dán nhãn sai</h3>
+            <p>Cả ba nhãn đều sai. Bạn được mở đúng một hộp và lấy ra đúng một viên bi.</p>
+            <div class="post-foot"><span>2.907 lượt thử</span><span class="go">Bắt đầu giải <span>&rarr;</span></span></div>
+          </div>
+        </a>
+        <a class="post-card" href="cau-do/mat-thu-cua-ga.html" data-type="mat-ma" data-reveal>
+          <div class="post-visual"><span class="post-no">CÂU 46</span><svg viewBox="0 0 360 220"><circle cx="180" cy="110" r="76"/><circle cx="180" cy="110" r="46"/><path d="M180 34v26M180 160v26M104 110h26M230 110h26M126 56l19 19M234 164l19 19M234 56l-19 19M126 164l19 19"/></svg></div>
+          <div class="post-body">
+            <div class="post-meta"><span class="chip">Mật mã</span><span class="stars" aria-label="Độ khó 4 trên 4"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></div>
+            <h3>Mật thư của Gà</h3>
+            <p>Gà để lại một dòng chữ không ai đọc nổi. Kể cả Gà, sau ba ngày.</p>
+            <div class="post-foot"><span>842 lượt thử</span><span class="go">Bắt đầu giải <span>&rarr;</span></span></div>
+          </div>
+        </a>
+        <article class="post-card is-soon" data-type="toan" data-reveal>
+          <div class="post-visual"><span class="post-no">CÂU 45</span><svg viewBox="0 0 360 220"><path d="M180 34v150M120 184h120"/><path d="M84 74h192M84 74l-34 62h68zM276 74l34 62h-68z"/><circle cx="180" cy="62" r="12"/></svg></div>
+          <div class="post-body">
+            <div class="post-meta"><span class="soon-tag">Sắp mở</span><span class="chip">Toán</span><span class="stars" aria-label="Độ khó 4 trên 4"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></div>
+            <h3>Chiếc cân và mười hai đồng xu</h3>
+            <p>Một đồng xu giả, nặng hoặc nhẹ hơn. Bạn chỉ được cân ba lần.</p>
+            <div class="post-foot"><span>Mở 26/09</span><span style="color:var(--muted)">Đang biên tập</span></div>
+          </div>
+        </article>
+        <article class="post-card is-soon" data-type="quan-sat" data-reveal>
+          <div class="post-visual"><span class="post-no">CÂU 44</span><svg viewBox="0 0 360 220"><path d="m40 54 90-26 100 26 90-26v138l-90 26-100-26-90 26z"/><path d="M130 28v138M230 54v138"/><circle cx="180" cy="104" r="14"/></svg></div>
+          <div class="post-body">
+            <div class="post-meta"><span class="soon-tag">Sắp mở</span><span class="chip">Quan sát</span><span class="stars" aria-label="Độ khó 3 trên 4"><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span></div>
+            <h3>Bản đồ thiếu một hòn đảo</h3>
+            <p>Hai bản đồ cùng vùng biển, in cách nhau tám năm. Một hòn đảo đã biến mất.</p>
+            <div class="post-foot"><span>Mở 03/10</span><span style="color:var(--muted)">Đang biên tập</span></div>
+          </div>
+        </article>
+        <article class="post-card is-soon" data-type="logic" data-reveal>
+          <div class="post-visual"><span class="post-no">CÂU 43</span><svg viewBox="0 0 360 220"><rect x="146" y="82" width="68" height="102" rx="6"/><path d="M180 82c0-22-18-24-18-40 0-12 10-22 18-30 8 8 18 18 18 30 0 16-18 18-18 40Z"/><path d="M120 184h120"/></svg></div>
+          <div class="post-body">
+            <div class="post-meta"><span class="soon-tag">Sắp mở</span><span class="chip">Logic</span><span class="stars" aria-label="Độ khó 2 trên 4"><i class="on"></i><i class="on"></i><i></i><i></i></span></div>
+            <h3>Ngọn nến cháy ngược</h3>
+            <p>Hai ngọn nến, mỗi ngọn cháy hết đúng một giờ nhưng không đều. Đo ra 45 phút.</p>
+            <div class="post-foot"><span>Mở 10/10</span><span style="color:var(--muted)">Đang biên tập</span></div>
+          </div>
+        </article>
+      </div>
+      <div class="empty-state" id="riddleEmpty" hidden>
+        <b>Chưa có câu đố nào khớp</b>
+        <p>Thử chọn thể loại khác, hoặc xoá bớt từ khoá tìm kiếm.</p>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="site-footer" data-hq-footer></footer>
+  <script>HQ.footer();</script>
+</body>
+</html>
