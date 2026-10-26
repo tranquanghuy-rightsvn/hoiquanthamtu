@@ -133,7 +133,7 @@
 }
 
 .arcade-hero h1 {
-  font: clamp(42px, 6vw, 84px)/.98 "Special Elite", serif;
+  font: clamp(42px, 6vw, 84px)/.98 "Xanh Mono", serif;
   letter-spacing: -2px;
   margin: 18px 0 0;
   text-shadow: 0 0 34px rgba(69, 224, 200, .3);
@@ -171,7 +171,7 @@
 
 .arcade-stats strong {
   display: block;
-  font: 28px/1 "Special Elite", serif;
+  font: 28px/1 "Xanh Mono", serif;
   color: var(--neon);
 }
 
@@ -264,7 +264,7 @@
 }
 
 .game-body h3 {
-  font: 25px/1.2 "Special Elite", serif;
+  font: 25px/1.2 "Xanh Mono", serif;
   margin: 0 0 12px;
   letter-spacing: -.4px;
 }
@@ -294,7 +294,7 @@
 
 .game-stat-row b {
   color: var(--neon);
-  font-family: "Special Elite", serif;
+  font-family: "Xanh Mono", serif;
   font-size: 13.5px;
   letter-spacing: 0;
   margin-right: 5px;
@@ -328,7 +328,7 @@
   top: 14px;
   right: 14px;
   z-index: 2;
-  font: 11px/1 "Special Elite", serif;
+  font: 11px/1 "Xanh Mono", serif;
   letter-spacing: 1.2px;
   color: var(--gold);
   background: rgba(11, 20, 32, .78);
@@ -366,7 +366,7 @@
 .pb-wrap { max-width: 1240px; }
 
 .pb-title {
-  font: clamp(32px, 4.4vw, 56px)/1 "Special Elite", serif;
+  font: clamp(32px, 4.4vw, 56px)/1 "Xanh Mono", serif;
   letter-spacing: -1.2px;
   margin: 16px 0 30px;
 }
@@ -551,7 +551,7 @@
 }
 
 .pb-setup h2 {
-  font: 30px/1.2 "Special Elite", serif;
+  font: 30px/1.2 "Xanh Mono", serif;
   margin: 22px 0 8px;
 }
 
@@ -563,7 +563,7 @@
 .pb-count-line { font-size: 17px; }
 
 .pb-count {
-  font: 34px/1 "Special Elite", serif;
+  font: 34px/1 "Xanh Mono", serif;
   color: var(--gold);
   margin: 0 4px;
   vertical-align: -3px;
@@ -633,7 +633,7 @@
 }
 
 .pb-tray b {
-  font: 30px/1.2 "Special Elite", serif;
+  font: 30px/1.2 "Xanh Mono", serif;
   color: var(--paper);
 }
 
@@ -645,7 +645,7 @@
 
 .pb-center b {
   display: block;
-  font: 54px/1 "Special Elite", serif;
+  font: 54px/1 "Xanh Mono", serif;
   color: var(--paper);
   margin: 4px 0;
 }
@@ -849,7 +849,7 @@
 .pb-result[hidden] { display: none; }
 
 .pb-result h2 {
-  font: clamp(38px, 5vw, 60px)/1 "Special Elite", serif;
+  font: clamp(38px, 5vw, 60px)/1 "Xanh Mono", serif;
   color: var(--neon);
   margin: 0 0 14px;
 }
@@ -1017,7 +1017,7 @@
 .mt-intro h2,
 .mt-ask h2,
 .mt-reveal h2 {
-  font: 30px/1.2 "Special Elite", serif;
+  font: 30px/1.2 "Xanh Mono", serif;
   margin: 22px 0 8px;
 }
 
@@ -1189,7 +1189,7 @@
 .mt-confirm.is-in { animation: pb-pop .4s ease; }
 
 .mt-confirm h2 {
-  font: clamp(28px, 3.6vw, 38px)/1.25 "Special Elite", serif;
+  font: clamp(28px, 3.6vw, 38px)/1.25 "Xanh Mono", serif;
   margin: 30px 0 28px;
   max-width: 18ch;
 }
@@ -1226,7 +1226,7 @@
 .cm-panel.is-in { animation: pb-pop .4s ease; }
 
 .cm-panel h2 {
-  font: clamp(26px, 3.4vw, 34px)/1.25 "Special Elite", serif;
+  font: clamp(26px, 3.4vw, 34px)/1.25 "Xanh Mono", serif;
   margin: 22px 0 8px;
   max-width: 22ch;
 }
@@ -1330,7 +1330,7 @@
   height: 64px;
   border: 2px solid var(--gold);
   border-radius: 50%;
-  font: 32px/1 "Special Elite", serif;
+  font: 32px/1 "Xanh Mono", serif;
   color: var(--gold);
 }
 
@@ -1513,7 +1513,7 @@
   top: 52%;
   z-index: 0;
   transform: translate(-50%, -50%);
-  font: clamp(160px, 24vw, 260px)/1 "Special Elite", serif;
+  font: clamp(160px, 24vw, 260px)/1 "Xanh Mono", serif;
   color: rgba(231, 183, 75, .14);
   text-shadow: 0 0 40px rgba(231, 183, 75, .25);
   pointer-events: none;

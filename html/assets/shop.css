@@ -55,7 +55,7 @@
 .shop-card-body { padding: 20px 22px 24px; }
 
 .shop-card-body h3 {
-  font: 22px/1.2 "Special Elite", serif;
+  font: 22px/1.2 "Xanh Mono", serif;
   margin: 0 0 8px;
 }
 
@@ -196,7 +196,7 @@
 }
 
 .sp-info h1 {
-  font: clamp(32px, 3.6vw, 46px)/1.08 "Special Elite", serif;
+  font: clamp(32px, 3.6vw, 46px)/1.08 "Xanh Mono", serif;
   letter-spacing: -1px;
   margin: 12px 0 8px;
 }
@@ -267,7 +267,7 @@
 
 .sp-quick b {
   display: block;
-  font: 26px/1.1 "Special Elite", serif;
+  font: 26px/1.1 "Xanh Mono", serif;
   color: var(--ink);
 }
 
@@ -318,7 +318,7 @@
   display: flex;
   align-items: center;
   gap: 14px;
-  font: clamp(26px, 3vw, 34px)/1.2 "Special Elite", serif;
+  font: clamp(26px, 3vw, 34px)/1.2 "Xanh Mono", serif;
   color: var(--ink);
   margin: 64px 0 22px;
 }
@@ -392,7 +392,7 @@
 .sp-role:last-child:nth-child(odd) { grid-column: 1 / -1; }
 
 .sp-role h3 {
-  font: 22px/1.2 "Special Elite", serif;
+  font: 22px/1.2 "Xanh Mono", serif;
   color: var(--paper);
   margin: 0 0 8px;
 }
@@ -424,7 +424,7 @@
   place-items: center;
   background: var(--red);
   color: #fff;
-  font: 20px/1 "Special Elite", serif;
+  font: 20px/1 "Xanh Mono", serif;
   transform: rotate(-4deg);
 }
 
@@ -462,7 +462,7 @@
 
 .sp-set figure { margin: 0 0 18px; }
 .sp-set img { display: block; width: 100%; height: auto; }
-.sp-set h3 { font: 24px "Special Elite", serif; margin: 0 22px 10px; color: var(--ink); }
+.sp-set h3 { font: 24px "Xanh Mono", serif; margin: 0 22px 10px; color: var(--ink); }
 .sp-set ul { margin: 0 22px; padding-left: 18px; font-size: 15px; line-height: 1.7; }
 .sp-set li + li { margin-top: 6px; }
 
@@ -557,7 +557,7 @@
 }
 
 .sp-cta h2 {
-  font: 28px/1.2 "Special Elite", serif;
+  font: 28px/1.2 "Xanh Mono", serif;
   margin: 0 0 6px;
   color: var(--paper);
 }
