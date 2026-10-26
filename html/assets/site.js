@@ -2,60 +2,8 @@
 (function () {
   'use strict';
 
-  var BASE = window.HQ_BASE || '';
   var COIN_KEY = 'hqtt.coins';
   var DEFAULT_COINS = 120;
-
-  function url(path) {
-    return BASE + path;
-  }
-
-  /* ---------- Dữ liệu điều hướng ---------- */
-
-  var NAV = [
-    { id: 'home', label: 'Trang chủ', href: 'index.html' },
-    { id: 'vu-an', label: 'Vụ án', href: 'vu-an.html' },
-    { id: 'cau-do', label: 'Câu đố', href: 'cau-do.html' },
-    { id: 'game', label: 'Game', href: 'game.html' },
-    {
-      id: 'truyen',
-      label: 'Truyện trinh thám',
-      panel: [
-        {
-          icon: 'short',
-          title: 'Truyện ngắn',
-          note: 'Khép lại trong một lần đọc',
-          href: 'truyen-ngan.html',
-          links: [
-            { label: 'Miễn phí', href: 'truyen-ngan.html#free', count: 3, kind: 'free' },
-            { label: 'Trả phí', href: 'truyen-ngan.html#vip', count: 3, kind: 'vip' }
-          ]
-        },
-        {
-          icon: 'long',
-          title: 'Truyện dài',
-          note: 'Nhiều chương, một vụ án lớn',
-          href: 'truyen-dai.html',
-          links: [
-            { label: 'Miễn phí', href: 'truyen-dai.html#free', count: 2, kind: 'free' },
-            { label: 'Trả phí', href: 'truyen-dai.html#vip', count: 2, kind: 'vip' }
-          ]
-        }
-      ]
-    },
-    { id: 'blog', label: 'Blog của Gà', href: 'blog-ga.html' },
-    { id: 'about', label: 'Về chúng tôi', href: 've-chung-toi.html' }
-  ];
-
-  var BRAND_SVG =
-    '<svg viewBox="0 0 48 48"><circle cx="20" cy="20" r="12"/><path d="m29 29 11 11"/><path d="M15 21l4 4 7-10"/></svg>';
-
-  var PANEL_ICON = {
-    short:
-      '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M7 4h14l5 5v19H7z"/><path d="M21 4v5h5"/><path d="M11 15h11M11 20h11M11 25h7"/></svg>',
-    long:
-      '<svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 6h9a3 3 0 0 1 3 3v17a3 3 0 0 0-3-3H5z"/><path d="M27 6h-9a3 3 0 0 0-3 3v17a3 3 0 0 1 3-3h9z"/></svg>'
-  };
 
   /* ---------- Ví Xu ---------- */
 
@@ -82,93 +30,6 @@
   function paintCoins(n) {
     var slots = document.querySelectorAll('[data-coin-value]');
     for (var i = 0; i < slots.length; i++) slots[i].textContent = n;
-  }
-
-  /* ---------- Dựng header ---------- */
-
-  function navMarkup(active) {
-    var out = '';
-    for (var i = 0; i < NAV.length; i++) {
-      var item = NAV[i];
-      var on = item.id === active;
-      if (!item.panel) {
-        out +=
-          '<a class="nav-link' + (on ? ' is-active' : '') + '" href="' + url(item.href) + '"' +
-          (on ? ' aria-current="page"' : '') + '>' + item.label + '</a>';
-        continue;
-      }
-      out +=
-        '<div class="nav-drop' + (on ? ' is-active' : '') + '" data-drop>' +
-        '<button class="nav-link nav-drop-btn" type="button" aria-expanded="false" aria-haspopup="true"' +
-        (on ? ' aria-current="page"' : '') + '>' + item.label +
-        '<svg class="caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1.5 6 6.5l5-5"/></svg></button>' +
-        panelMarkup(item.panel) +
-        '</div>';
-    }
-    out += '<a class="nav-cta" href="' + url('vu-an.html') + '">Nhận vụ án <span>&rarr;</span></a>';
-    return out;
-  }
-
-  function panelMarkup(cols) {
-    var out =
-      '<div class="drop-panel" hidden><span class="drop-clip" aria-hidden="true"></span>' +
-      '<p class="drop-head">Hồ sơ truyện &middot; chọn tập</p><div class="drop-cols">';
-    for (var i = 0; i < cols.length; i++) {
-      var c = cols[i];
-      out +=
-        '<div class="drop-col"><a class="drop-col-head" href="' + url(c.href) + '">' +
-        '<span class="drop-icon" aria-hidden="true">' + PANEL_ICON[c.icon] + '</span>' +
-        '<span><b>' + c.title + '</b><i>' + c.note + '</i></span></a><ul class="drop-list">';
-      for (var j = 0; j < c.links.length; j++) {
-        var l = c.links[j];
-        out +=
-          '<li><a href="' + url(l.href) + '"><span class="dot ' + l.kind + '"></span>' +
-          l.label + '<em>' + l.count + ' truyện</em></a></li>';
-      }
-      out += '</ul></div>';
-    }
-    return out + '</div></div>';
-  }
-
-  function headerMarkup(active) {
-    return (
-      '<a class="brand" href="' + url('index.html') + '" aria-label="Hội Quán Thám Tử - Trang chủ">' +
-      '<span class="brand-mark" aria-hidden="true">' + BRAND_SVG + '</span>' +
-      '<span><strong>HỘI QUÁN</strong><em>THÁM TỬ</em></span></a>' +
-      '<a class="coin-wallet" href="' + url('truyen-ngan.html#vip') + '" title="Ví Xu Thám Tử (demo)">' +
-      '<span class="coin-face" aria-hidden="true">Xu</span>' +
-      '<b data-coin-value>' + readCoins() + '</b><i>Xu</i></a>' +
-      '<button class="menu-toggle" type="button" aria-label="Mở menu" aria-expanded="false" aria-controls="hq-nav">' +
-      '<span></span><span></span></button>' +
-      '<nav class="main-nav" id="hq-nav" aria-label="Điều hướng chính">' + navMarkup(active) + '</nav>'
-    );
-  }
-
-  function footerMarkup() {
-    return (
-      '<div class="foot-grid">' +
-      '<div class="foot-brand"><a class="brand footer-brand" href="' + url('index.html') + '">' +
-      '<span class="brand-mark">' + BRAND_SVG + '</span>' +
-      '<span><strong>HỘI QUÁN</strong><em>THÁM TỬ</em></span></a>' +
-      '<p>Nơi mọi chi tiết đều đáng ngờ. Gà và Hiraku đã mở hồ sơ từ 2013 và chưa đóng lại một ngày nào.</p>' +
-      '<div class="foot-stamp">HỒ SƠ VẪN ĐANG MỞ</div></div>' +
-      '<div><h4>Khám phá</h4><ul>' +
-      '<li><a href="' + url('vu-an.html') + '">Vụ án</a></li>' +
-      '<li><a href="' + url('cau-do.html') + '">Câu đố</a></li>' +
-      '<li><a href="' + url('game.html') + '">Game</a></li>' +
-      '<li><a href="' + url('blog-ga.html') + '">Blog của Gà</a></li></ul></div>' +
-      '<div><h4>Tủ sách</h4><ul>' +
-      '<li><a href="' + url('truyen-ngan.html#free') + '">Truyện ngắn miễn phí</a></li>' +
-      '<li><a href="' + url('truyen-ngan.html#vip') + '">Truyện ngắn trả phí</a></li>' +
-      '<li><a href="' + url('truyen-dai.html#free') + '">Truyện dài miễn phí</a></li>' +
-      '<li><a href="' + url('truyen-dai.html#vip') + '">Truyện dài trả phí</a></li></ul></div>' +
-      '<div><h4>Hội quán</h4><ul>' +
-      '<li><a href="' + url('ve-chung-toi.html') + '">Về chúng tôi</a></li>' +
-      '<li><a href="' + url('ve-chung-toi.html#doi-ngu') + '">Đội ngũ</a></li>' +
-      '<li><a href="' + url('ve-chung-toi.html#faq') + '">Câu hỏi thường gặp</a></li>' +
-      '<li><a href="' + url('ve-chung-toi.html#lien-he') + '">Liên hệ</a></li></ul></div></div>' +
-      '<div class="foot-base"><span>&copy; 2026 HQTT</span></div>'
-    );
   }
 
   /* ---------- Hành vi điều hướng ---------- */
@@ -250,7 +111,7 @@
     });
 
     nav.addEventListener('click', function (e) {
-      if (e.target.closest('a')) closeMenu();
+      if (e.target.closest('a, [data-auth-open]')) closeMenu();
     });
 
     document.addEventListener('keydown', function (e) {
@@ -334,7 +195,7 @@
           })(buttons[k]);
         }
 
-        /* Deep link: truyen-ngan.html#vip mở sẵn đúng tab. */
+        /* Deep link: /truyen-ngan/#vip mở sẵn đúng tab. */
         var hash = location.hash.replace('#', '');
         var target = hash && bar.querySelector('[data-filter="' + hash + '"]');
         (target || bar.querySelector('[data-filter].active') || buttons[0]).click();
@@ -420,8 +281,6 @@
   /* ---------- API công khai ---------- */
 
   window.HQ = {
-    base: BASE,
-    url: url,
     coins: readCoins,
     setCoins: writeCoins,
     paintCoins: paintCoins,
@@ -432,21 +291,12 @@
         .replace(/đ/gi, 'd')
         .toLowerCase()
         .replace(/[^a-z0-9]+/g, '');
-    },
-    header: function (active) {
-      var el = document.querySelector('[data-hq-header]');
-      if (!el) return;
-      el.innerHTML = headerMarkup(active);
-      wireNav(el);
-    },
-    footer: function () {
-      var el = document.querySelector('[data-hq-footer]');
-      if (!el) return;
-      el.innerHTML = footerMarkup();
     }
   };
 
   document.addEventListener('DOMContentLoaded', function () {
+    var header = document.querySelector('[data-hq-header]');
+    if (header) wireNav(header);
     wireFilters();
     wireSearch();
     wireReveal();

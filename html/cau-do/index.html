@@ -1,0 +1,514 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101c2b">
+  <meta name="description" content="Toàn bộ câu đố của Hội Quán Thám Tử: đố vui, mật mã, thử thách điệp viên và câu đố logic.">
+  <title>Câu đố — Hội Quán Thám Tử</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Special+Elite&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/webp" href="/assets/icon.webp">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="/assets/style.css">
+  <link rel="stylesheet" href="/assets/site.css">
+  <script src="/assets/site.js"></script>
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+  <header class="site-header is-solid" data-hq-header>
+    <a class="brand" href="/" aria-label="Hội Quán Thám Tử - Trang chủ"><span class="brand-mark" aria-hidden="true"><img src="/assets/logo.jpg" alt="" width="44" height="44"></span><span><strong>HỘI QUÁN</strong><em>THÁM TỬ</em></span></a>
+    <button class="menu-toggle" type="button" aria-label="Mở menu" aria-expanded="false" aria-controls="hq-nav"><span></span><span></span></button>
+    <nav class="main-nav" id="hq-nav" aria-label="Điều hướng chính">
+    <a class="nav-link" href="/vu-an/">Vụ án</a>
+    <a class="nav-link is-active" href="/cau-do/" aria-current="page">Câu đố</a>
+    <a class="nav-link" href="/game/">Game</a>
+    <div class="nav-drop" data-drop><button class="nav-link nav-drop-btn" type="button" aria-expanded="false" aria-haspopup="true">Truyện trinh thám<svg class="caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1.5 6 6.5l5-5"/></svg></button>
+    <div class="drop-panel" hidden><span class="drop-clip" aria-hidden="true"></span>
+    <p class="drop-head">Hồ sơ truyện &middot; chọn tập</p><div class="drop-cols">
+    <div class="drop-col"><a class="drop-col-head" href="/truyen-ngan/"><span class="drop-icon" aria-hidden="true"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M7 4h14l5 5v19H7z"/><path d="M21 4v5h5"/><path d="M11 15h11M11 20h11M11 25h7"/></svg></span><span><b>Truyện ngắn</b><i>Khép lại trong một lần đọc</i></span></a>
+    <ul class="drop-list">
+    <li><a href="/truyen-ngan/#free"><span class="dot free"></span>Miễn phí<em>1 truyện</em></a></li>
+    <li><a href="/truyen-ngan/#vip"><span class="dot vip"></span>Trả phí<em>0 truyện</em></a></li>
+    </ul></div>
+    <div class="drop-col"><a class="drop-col-head" href="/truyen-dai/"><span class="drop-icon" aria-hidden="true"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 6h9a3 3 0 0 1 3 3v17a3 3 0 0 0-3-3H5z"/><path d="M27 6h-9a3 3 0 0 0-3 3v17a3 3 0 0 1 3-3h9z"/></svg></span><span><b>Truyện dài</b><i>Nhiều chương, một vụ án lớn</i></span></a>
+    <ul class="drop-list">
+    <li><a href="/truyen-dai/#free"><span class="dot free"></span>Miễn phí<em>0 truyện</em></a></li>
+    <li><a href="/truyen-dai/#vip"><span class="dot vip"></span>Trả phí<em>0 truyện</em></a></li>
+    </ul></div></div></div></div>
+    <a class="nav-link" href="/cua-hang/">Cửa hàng</a>
+    <a class="nav-link" href="/video/">Video</a>
+    <a class="nav-link" href="/blog-ga/">Blog của Gà</a>
+    <button class="nav-link nav-login" type="button" data-auth-open="login" aria-haspopup="dialog">Đăng nhập</button>
+    <button class="nav-cta" type="button" data-auth-open="signup" aria-haspopup="dialog">Đăng ký</button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <nav class="breadcrumb" aria-label="Đường dẫn"><a href="/">Trang chủ</a><span>/</span><b>Câu đố</b></nav>
+      <h1>CÂU ĐỐ</h1>
+      <p class="lede">Không có câu đố nào ở đây cần mẹo vặt hay kiến thức đặc biệt. Tất cả những gì bạn cần đều nằm trong đề bài — vấn đề chỉ là bạn có chịu đọc lại lần thứ hai hay không.</p>
+      <div class="hero-meta"><span><b>46</b> câu đố</span><span>Đáp án sẽ được cập nhật sau</span></div>
+      <span class="watermark" aria-hidden="true">RIDDLE</span>
+    </section>
+    <div class="page-main">
+      <div class="toolbar">
+        <div class="search-box"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m16 16 5 5"/></svg>
+          <input type="search" placeholder="Tìm câu đố…" aria-label="Tìm câu đố"
+                 data-search="#riddleGrid" data-search-empty="#riddleEmpty">
+        </div>
+      </div>
+      <div class="card-grid" id="riddleGrid">
+        <a class="post-card" href="/cau-do/chon-tho-nao/" data-reveal>
+          <div class="post-visual photo"><span class="post-no">ĐỐ VUI #46</span><img src="/assets/cau-do/chon-tho-nao-thumb.jpg" alt="Chọn thợ nào?" loading="lazy" width="480" height="600"></div>
+          <div class="post-body">
+            <h3>Chọn thợ nào?</h3>
+            <p>Theo suy đoán của các bạn thì nên chọn tiệm nào ?</p>
+            <div class="post-foot"><span>Đố vui #46</span><span class="go">Giải đố <span>&rarr;</span></span></div>
+          </div>
+        </a>
+        <a class="post-card" href="/cau-do/tai-xe-xe-buyt-di-nguoc-chieu/" data-reveal>
+          <div class="post-visual photo"><span class="post-no">ĐỐ VUI #45</span><img src="/assets/cau-do/tai-xe-xe-buyt-di-nguoc-chieu-thumb.jpg" alt="Tài xế xe buýt đi ngược chiều" loading="lazy" width="480" height="600"></div>
+          <div class="post-body">
+            <h3>Tài xế xe buýt đi ngược chiều</h3>
+            <p>Sao hay vậy ?</p>
+            <div class="post-foot"><span>Đố vui #45</span><span class="go">Giải đố <span>&rarr;</span></span></div>
+          </div>
+        </a>
+        <a class="post-card" href="/cau-do/hai-buc-tranh-bi-doi-cho/" data-reveal>
+          <div class="post-visual photo"><span class="post-no">ĐỐ VUI #44</span><img src="/assets/cau-do/hai-buc-tranh-bi-doi-cho-thumb.jpg" alt="Hai bức tranh bị đổi chỗ" loading="lazy" width="480" height="600"></div>
+          <div class="post-body">
+            <h3>Hai bức tranh bị đổi chỗ</h3>
+            <p>2 bức nào nhỉ?</p>
+            <div class="post-foot"><span>Đố vui #44</span><span class="go">Giải đố <span>&rarr;</span></span></div>
+          </div>
+        </a>
+        <a class="post-card" href="/cau-do/tiem-sua-xe-luc-toi/" data-reveal>
+          <div class="post-visual photo"><span class="post-no">ĐỐ VUI #43</span><img src="/assets/cau-do/tiem-sua-xe-luc-toi-thumb.jpg" alt="Tiệm sửa xe lúc tối" loading="lazy" width="480" height="600"></div>
+          <div class="post-body">
+            <h3>Tiệm sửa xe lúc tối</h3>
+            <p>Bạn có suy ra được gì ko?</p>
+            <div class="post-foot"><span>Đố vui #43</span><span class="go">Giải đố <span>&rarr;</span></span></div>
+          </div>
+        </a>
+        <a class="post-card" href="/cau-do/chuyen-cheo-thuyen/" data-reveal>
+          <div class="post-visual photo"><span class="post-no">ĐỐ VUI #42</span><img src="/assets/cau-do/chuyen-cheo-thuyen-thumb.jpg" alt="Chuyến chèo thuyền" loading="lazy" width="480" height="600"></div>
+          <div class="post-body">
+            <h3>Chuyến chèo thuyền</h3>
+            <p>Có chi mà sợ ?</p>
+            <div class="post-foot"><span>Đố vui #42</span><span class="go">Giải đố <span>&rarr;</span></span></div>
+          </div>
+        </a>
+        <a class="post-card" href="/cau-do/tro-choi-mat-ma/" data-reveal>
+          <div class="post-visual photo"><span class="post-no">ĐỐ VUI #41</span><img src="/assets/cau-do/tro-choi-mat-ma-thumb.jpg" alt="Trò chơi mật mã" loading="lazy" width="480" height="600"></div>
+          <div class="post-body">
+            <h3>Trò chơi mật mã</h3>
+            <p>Khó thía !!!</p>
+            <div class="post-foot"><span>Đố vui #41</span><span class="go">Giải đố <span>&rarr;</span></span></div>
+          </div>
+        </a>
+        <a class="post-card" href="/cau-do/tam-anh-giu-ky/" data-reveal>
+          <div class="post-visual photo"><span class="post-no">ĐỐ VUI #40</span><img src="/assets/cau-do/tam-anh-giu-ky-thumb.jpg" alt="Tấm ảnh giữ kỹ" loading="lazy" width="480" height="600"></div>
+          <div class="post-body">
+            <h3>Tấm ảnh giữ kỹ</h3>
+            <p>Cô gái nào mà tốt phước thía nhỉ</p>
+            <div class="post-foot"><span>Đố vui #40</span><span class="go">Giải đố <span>&rarr;</span></span></div>
+          </div>
+        </a>
+        <a class="post-card" href="/cau-do/nguoi-dan-ong-cam-dao/" data-reveal>
+          <div class="post-visual photo"><span class="post-no">ĐỐ VUI #39</span><img src="/assets/cau-do/nguoi-dan-ong-cam-dao-thumb.jpg" alt="Người đàn ông cầm dao" loading="lazy" width="480" height="600"></div>
+          <div class="post-body">
+            <h3>Người đàn ông cầm dao</h3>
+            <p>Gà liều thế nhỉ?</p>
+            <div class="post-foot"><span>Đố vui #39</span><span class="go">Giải đố <span>&rarr;</span></span></div>
+          </div>
+        </a>
+        <a class="post-card" href="/cau-do/chiec-ao-trong-tui/" data-reveal>
+          <div class="post-visual photo"><span class="post-no">ĐỐ VUI #38</span><img src="/assets/cau-do/chiec-ao-trong-tui-thumb.jpg" alt="Chiếc áo trong túi" loading="lazy" width="480" height="600"></div>
+          <div class="post-body">
+            <h3>Chiếc áo trong túi</h3>
+            <p>Tại sao lại ko hành động gì vậy nhỉ?</p>
+            <div class="post-foot"><span>Đố vui #38</span><span class="go">Giải đố <span>&rarr;</span></span></div>
+          </div>
+        </a>
+        <a class="post-card" href="/cau-do/thu-thach-diep-vien-8/" data-reveal>
+          <div class="post-visual photo"><span class="post-no">ĐỐ VUI #37</span><img src="/assets/cau-do/thu-thach-diep-vien-8-thumb.jpg" alt="Thử thách điệp viên #8" loading="lazy" width="480" height="600"></div>
+          <div class="post-body">
+            <h3>Thử thách điệp viên #8</h3>
+            <p>Điền cái gì ta?</p>
+            <div class="post-foot"><span>Đố vui #37</span><span class="go">Giải đố <span>&rarr;</span></span></div>
+          </div>
+        </a>
+        <a class="post-card" href="/cau-do/doan-camera-bat-thuong/" data-reveal>
+          <div class="post-visual photo"><span class="post-no">ĐỐ VUI #36</span><img src="/assets/cau-do/doan-camera-bat-thuong-thumb.jpg" alt="Đoạn camera bất thường" loading="lazy" width="480" height="600"></div>
+          <div class="post-body">
+            <h3>Đoạn camera bất thường</h3>
+            <p>Bạn có nhận ra không?</p>
+            <div class="post-foot"><span>Đố vui #36</span><span class="go">Giải đố <span>&rarr;</span></span></div>
+          </div>
+        </a>
+        <a class="post-card" href="/cau-do/giac-ngu-trua/" data-reveal>
+          <div class="post-visual photo"><span class="post-no">ĐỐ VUI #35</span><img src="/assets/cau-do/giac-ngu-trua-thumb.jpg" alt="Giấc ngủ trưa" loading="lazy" width="480" height="600"></div>
+          <div class="post-body">
+            <h3>Giấc ngủ trưa</h3>
+            <p>Tại sao vậy nhỉ?</p>
+            <div class="post-foot"><span>Đố vui #35</span><span class="go">Giải đố <span>&rarr;</span></span></div>
+          </div>
+        </a>
+        <a class="post-card" href="/cau-do/co-gai-livestream-o-san-bay/" data-reveal>
+          <div class="post-visual photo"><span class="post-no">ĐỐ VUI #34</span><img src="/assets/cau-do/co-gai-livestream-o-san-bay-thumb.jpg" alt="Cô gái livestream ở sân bay" loading="lazy" width="480" height="600"></div>
+          <div class="post-body">
+            <h3>Cô gái livestream ở sân bay</h3>
+            <p>Bạn ấy có đang nói thật không nhỉ?</p>
+            <div class="post-foot"><span>Đố vui #34</span><span class="go">Giải đố <span>&rarr;</span></span></div>
+          </div>
+        </a>
+        <a class="post-card" href="/cau-do/anh-dem-trung-thu/" data-reveal>
+          <div class="post-visual photo"><span class="post-no">ĐỐ VUI #33</span><img src="/assets/cau-do/anh-dem-trung-thu-thumb.jpg" alt="Ảnh đêm Trung thu" loading="lazy" width="480" height="600"></div>
+          <div class="post-body">
+            <h3>Ảnh đêm Trung thu</h3>
+            <p>Tết Trung thu đốt đèn đi chơi, tiện tay chụp vài bức ảnh để đời! Chúc cả nhà Trung thu ấm áp!</p>
+            <div class="post-foot"><span>Đố vui #33</span><span class="go">Giải đố <span>&rarr;</span></span></div>
+          </div>
+        </a>
+        <a class="post-card" href="/cau-do/bay-chu-dang-cai/" data-reveal>
+          <div class="post-visual photo"><span class="post-no">ĐỐ VUI #32</span><img src="/assets/cau-do/bay-chu-dang-cai-thumb.jpg" alt="Bảy chữ đang cài" loading="lazy" width="480" height="600"></div>
+          <div class="post-body">
+            <h3>Bảy chữ đang cài</h3>
+            <p>Đáp án sẽ là gì nhỉ?</p>
+            <div class="post-foot"><span>Đố vui #32</span><span class="go">Giải đố <span>&rarr;</span></span></div>
+          </div>
+        </a>
+        <a class="post-card" href="/cau-do/chu-dai-nhat-tieng-viet/" data-reveal>
+          <div class="post-visual photo"><span class="post-no">ĐỐ VUI #31</span><img src="/assets/cau-do/chu-dai-nhat-tieng-viet-thumb.jpg" alt="Chữ dài nhất tiếng Việt" loading="lazy" width="480" height="600"></div>
+          <div class="post-body">
+            <h3>Chữ dài nhất tiếng Việt</h3>
+            <p>Làm việc không làm, mải đố đố để &quot;quàng thượng&quot; chạy mất tiêu rồi lấy chi bắt đây?</p>
+            <div class="post-foot"><span>Đố vui #31</span><span class="go">Giải đố <span>&rarr;</span></span></div>
+          </div>
+        </a>
+        <a class="post-card" href="/cau-do/buc-anh-gia-mao/" data-reveal>
+          <div class="post-visual photo"><span class="post-no">ĐỐ VUI #30</span><img src="/assets/cau-do/buc-anh-gia-mao-thumb.jpg" alt="Bức ảnh giả mạo" loading="lazy" width="480" height="600"></div>
+          <div class="post-body">
+            <h3>Bức ảnh giả mạo</h3>
+            <p>Bức ảnh nào nhỉ?</p>
+            <div class="post-foot"><span>Đố vui #30</span><span class="go">Giải đố <span>&rarr;</span></span></div>
+          </div>
+        </a>
+        <a class="post-card" href="/cau-do/ba-canh-cua-tu-than/" data-reveal>
+          <div class="post-visual photo"><span class="post-no">ĐỐ VUI #29</span><img src="/assets/cau-do/ba-canh-cua-tu-than-thumb.jpg" alt="Ba cánh cửa tử thần" loading="lazy" width="480" height="600"></div>
+          <div class="post-body">
+            <h3>Ba cánh cửa tử thần</h3>
+            <p>Thằng Gà làm cái gì suốt ngày chờ người tới cứu rứa trùi !!!</p>
+            <div class="post-foot"><span>Đố vui #29</span><span class="go">Giải đố <span>&rarr;</span></span></div>
+          </div>
+        </a>
+        <a class="post-card" href="/cau-do/thu-thach-diep-vien-7/" data-reveal>
+          <div class="post-visual photo"><span class="post-no">ĐỐ VUI #28</span><img src="/assets/cau-do/thu-thach-diep-vien-7-thumb.jpg" alt="Thử thách điệp viên #7" loading="lazy" width="480" height="600"></div>
+          <div class="post-body">
+            <h3>Thử thách điệp viên #7</h3>
+            <p>Chú chó con ngồi đó tưởng suy nghĩ đáp án nhưng thực ra là đang suy nghĩ xem hôm nay ăn gì</p>
+            <div class="post-foot"><span>Đố vui #28</span><span class="go">Giải đố <span>&rarr;</span></span></div>
+          </div>
+        </a>
+        <a class="post-card" href="/cau-do/mat-mot-qua-cam/" data-reveal>
+          <div class="post-visual photo"><span class="post-no">ĐỐ VUI #27</span><img src="/assets/cau-do/mat-mot-qua-cam-thumb.jpg" alt="Mất một quả cam" loading="lazy" width="480" height="600"></div>
+          <div class="post-body">
+            <h3>Mất một quả cam</h3>
+            <p>Mất một quả cam :))</p>
+            <div class="post-foot"><span>Đố vui #27</span><span class="go">Giải đố <span>&rarr;</span></span></div>
+          </div>
+        </a>
+        <a class="post-card" href="/cau-do/chuyen-taxi/" data-reveal>
+          <div class="post-visual photo"><span class="post-no">ĐỐ VUI #26</span><img src="/assets/cau-do/chuyen-taxi-thumb.jpg" alt="Chuyến taxi" loading="lazy" width="480" height="600"></div>
+          <div class="post-body">
+            <h3>Chuyến taxi</h3>
+            <p>Chỉ 1 câu nói mà làm cô gái ấy trầm tĩnh hẳn</p>
+            <div class="post-foot"><span>Đố vui #26</span><span class="go">Giải đố <span>&rarr;</span></span></div>
+          </div>
+        </a>
+        <a class="post-card" href="/cau-do/ho-lo-bien/" data-reveal>
+          <div class="post-visual photo"><span class="post-no">ĐỐ VUI #25</span><img src="/assets/cau-do/ho-lo-bien-thumb.jpg" alt="Hồ lô biến" loading="lazy" width="480" height="600"></div>
+          <div class="post-body">
+            <h3>Hồ lô biến</h3>
+            <p>Gà bị chằn tinh nhốt vào quả bầu rồi :”&lt; biết quả bầu nào bây giờ</p>
+            <div class="post-foot"><span>Đố vui #25</span><span class="go">Giải đố <span>&rarr;</span></span></div>
+          </div>
+        </a>
+        <a class="post-card" href="/cau-do/het-gio-lam-bai/" data-reveal>
+          <div class="post-visual photo"><span class="post-no">ĐỐ VUI #24</span><img src="/assets/cau-do/het-gio-lam-bai-thumb.jpg" alt="Hết giờ làm bài" loading="lazy" width="480" height="600"></div>
+          <div class="post-body">
+            <h3>Hết giờ làm bài</h3>
+            <p>Khí này làm gì mà trông nguy hiểm thế nhỉ?</p>
+            <div class="post-foot"><span>Đố vui #24</span><span class="go">Giải đố <span>&rarr;</span></span></div>
+          </div>
+        </a>
+        <a class="post-card" href="/cau-do/thu-thach-diep-vien-5/" data-reveal>
+          <div class="post-visual photo"><span class="post-no">ĐỐ VUI #23</span><img src="/assets/cau-do/thu-thach-diep-vien-5-thumb.jpg" alt="Thử thách điệp viên #5" loading="lazy" width="480" height="600"></div>
+          <div class="post-body">
+            <h3>Thử thách điệp viên #5</h3>
+            <p>Giúp Gà với mọi người ơi</p>
+            <div class="post-foot"><span>Đố vui #23</span><span class="go">Giải đố <span>&rarr;</span></span></div>
+          </div>
+        </a>
+        <a class="post-card" href="/cau-do/chon-cua-nao-de-thoat/" data-reveal>
+          <div class="post-visual photo"><span class="post-no">ĐỐ VUI #22</span><img src="/assets/cau-do/chon-cua-nao-de-thoat-thumb.jpg" alt="Chọn cửa nào để thoát" loading="lazy" width="480" height="600"></div>
+          <div class="post-body">
+            <h3>Chọn cửa nào để thoát</h3>
+            <p>Chọn cửa nào để thoát được đây, giúp Gà với mn ơi</p>
+            <div class="post-foot"><span>Đố vui #22</span><span class="go">Giải đố <span>&rarr;</span></span></div>
+          </div>
+        </a>
+        <a class="post-card" href="/cau-do/nhay-tu-toa-nha-20-tang/" data-reveal>
+          <div class="post-visual photo"><span class="post-no">ĐỐ VUI #21</span><img src="/assets/cau-do/nhay-tu-toa-nha-20-tang-thumb.jpg" alt="Nhảy từ tòa nhà 20 tầng" loading="lazy" width="480" height="600"></div>
+          <div class="post-body">
+            <h3>Nhảy từ tòa nhà 20 tầng</h3>
+            <p>Vì sao vậy ?</p>
+            <div class="post-foot"><span>Đố vui #21</span><span class="go">Giải đố <span>&rarr;</span></span></div>
+          </div>
+        </a>
+        <a class="post-card" href="/cau-do/thu-thach-diep-vien-3/" data-reveal>
+          <div class="post-visual photo"><span class="post-no">ĐỐ VUI #20</span><img src="/assets/cau-do/thu-thach-diep-vien-3-thumb.jpg" alt="Thử thách điệp viên #3" loading="lazy" width="480" height="600"></div>
+          <div class="post-body">
+            <h3>Thử thách điệp viên #3</h3>
+            <p>Ai là kẻ giả mạo nhỉ?</p>
+            <div class="post-foot"><span>Đố vui #20</span><span class="go">Giải đố <span>&rarr;</span></span></div>
+          </div>
+        </a>
+        <a class="post-card" href="/cau-do/benh-gi-bac-si-cung-bo-tay/" data-reveal>
+          <div class="post-visual photo"><span class="post-no">ĐỐ VUI #19</span><img src="/assets/cau-do/benh-gi-bac-si-cung-bo-tay-thumb.jpg" alt="Bệnh gì bác sĩ cũng bó tay?" loading="lazy" width="480" height="600"></div>
+          <div class="post-body">
+            <h3>Bệnh gì bác sĩ cũng bó tay?</h3>
+            <p>Hiraku đố là bệnh gì vậy ta?</p>
+            <div class="post-foot"><span>Đố vui #19</span><span class="go">Giải đố <span>&rarr;</span></span></div>
+          </div>
+        </a>
+        <a class="post-card" href="/cau-do/linh-da-mat-tich-3-ngay/" data-reveal>
+          <div class="post-visual photo"><span class="post-no">ĐỐ VUI #18</span><img src="/assets/cau-do/linh-da-mat-tich-3-ngay-thumb.jpg" alt="Linh đã mất tích 3 ngày" loading="lazy" width="480" height="600"></div>
+          <div class="post-body">
+            <h3>Linh đã mất tích 3 ngày</h3>
+            <p>Vỉ sao vậy nhỉ ?</p>
+            <div class="post-foot"><span>Đố vui #18</span><span class="go">Giải đố <span>&rarr;</span></span></div>
+          </div>
+        </a>
+        <a class="post-card" href="/cau-do/ba-chiec-hop-dau/" data-reveal>
+          <div class="post-visual photo"><span class="post-no">ĐỐ VUI #17</span><img src="/assets/cau-do/ba-chiec-hop-dau-thumb.jpg" alt="Ba chiếc hộp đậu" loading="lazy" width="480" height="600"></div>
+          <div class="post-body">
+            <h3>Ba chiếc hộp đậu</h3>
+            <p>Đố vui : Làm thế nào bây giờ?</p>
+            <div class="post-foot"><span>Đố vui #17</span><span class="go">Giải đố <span>&rarr;</span></span></div>
+          </div>
+        </a>
+        <a class="post-card" href="/cau-do/mon-sushi-ky-la/" data-reveal>
+          <div class="post-visual photo"><span class="post-no">ĐỐ VUI #16</span><img src="/assets/cau-do/mon-sushi-ky-la-thumb.jpg" alt="Món sushi kỳ lạ" loading="lazy" width="480" height="600"></div>
+          <div class="post-body">
+            <h3>Món sushi kỳ lạ</h3>
+            <p>Chơi kì zị ba</p>
+            <div class="post-foot"><span>Đố vui #16</span><span class="go">Giải đố <span>&rarr;</span></span></div>
+          </div>
+        </a>
+        <a class="post-card" href="/cau-do/mat-khau-diep-vien/" data-reveal>
+          <div class="post-visual photo"><span class="post-no">ĐỐ VUI #15</span><img src="/assets/cau-do/mat-khau-diep-vien-thumb.jpg" alt="Mật khẩu điệp viên" loading="lazy" width="480" height="600"></div>
+          <div class="post-body">
+            <h3>Mật khẩu điệp viên</h3>
+            <p>Gà sai ở đâu vậy?</p>
+            <div class="post-foot"><span>Đố vui #15</span><span class="go">Giải đố <span>&rarr;</span></span></div>
+          </div>
+        </a>
+        <a class="post-card" href="/cau-do/tro-choi-bon-goc/" data-reveal>
+          <div class="post-visual photo"><span class="post-no">ĐỐ VUI #14</span><img src="/assets/cau-do/tro-choi-bon-goc-thumb.jpg" alt="Trò chơi bốn góc" loading="lazy" width="480" height="600"></div>
+          <div class="post-body">
+            <h3>Trò chơi bốn góc</h3>
+            <p>Tập truyện kinh dị lúc nửa đêm Cryptic</p>
+            <div class="post-foot"><span>Đố vui #14</span><span class="go">Giải đố <span>&rarr;</span></span></div>
+          </div>
+        </a>
+        <a class="post-card" href="/cau-do/bi-can-van-lam/" data-reveal>
+          <div class="post-visual photo"><span class="post-no">ĐỐ VUI #13</span><img src="/assets/cau-do/bi-can-van-lam-thumb.jpg" alt="Bị can vẫn làm" loading="lazy" width="480" height="600"></div>
+          <div class="post-body">
+            <h3>Bị can vẫn làm</h3>
+            <p>Ủa, người đàn ông này đã làm gì nên tội?</p>
+            <div class="post-foot"><span>Đố vui #13</span><span class="go">Giải đố <span>&rarr;</span></span></div>
+          </div>
+        </a>
+        <a class="post-card" href="/cau-do/chuyen-thang-may-nua-dem/" data-reveal>
+          <div class="post-visual photo"><span class="post-no">ĐỐ VUI #12</span><img src="/assets/cau-do/chuyen-thang-may-nua-dem-thumb.jpg" alt="Chuyến thang máy nửa đêm" loading="lazy" width="480" height="600"></div>
+          <div class="post-body">
+            <h3>Chuyến thang máy nửa đêm</h3>
+            <p>Đố vui : Chạy chi zị ba ?</p>
+            <div class="post-foot"><span>Đố vui #12</span><span class="go">Giải đố <span>&rarr;</span></span></div>
+          </div>
+        </a>
+        <a class="post-card" href="/cau-do/buoi-da-ngoai/" data-reveal>
+          <div class="post-visual photo"><span class="post-no">ĐỐ VUI #11</span><img src="/assets/cau-do/buoi-da-ngoai-thumb.jpg" alt="Buổi dã ngoại" loading="lazy" width="480" height="600"></div>
+          <div class="post-body">
+            <h3>Buổi dã ngoại</h3>
+            <p>Rùi hơm biết có về được không ?</p>
+            <div class="post-foot"><span>Đố vui #11</span><span class="go">Giải đố <span>&rarr;</span></span></div>
+          </div>
+        </a>
+        <a class="post-card" href="/cau-do/tin-nhan-trong-nha-ma/" data-reveal>
+          <div class="post-visual photo"><span class="post-no">ĐỐ VUI #10</span><img src="/assets/cau-do/tin-nhan-trong-nha-ma-thumb.jpg" alt="Tin nhắn trong nhà ma" loading="lazy" width="480" height="600"></div>
+          <div class="post-body">
+            <h3>Tin nhắn trong nhà ma</h3>
+            <p>Đây là truyện cryptic nhé, Ad lên bài như đã hứa</p>
+            <div class="post-foot"><span>Đố vui #10</span><span class="go">Giải đố <span>&rarr;</span></span></div>
+          </div>
+        </a>
+        <a class="post-card" href="/cau-do/nguoi-theo-doi-thu-hai/" data-reveal>
+          <div class="post-visual photo"><span class="post-no">ĐỐ VUI #9</span><img src="/assets/cau-do/nguoi-theo-doi-thu-hai-thumb.jpg" alt="Người theo dõi thứ hai" loading="lazy" width="480" height="600"></div>
+          <div class="post-body">
+            <h3>Người theo dõi thứ hai</h3>
+            <p>Vui chi zị bà ??</p>
+            <div class="post-foot"><span>Đố vui #9</span><span class="go">Giải đố <span>&rarr;</span></span></div>
+          </div>
+        </a>
+        <a class="post-card" href="/cau-do/nguoi-tho-san/" data-reveal>
+          <div class="post-visual photo"><span class="post-no">ĐỐ VUI #8</span><img src="/assets/cau-do/nguoi-tho-san-thumb.jpg" alt="Người thợ săn" loading="lazy" width="480" height="600"></div>
+          <div class="post-body">
+            <h3>Người thợ săn</h3>
+            <p>Có ai biết được lý do không</p>
+            <div class="post-foot"><span>Đố vui #8</span><span class="go">Giải đố <span>&rarr;</span></span></div>
+          </div>
+        </a>
+        <a class="post-card" href="/cau-do/khong-bao-gio-trung-xo-so/" data-reveal>
+          <div class="post-visual photo"><span class="post-no">ĐỐ VUI #7</span><img src="/assets/cau-do/khong-bao-gio-trung-xo-so-thumb.jpg" alt="Không bao giờ trúng xổ số" loading="lazy" width="480" height="600"></div>
+          <div class="post-body">
+            <h3>Không bao giờ trúng xổ số</h3>
+            <p>Đố vui : Ổng này chắc trùng sinh ^^</p>
+            <div class="post-foot"><span>Đố vui #7</span><span class="go">Giải đố <span>&rarr;</span></span></div>
+          </div>
+        </a>
+        <a class="post-card" href="/cau-do/cuon-sach-bi-ban/" data-reveal>
+          <div class="post-visual photo"><span class="post-no">ĐỐ VUI #6</span><img src="/assets/cau-do/cuon-sach-bi-ban-thumb.jpg" alt="Cuốn sách bị bẩn" loading="lazy" width="480" height="600"></div>
+          <div class="post-body">
+            <h3>Cuốn sách bị bẩn</h3>
+            <p>Mượn sách cũ chi zị cha ?</p>
+            <div class="post-foot"><span>Đố vui #6</span><span class="go">Giải đố <span>&rarr;</span></span></div>
+          </div>
+        </a>
+        <a class="post-card" href="/cau-do/doi-truy-bat-thao-luan/" data-reveal>
+          <div class="post-visual photo"><span class="post-no">ĐỐ VUI #5</span><img src="/assets/cau-do/doi-truy-bat-thao-luan-thumb.jpg" alt="Đội truy bắt thảo luận" loading="lazy" width="480" height="600"></div>
+          <div class="post-body">
+            <h3>Đội truy bắt thảo luận</h3>
+            <p>Tại sao lại không bắt được khứa này nhỉ?</p>
+            <div class="post-foot"><span>Đố vui #5</span><span class="go">Giải đố <span>&rarr;</span></span></div>
+          </div>
+        </a>
+        <a class="post-card" href="/cau-do/ten-trom-nha-ga/" data-reveal>
+          <div class="post-visual photo"><span class="post-no">ĐỐ VUI #4</span><img src="/assets/cau-do/ten-trom-nha-ga-thumb.jpg" alt="Tên trộm nhà Gà" loading="lazy" width="480" height="600"></div>
+          <div class="post-body">
+            <h3>Tên trộm nhà Gà</h3>
+            <p>Đố vui chủ nhật</p>
+            <div class="post-foot"><span>Đố vui #4</span><span class="go">Giải đố <span>&rarr;</span></span></div>
+          </div>
+        </a>
+        <a class="post-card" href="/cau-do/cuoc-noi-chuyen-luc-nua-dem/" data-reveal>
+          <div class="post-visual photo"><span class="post-no">ĐỐ VUI #3</span><img src="/assets/cau-do/cuoc-noi-chuyen-luc-nua-dem-thumb.jpg" alt="Cuộc nói chuyện lúc nửa đêm" loading="lazy" width="480" height="600"></div>
+          <div class="post-body">
+            <h3>Cuộc nói chuyện lúc nửa đêm</h3>
+            <p>Đố vui : Sao Hiraku đến 2h đêm vẫn không ngủ được mà nói chuyện với Gà một chút lại ngủ ngon lành?</p>
+            <div class="post-foot"><span>Đố vui #3</span><span class="go">Giải đố <span>&rarr;</span></span></div>
+          </div>
+        </a>
+        <a class="post-card" href="/cau-do/thang-may-ky-la/" data-reveal>
+          <div class="post-visual photo"><span class="post-no">ĐỐ VUI #2</span><img src="/assets/cau-do/thang-may-ky-la-thumb.jpg" alt="Thang máy kỳ lạ" loading="lazy" width="480" height="600"></div>
+          <div class="post-body">
+            <h3>Thang máy kỳ lạ</h3>
+            <p>Góc Đố Vui</p>
+            <div class="post-foot"><span>Đố vui #2</span><span class="go">Giải đố <span>&rarr;</span></span></div>
+          </div>
+        </a>
+        <a class="post-card" href="/cau-do/ba-nguoi-duoi-mot-chiec-o/" data-reveal>
+          <div class="post-visual photo"><span class="post-no">ĐỐ VUI #1</span><img src="/assets/cau-do/ba-nguoi-duoi-mot-chiec-o-thumb.jpg" alt="Ba người dưới một chiếc ô" loading="lazy" width="480" height="600"></div>
+          <div class="post-body">
+            <h3>Ba người dưới một chiếc ô</h3>
+            
+            <div class="post-foot"><span>Đố vui #1</span><span class="go">Giải đố <span>&rarr;</span></span></div>
+          </div>
+        </a>
+      </div>
+      <div class="empty-state" id="riddleEmpty" hidden>
+        <b>Không có câu đố nào khớp</b>
+        <p>Thử tìm bằng một từ khoá ngắn hơn.</p>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="site-footer" data-hq-footer>
+    <div class="foot-grid">
+    <div class="foot-brand">
+    <a class="brand footer-brand" href="/"><span class="brand-mark"><img src="/assets/logo.jpg" alt="" width="44" height="44"></span><span><strong>HỘI QUÁN</strong><em>THÁM TỬ</em></span></a><p>Nơi mọi chi tiết đều đáng ngờ. Gà và Hiraku đã mở hồ sơ từ 2013 và chưa đóng lại một ngày nào.</p>
+    <div class="foot-stamp">HỒ SƠ VẪN ĐANG MỞ</div></div><div>
+    <h4>Khám phá</h4>
+    <ul>
+    <li><a href="/vu-an/">Vụ án</a></li>
+    <li><a href="/cau-do/">Câu đố</a></li>
+    <li><a href="/game/">Game</a></li>
+    <li><a href="/blog-ga/">Blog của Gà</a></li>
+    </ul></div><div>
+    <h4>Tủ sách</h4>
+    <ul>
+    <li><a href="/truyen-ngan/#free">Truyện ngắn miễn phí</a></li>
+    <li><a href="/truyen-ngan/#vip">Truyện ngắn trả phí</a></li>
+    <li><a href="/truyen-dai/#free">Truyện dài miễn phí</a></li>
+    <li><a href="/truyen-dai/#vip">Truyện dài trả phí</a></li>
+    </ul></div><div>
+    <h4>Hội quán</h4>
+    <ul>
+    <li><a href="/ve-chung-toi/">Về chúng tôi</a></li>
+    <li><a href="/ve-chung-toi/#doi-ngu">Đội ngũ</a></li>
+    <li><a href="/ve-chung-toi/#faq">Câu hỏi thường gặp</a></li>
+    <li><a href="/ve-chung-toi/#lien-he">Liên hệ</a></li>
+    </ul></div></div>
+    <div class="foot-base"><span>&copy; 2026 HQTT</span></div>
+  </footer>
+  <dialog class="auth-modal" id="auth-login" aria-labelledby="auth-login-title">
+    <button class="auth-close" type="button" data-auth-close aria-label="Đóng">&times;</button>
+    <h2 id="auth-login-title">ĐĂNG NHẬP</h2>
+    <form class="contact-form auth-form" novalidate data-auth-form data-ok="Đăng nhập thành công. Trên bản thật, bạn sẽ được chuyển về hồ sơ đang đọc." data-err="Hãy nhập email và mật khẩu.">
+      <div class="full">
+        <label for="li-mail">Email</label>
+        <input id="li-mail" name="email" type="email" required autocomplete="email" placeholder="dia-chi@email.com">
+      </div>
+      <div class="full">
+        <label for="li-pass">Mật khẩu</label>
+        <input id="li-pass" name="password" type="password" required autocomplete="current-password" placeholder="Mật khẩu của bạn">
+      </div>
+      <p class="form-ok" role="status" data-auth-note></p>
+      <button type="submit">Đăng nhập</button>
+      <p class="auth-switch full">Chưa có tài khoản? <button type="button" data-auth-open="signup">Đăng ký thành viên</button></p>
+    </form>
+  </dialog>
+
+  <dialog class="auth-modal" id="auth-signup" aria-labelledby="auth-signup-title">
+    <button class="auth-close" type="button" data-auth-close aria-label="Đóng">&times;</button>
+    <h2 id="auth-signup-title">ĐĂNG KÝ THÀNH VIÊN</h2>
+    <form class="contact-form auth-form" novalidate data-auth-form data-ok="Đăng ký thành công. Chào mừng bạn gia nhập Hội Quán Thám Tử!" data-err="Hãy điền đủ thông tin, mật khẩu tối thiểu 6 ký tự và nhập lại cho khớp.">
+      <div class="full">
+        <label for="su-name">Tên hiển thị</label>
+        <input id="su-name" name="name" type="text" required autocomplete="nickname" placeholder="Biệt danh thám tử của bạn">
+      </div>
+      <div class="full">
+        <label for="su-mail">Email</label>
+        <input id="su-mail" name="email" type="email" required autocomplete="email" placeholder="dia-chi@email.com">
+      </div>
+      <div>
+        <label for="su-pass">Mật khẩu</label>
+        <input id="su-pass" name="password" type="password" required minlength="6" autocomplete="new-password" placeholder="Tối thiểu 6 ký tự">
+      </div>
+      <div>
+        <label for="su-pass2">Nhập lại mật khẩu</label>
+        <input id="su-pass2" name="password2" type="password" required minlength="6" autocomplete="new-password" data-match="su-pass" placeholder="Nhập lại mật khẩu">
+      </div>
+      <p class="form-ok" role="status" data-auth-note></p>
+      <button type="submit">Đăng ký thành viên</button>
+      <p class="auth-switch full">Đã có tài khoản? <button type="button" data-auth-open="login">Đăng nhập</button></p>
+    </form>
+  </dialog>
+  <script src="/assets/auth.js"></script>
+</body>
+</html>

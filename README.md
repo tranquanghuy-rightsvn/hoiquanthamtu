@@ -12,22 +12,24 @@ python3 -m http.server 8080
 
 Mở `http://localhost:8080`.
 
-Mở thẳng `html/index.html` bằng trình duyệt cũng chạy được, trừ vài chỗ phụ
-thuộc đường dẫn tuyệt đối. Dùng web server tĩnh vẫn là cách đúng.
+Mọi đường dẫn đều tuyệt đối dạng `/slug/` (mỗi trang là `slug/index.html`),
+nên phải chạy qua web server tĩnh với `html/` làm gốc, không mở thẳng file.
 
 ## Cấu trúc
 
 ```
 html/
 ├── index.html                 Trang chủ, tổng hợp mọi mục
-├── vu-an.html                 Danh sách vụ án + vu-an/*.html
-├── cau-do.html                Danh sách câu đố + cau-do/*.html
-├── game.html                  Sảnh game + game/*.html
-├── truyen-ngan.html           Tab Tất cả / Miễn phí / Trả phí
-├── truyen-dai.html            Tab Tất cả / Miễn phí / Trả phí
+├── vu-an/                     19 vụ án lấy từ fanpage thamtuvui, ảnh ở assets/vu-an/
+├── cau-do/                    46 câu đố lấy từ fanpage, ảnh ở assets/cau-do/ (mục Lời giải chờ cập nhật)
+├── game/                      Sảnh game + game/<slug>/
+├── truyen-ngan/               Tab Tất cả / Miễn phí / Trả phí
+├── truyen-dai/                Tab Tất cả / Miễn phí / Trả phí
 ├── truyen/                    Nội dung truyện, gồm mục lục và từng chương
-├── blog-ga.html               Nhật ký của Gà, đọc trọn trong danh sách
-├── ve-chung-toi.html
+├── blog-ga/                   Nhật ký của Gà, đọc trọn trong danh sách
+├── ve-chung-toi/
+├── cua-hang/                  Cửa hàng (sắp mở)
+├── video/                     Video (sắp ra mắt)
 └── assets/
 ```
 
@@ -38,16 +40,24 @@ html/
 | `style.css` | Giao diện gốc của trang chủ. Không sửa. |
 | `site.css` | Header mới, component dùng chung, mọi trang được thêm vào |
 | `game.css` | Bảng màu tối riêng cho khu game |
-| `site.js` | Header, footer, dropdown, drawer, bộ lọc, tìm kiếm |
+| `site.js` | Dropdown, drawer menu, bộ lọc, tìm kiếm |
 | `app.js` | Tương tác riêng của trang chủ |
 | `paywall.js` | Ví Xu và cổng nội dung trả phí |
 | `riddle.js` | Chấm đáp án câu đố và mở gợi ý |
 | `reader.js` | Cỡ chữ và nền khi đọc truyện |
-| `game.js` | Engine giả lập cho bốn màn chơi |
+| `boc-soi.js` | Game Bốc Sỏi: lượt chơi, thoại và nước đi của Hiraku |
+| `doc-suy-nghi.js` | Game Đọc Suy Nghĩ: Hiraku đoán lá bài người chơi nghĩ (ảnh lá bài trong `assets/bai/`) |
+| `con-mat-ngan-nam.js` | Game Con Mắt Ngàn Năm: bảng 100 số kèm ký tự cổ, con mắt đoán ký tự |
+| `share.js` | Nút chia sẻ Facebook và copy link ở cuối các game (ảnh con mắt ở `assets/mat/`) |
+| `shop.css`, `shop.js` | Cửa hàng: thẻ sản phẩm, trang chi tiết dạng khối, khung ảnh trượt (ảnh ở `assets/cua-hang/`) |
+| `auth.js` | Popup đăng nhập / đăng ký (demo, không gửi dữ liệu) |
 
-Header và footer được dựng bằng `site.js` nên không lặp lại markup trên 24
-trang. Trang nằm trong thư mục con đặt `window.HQ_BASE = '../'` trước khi nạp
-script để đường dẫn tài nguyên trỏ đúng.
+Header (menu) và footer viết cứng trong HTML của từng trang, không dùng
+JavaScript để dựng, để link thật nằm sẵn trong mã nguồn cho SEO. Sửa menu thì
+sửa đồng loạt cả 26 file `index.html` (popup đăng nhập/đăng ký cũng
+viết cứng ở cuối mỗi trang); mục đang chọn đánh dấu bằng
+`class="nav-link is-active" aria-current="page"`. `site.js` chỉ gắn hành vi
+mở/đóng dropdown và menu mobile.
 
 Card trong trang danh sách là HTML tĩnh; JavaScript chỉ lọc và ẩn hiện theo
 thuộc tính `data-*`. Tắt JavaScript vẫn đọc được toàn bộ nội dung.

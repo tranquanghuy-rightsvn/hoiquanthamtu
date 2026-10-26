@@ -2,38 +2,35 @@
 (function () {
   'use strict';
 
-  var tabs = document.querySelectorAll('.case-switch button');
-  for (var i = 0; i < tabs.length; i++) {
-    tabs[i].addEventListener('click', function () {
-      var current = document.querySelector('.case-switch .active');
-      if (current) current.classList.remove('active');
-      this.classList.add('active');
-      var want = this.getAttribute('data-level') || 'all';
-      var cards = document.querySelectorAll('.case-grid .case-card');
-      for (var j = 0; j < cards.length; j++) {
-        var level = cards[j].getAttribute('data-level');
-        cards[j].classList.toggle('is-filtered-out', want !== 'all' && level !== want);
+  /* Số liệu hero đếm tăng dần khi lọt vào màn hình; HTML đã có sẵn số cuối. */
+  var counters = document.querySelectorAll('[data-count]');
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function format(n) {
+    return n.toLocaleString('vi-VN');
+  }
+  function run(el) {
+    var target = parseInt(el.getAttribute('data-count'), 10);
+    var suffix = el.getAttribute('data-suffix') || '';
+    var duration = 1600;
+    var start = null;
+    function step(t) {
+      if (start === null) start = t;
+      var p = Math.min(1, (t - start) / duration);
+      var eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = format(Math.round(target * eased)) + suffix;
+      if (p < 1) requestAnimationFrame(step);
+    }
+    el.textContent = format(0) + suffix;
+    requestAnimationFrame(step);
+  }
+  if (counters.length && !reduce && 'IntersectionObserver' in window) {
+    var seen = new IntersectionObserver(function (entries) {
+      for (var i = 0; i < entries.length; i++) {
+        if (!entries[i].isIntersecting) continue;
+        seen.unobserve(entries[i].target);
+        run(entries[i].target);
       }
-    });
-  }
-
-  var reveal = document.getElementById('revealBtn');
-  if (reveal) {
-    reveal.addEventListener('click', function () {
-      document.getElementById('clue').classList.add('show');
-      reveal.textContent = 'Manh mối đã được mở';
-      reveal.disabled = true;
-    });
-  }
-
-  var joinForm = document.getElementById('joinForm');
-  if (joinForm) {
-    joinForm.addEventListener('submit', function (e) {
-      e.preventDefault();
-      var note = document.getElementById('joinOk');
-      note.textContent = 'Đã ghi tên vào sổ hội quán. Hồ sơ đầu tiên sẽ tới hộp thư của bạn.';
-      note.classList.add('show');
-      joinForm.querySelector('input').value = '';
-    });
+    }, { threshold: 0.6 });
+    for (var i = 0; i < counters.length; i++) seen.observe(counters[i]);
   }
 })();
