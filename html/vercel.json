@@ -1,0 +1,6 @@
+{
+  "redirects": [
+    { "source": "/blog-ga", "destination": "/blog/", "permanent": true },
+    { "source": "/blog-ga/:path*", "destination": "/blog/:path*", "permanent": true }
+  ]
+}

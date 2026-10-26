@@ -6,6 +6,24 @@
   <meta name="theme-color" content="#101c2b">
   <meta name="description" content="Đố vui #38: Chiếc áo trong túi. Tại sao lại ko hành động gì vậy nhỉ? Sang khứa gà xanh giải đố nữa nha">
   <title>Chiếc áo trong túi — Hội Quán Thám Tử</title>
+  <!-- seo -->
+  <link rel="canonical" href="https://hoiquanthamtu.com/cau-do/chiec-ao-trong-tui/">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Hội Quán Thám Tử">
+  <meta property="og:locale" content="vi_VN">
+  <meta property="og:title" content="Chiếc áo trong túi">
+  <meta property="og:description" content="Đố vui #38: Chiếc áo trong túi. Tại sao lại ko hành động gì vậy nhỉ? Sang khứa gà xanh giải đố nữa nha">
+  <meta property="og:url" content="https://hoiquanthamtu.com/cau-do/chiec-ao-trong-tui/">
+  <meta property="og:image" content="https://hoiquanthamtu.com/assets/og/cau-do--chiec-ao-trong-tui.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Chiếc áo trong túi">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Chiếc áo trong túi">
+  <meta name="twitter:description" content="Đố vui #38: Chiếc áo trong túi. Tại sao lại ko hành động gì vậy nhỉ? Sang khứa gà xanh giải đố nữa nha">
+  <meta name="twitter:image" content="https://hoiquanthamtu.com/assets/og/cau-do--chiec-ao-trong-tui.jpg">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","headline":"Chiếc áo trong túi","description":"Đố vui #38: Chiếc áo trong túi. Tại sao lại ko hành động gì vậy nhỉ? Sang khứa gà xanh giải đố nữa nha","image":["https://hoiquanthamtu.com/assets/og/cau-do--chiec-ao-trong-tui.jpg"],"url":"https://hoiquanthamtu.com/cau-do/chiec-ao-trong-tui/","mainEntityOfPage":"https://hoiquanthamtu.com/cau-do/chiec-ao-trong-tui/","inLanguage":"vi","author":{"@id":"https://hoiquanthamtu.com/#org"},"publisher":{"@type":"Organization","@id":"https://hoiquanthamtu.com/#org","name":"Hội Quán Thám Tử","url":"https://hoiquanthamtu.com/","logo":"https://hoiquanthamtu.com/assets/logo.jpg","sameAs":["https://www.facebook.com/thamtuvui"]}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Trang chủ","item":"https://hoiquanthamtu.com/"},{"@type":"ListItem","position":2,"name":"Câu đố","item":"https://hoiquanthamtu.com/cau-do/"},{"@type":"ListItem","position":3,"name":"Chiếc áo trong túi","item":"https://hoiquanthamtu.com/cau-do/chiec-ao-trong-tui/"}]}]}</script>
+  <!-- /seo -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Special+Elite&display=swap" rel="stylesheet">
@@ -40,9 +58,10 @@
     </ul></div></div></div></div>
     <a class="nav-link" href="/cua-hang/">Cửa hàng</a>
     <a class="nav-link" href="/video/">Video</a>
-    <a class="nav-link" href="/blog-ga/">Blog của Gà</a>
-    <button class="nav-link nav-login" type="button" data-auth-open="login" aria-haspopup="dialog">Đăng nhập</button>
-    <button class="nav-cta" type="button" data-auth-open="signup" aria-haspopup="dialog">Đăng ký</button>
+    <a class="nav-link" href="/blog/">Blog của Gà</a>
+    <button class="nav-link nav-login" type="button" data-auth-open="login" aria-haspopup="dialog" data-auth-guest>Đăng nhập</button>
+    <button class="nav-cta" type="button" data-auth-open="signup" aria-haspopup="dialog" data-auth-guest>Đăng ký</button>
+    <a class="nav-user" href="/tai-khoan/" hidden data-auth-user><span class="nav-avatar" data-auth-avatar aria-hidden="true"></span><span data-auth-name>Tài khoản</span></a>
     </nav>
   </header>
 
@@ -88,7 +107,7 @@
     <li><a href="/vu-an/">Vụ án</a></li>
     <li><a href="/cau-do/">Câu đố</a></li>
     <li><a href="/game/">Game</a></li>
-    <li><a href="/blog-ga/">Blog của Gà</a></li>
+    <li><a href="/blog/">Blog của Gà</a></li>
     </ul></div><div>
     <h4>Tủ sách</h4>
     <ul>
@@ -109,7 +128,7 @@
   <dialog class="auth-modal" id="auth-login" aria-labelledby="auth-login-title">
     <button class="auth-close" type="button" data-auth-close aria-label="Đóng">&times;</button>
     <h2 id="auth-login-title">ĐĂNG NHẬP</h2>
-    <form class="contact-form auth-form" novalidate data-auth-form data-ok="Đăng nhập thành công. Trên bản thật, bạn sẽ được chuyển về hồ sơ đang đọc." data-err="Hãy nhập email và mật khẩu.">
+    <form class="contact-form auth-form" novalidate data-auth-form="login" data-err="Hãy nhập email và mật khẩu.">
       <div class="full">
         <label for="li-mail">Email</label>
         <input id="li-mail" name="email" type="email" required autocomplete="email" placeholder="dia-chi@email.com">
@@ -127,10 +146,10 @@
   <dialog class="auth-modal" id="auth-signup" aria-labelledby="auth-signup-title">
     <button class="auth-close" type="button" data-auth-close aria-label="Đóng">&times;</button>
     <h2 id="auth-signup-title">ĐĂNG KÝ THÀNH VIÊN</h2>
-    <form class="contact-form auth-form" novalidate data-auth-form data-ok="Đăng ký thành công. Chào mừng bạn gia nhập Hội Quán Thám Tử!" data-err="Hãy điền đủ thông tin, mật khẩu tối thiểu 6 ký tự và nhập lại cho khớp.">
+    <form class="contact-form auth-form" novalidate data-auth-form="signup" data-err="Hãy điền đủ thông tin, mật khẩu tối thiểu 8 ký tự và nhập lại cho khớp.">
       <div class="full">
         <label for="su-name">Tên hiển thị</label>
-        <input id="su-name" name="name" type="text" required autocomplete="nickname" placeholder="Biệt danh thám tử của bạn">
+        <input id="su-name" name="name" type="text" required minlength="2" maxlength="40" autocomplete="nickname" placeholder="Biệt danh thám tử của bạn">
       </div>
       <div class="full">
         <label for="su-mail">Email</label>
@@ -138,11 +157,11 @@
       </div>
       <div>
         <label for="su-pass">Mật khẩu</label>
-        <input id="su-pass" name="password" type="password" required minlength="6" autocomplete="new-password" placeholder="Tối thiểu 6 ký tự">
+        <input id="su-pass" name="password" type="password" required minlength="8" autocomplete="new-password" placeholder="Tối thiểu 8 ký tự">
       </div>
       <div>
         <label for="su-pass2">Nhập lại mật khẩu</label>
-        <input id="su-pass2" name="password2" type="password" required minlength="6" autocomplete="new-password" data-match="su-pass" placeholder="Nhập lại mật khẩu">
+        <input id="su-pass2" name="password2" type="password" required minlength="8" autocomplete="new-password" data-match="su-pass" placeholder="Nhập lại mật khẩu">
       </div>
       <p class="form-ok" role="status" data-auth-note></p>
       <button type="submit">Đăng ký thành viên</button>

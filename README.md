@@ -26,7 +26,7 @@ html/
 ├── truyen-ngan/               Tab Tất cả / Miễn phí / Trả phí
 ├── truyen-dai/                Tab Tất cả / Miễn phí / Trả phí
 ├── truyen/                    Nội dung truyện, gồm mục lục và từng chương
-├── blog-ga/                   Nhật ký của Gà, đọc trọn trong danh sách
+├── blog/                   Nhật ký của Gà, đọc trọn trong danh sách
 ├── ve-chung-toi/
 ├── cua-hang/                  Cửa hàng (sắp mở)
 ├── video/                     Video (sắp ra mắt)
@@ -67,3 +67,20 @@ thuộc tính `data-*`. Tắt JavaScript vẫn đọc được toàn bộ nội 
 Ví Xu, việc mở khoá chương trả phí, biểu mẫu liên hệ và bốn màn game đều là
 bản mô phỏng. Không có giao dịch thật và không có dữ liệu nào rời khỏi trình
 duyệt — tất cả lưu trong `localStorage`.
+
+## SEO
+
+- Mỗi trang có khối `<!-- seo --> … <!-- /seo -->` trong `<head>`: canonical, Open Graph, Twitter card, JSON-LD (website, bài viết, sản phẩm, breadcrumb). Tên miền chính: `https://hoiquanthamtu.com`.
+- Ảnh chia sẻ 1200×630 cho từng trang ở `assets/og/` (tên file = đường dẫn trang, `/` đổi thành `--`; trang chủ là `trang-chu.jpg`).
+- `sitemap.xml`, `robots.txt` ở gốc `html/`. Trang Truyện dài và Video đang trống nên chưa đưa vào sitemap.
+- `404.html` là trang báo không tìm thấy (noindex).
+- Đường dẫn cũ `/blog-ga/…` chuyển 301 sang `/blog/…` (khai ở `vercel.json` và `_redirects`).
+- Thêm trang mới: nhớ thêm khối SEO, ảnh OG và một dòng trong `sitemap.xml`.
+
+## Tài khoản (đăng ký, đăng nhập, trang cá nhân)
+
+- Giao diện: popup đăng nhập/đăng ký có sẵn trên mọi trang, `assets/auth.js` gọi API và bật/tắt nút tài khoản trên header; trang cá nhân `/tai-khoan/` (`assets/account.js`).
+- API: Cloudflare Worker trong thư mục `api/` (`api/src/index.js`), dữ liệu ở D1 (`api/migrations/`). Chỉ chạy ở `hoiquanthamtu.com/api/*`; trên bản `*.vercel.app` không có API.
+- Mật khẩu băm PBKDF2-SHA256 có salt; phiên đăng nhập là cookie HttpOnly, D1 chỉ lưu SHA-256 của token; sai mật khẩu 8 lần trong 15 phút thì bị chặn tạm.
+- Chạy thử trên máy: `cd api && npm install && npm run migrate:local && npm run dev`, mở `http://127.0.0.1:8787`.
+- Deploy: đăng nhập wrangler bằng tài khoản Cloudflare đang giữ tên miền, rồi `npm run deploy` và `npm run migrate:remote` trong `api/`.

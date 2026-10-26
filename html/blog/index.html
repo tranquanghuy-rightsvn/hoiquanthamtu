@@ -4,8 +4,26 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#101c2b">
-  <meta name="description" content="Nhật ký điều tra của Gà — những ghi chép không có trong hồ sơ chính thức.">
+  <meta name="description" content="Blog của Gà: truyện ngắn, suy nghĩ vẩn vơ và những giả thuyết Gà viết ngoài giờ phá án.">
   <title>Blog của Gà — Hội Quán Thám Tử</title>
+  <!-- seo -->
+  <link rel="canonical" href="https://hoiquanthamtu.com/blog/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Hội Quán Thám Tử">
+  <meta property="og:locale" content="vi_VN">
+  <meta property="og:title" content="Blog của Gà">
+  <meta property="og:description" content="Blog của Gà: truyện ngắn, suy nghĩ vẩn vơ và những giả thuyết Gà viết ngoài giờ phá án.">
+  <meta property="og:url" content="https://hoiquanthamtu.com/blog/">
+  <meta property="og:image" content="https://hoiquanthamtu.com/assets/og/blog.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Blog của Gà">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Blog của Gà">
+  <meta name="twitter:description" content="Blog của Gà: truyện ngắn, suy nghĩ vẩn vơ và những giả thuyết Gà viết ngoài giờ phá án.">
+  <meta name="twitter:image" content="https://hoiquanthamtu.com/assets/og/blog.jpg">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Trang chủ","item":"https://hoiquanthamtu.com/"},{"@type":"ListItem","position":2,"name":"Blog của Gà","item":"https://hoiquanthamtu.com/blog/"}]}]}</script>
+  <!-- /seo -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Special+Elite&display=swap" rel="stylesheet">
@@ -39,9 +57,10 @@
     </ul></div></div></div></div>
     <a class="nav-link" href="/cua-hang/">Cửa hàng</a>
     <a class="nav-link" href="/video/">Video</a>
-    <a class="nav-link is-active" href="/blog-ga/" aria-current="page">Blog của Gà</a>
-    <button class="nav-link nav-login" type="button" data-auth-open="login" aria-haspopup="dialog">Đăng nhập</button>
-    <button class="nav-cta" type="button" data-auth-open="signup" aria-haspopup="dialog">Đăng ký</button>
+    <a class="nav-link is-active" href="/blog/" aria-current="page">Blog của Gà</a>
+    <button class="nav-link nav-login" type="button" data-auth-open="login" aria-haspopup="dialog" data-auth-guest>Đăng nhập</button>
+    <button class="nav-cta" type="button" data-auth-open="signup" aria-haspopup="dialog" data-auth-guest>Đăng ký</button>
+    <a class="nav-user" href="/tai-khoan/" hidden data-auth-user><span class="nav-avatar" data-auth-avatar aria-hidden="true"></span><span data-auth-name>Tài khoản</span></a>
     </nav>
   </header>
 
@@ -49,8 +68,8 @@
     <section class="page-hero">
       <nav class="breadcrumb" aria-label="Đường dẫn"><a href="/">Trang chủ</a><span>/</span><b>Blog của Gà</b></nav>
       <h1>BLOG CỦA GÀ</h1>
-      <p class="lede">Đây không phải hồ sơ chính thức. Đây là cuốn sổ Gà viết sau mỗi vụ án, thường là vào buổi tối, thường là khi vẫn còn hơi bực mình. Hiraku chưa từng đọc — theo lời Gà.</p>
-      <div class="hero-meta"><span><b>8</b> trang nhật ký</span><span><b>0</b> lần Hiraku đọc</span><span><b>1</b> chiếc kính đã vỡ</span></div>
+      <p class="lede">Những thứ Gà viết ngoài giờ phá án: truyện ngắn, suy nghĩ vẩn vơ, và cả những giả thuyết hơi xa. Hiraku chưa từng đọc, theo lời Gà.</p>
+      <div class="hero-meta"><span><b>2</b> bài viết</span><span><b>1</b> tác giả</span></div>
       <span class="watermark" aria-hidden="true">DIARY</span>
     </section>
     <div class="page-main">
@@ -60,73 +79,29 @@
              data-filter-empty="#journalEmpty" data-filter-count="#journalCount">
           <button type="button" role="tab" class="active" aria-selected="true" data-filter="all">Tất cả</button>
           <button type="button" role="tab" aria-selected="false" data-filter="t10">Tháng 10</button>
-          <button type="button" role="tab" aria-selected="false" data-filter="t9">Tháng 9</button>
-          <button type="button" role="tab" aria-selected="false" data-filter="t8">Tháng 8</button>
         </div>
         <div class="search-box"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m16 16 5 5"/></svg>
           <input type="search" placeholder="Tìm trong nhật ký…" aria-label="Tìm trong nhật ký"
                  data-search="#journal" data-search-empty="#journalEmpty">
         </div>
       </div>
-      <p class="result-count">Đang hiện <b id="journalCount">8</b> trang nhật ký</p>
+      <p class="result-count">Đang hiện <b id="journalCount">2</b> bài viết</p>
       <div class="journal" id="journal">
         <article class="entry" data-month="t10" data-reveal>
           <span class="tape"></span>
           <p class="date">NGÀY 26 THÁNG 10</p>
-          <h3><a href="/blog-ga/ly-thuyet-khong-gian-4-chieu/">Lý thuyết không gian 4 chiều</a></h3>
+          <h3><a href="/blog/ly-thuyet-khong-gian-4-chieu/">Lý thuyết không gian 4 chiều</a></h3>
           <div class="body"><p>Năm 2115, các nhà khoa học xây một vũ trụ ảo bên trong một siêu máy tính để “thu hoạch” phát minh từ các nền văn minh trong đó. Rồi vũ trụ ảo ấy lại tạo ra vũ trụ ảo của riêng nó.</p><p>Vậy làm sao chúng ta biết mình không phải là một tầng trong chuỗi đó?</p></div>
-          <a class="entry-more" href="/blog-ga/ly-thuyet-khong-gian-4-chieu/">Đọc tiếp <span>&rarr;</span></a>
+          <a class="entry-more" href="/blog/ly-thuyet-khong-gian-4-chieu/">Đọc tiếp <span>&rarr;</span></a>
           <span class="mood">Tâm trạng: nghĩ hơi xa</span>
         </article>
         <article class="entry" data-month="t10" data-reveal data-delay="1">
           <span class="tape"></span>
           <p class="date">NGÀY 26 THÁNG 10</p>
-          <h3><a href="/blog-ga/bi-mat-cua-nguoi-ban/">Bí mật của người bạn</a></h3>
+          <h3><a href="/blog/bi-mat-cua-nguoi-ban/">Bí mật của người bạn</a></h3>
           <div class="body"><p>Khanh và tôi lớn lên cạnh nhau, thân như anh em. Cậu ta thông minh đến kỳ lạ, may mắn đến khó tin, và lúc nào cũng đi trước tôi cả trăm thước.</p><p>Phải đến một bữa nhậu ngày mưa, sau 30 năm, cậu ta mới chịu kể bí mật của mình.</p></div>
-          <a class="entry-more" href="/blog-ga/bi-mat-cua-nguoi-ban/">Đọc tiếp <span>&rarr;</span></a>
+          <a class="entry-more" href="/blog/bi-mat-cua-nguoi-ban/">Đọc tiếp <span>&rarr;</span></a>
           <span class="mood">Tâm trạng: vẫn chưa hết sốc</span>
-        </article>
-        <article class="entry" data-month="t9" data-reveal>
-          <span class="tape"></span>
-          <p class="date">NGÀY 14 THÁNG 9</p>
-          <h3>Hôm nay tôi lại làm rơi kính</h3>
-          <div class="body"><figure class="polaroid"><img src="/assets/ga.png" alt="Chiếc kính sống sót" loading="lazy"><figcaption>Chiếc kính sống sót</figcaption></figure><p>Chuyện là thế này. Tôi cúi xuống nhặt một mẩu giấy dưới gầm bàn hiện trường, kính rơi ra, và khi sờ soạng tìm lại thì tay tôi chạm phải một thứ lạnh ngắt dán dưới mặt bàn.</p><p>Hiraku nói đó là chìa khoá dự phòng. Anh ấy nói bằng cái giọng bình thản như thể ai cũng biết. Nhưng tôi biết chắc là anh ấy chưa nhìn xuống gầm bàn lần nào trong suốt hai tiếng trước đó.</p><p>Tôi có ghi lại chuyện này vào sổ tay. Ở mục "những lần cận thị có ích".</p></div>
-          <span class="mood">Tâm trạng: hơi tự hào</span>
-        </article>
-        <article class="entry" data-month="t9" data-reveal data-delay="1">
-          <span class="tape"></span>
-          <p class="date">NGÀY 9 THÁNG 9</p>
-          <h3>Về việc Hiraku không bao giờ hỏi "tại sao"</h3>
-          <div class="body"><p>Tôi để ý một chuyện. Khi nghe lời khai, Hiraku không bao giờ hỏi "tại sao anh làm thế". Anh ấy chỉ hỏi "lúc đó tay anh đang cầm gì".</p><p>Tôi hỏi vì sao. Anh ấy nói: người ta có thể bịa ra một lý do trong nửa giây, nhưng để bịa ra một chi tiết thì phải dựng cả một khung cảnh — và khung cảnh bịa thì bao giờ cũng thiếu một thứ.</p><p>Tôi đã thử áp dụng với bà bán bún đầu ngõ. Bà ấy bảo tôi hôm nay hỏi nhiều quá và tính thêm tiền rau.</p></div>
-          <span class="mood">Tâm trạng: đang học nghề</span>
-        </article>
-        <article class="entry" data-month="t9" data-reveal>
-          <span class="tape"></span>
-          <p class="date">NGÀY 2 THÁNG 9</p>
-          <h3>Ghi chú về việc uống cà phê trong lúc điều tra</h3>
-          <div class="body"><p>Đừng. Đặc biệt là đừng đặt cốc xuống bàn hiện trường. Tôi đã học được bài học này theo cách tốn kém nhất, và bây giờ trong hồ sơ 029 có vĩnh viễn một vòng tròn nâu mà không ai giải thích được.</p><p>Hiraku đã khoanh tròn nó bằng bút đỏ và viết bên cạnh: "manh mối do nội bộ tạo ra". Anh ấy không nói thêm gì nữa suốt buổi chiều, mà im lặng của anh ấy thì nặng hơn mắng.</p></div>
-          <span class="mood">Tâm trạng: xin lỗi</span>
-        </article>
-        <article class="entry" data-month="t8" data-reveal data-delay="1">
-          <span class="tape"></span>
-          <p class="date">NGÀY 26 THÁNG 8</p>
-          <h3>Tôi đã thua một đứa trẻ tám tuổi</h3>
-          <div class="body"><figure class="polaroid"><img src="/assets/hiraku.png" alt="Hiraku cười suốt buổi" loading="lazy"><figcaption>Hiraku cười suốt buổi</figcaption></figure><p>Hội quán có tổ chức buổi giải đố cho các bạn nhỏ. Tôi được phân công ra đề. Tôi ra một câu mà tôi nghĩ là khá hóc: ba chiếc hộp, cả ba nhãn đều sai.</p><p>Một bạn nhỏ giơ tay sau bốn mươi giây. Bạn ấy giải thích ngắn gọn, đúng, và còn hỏi tôi có câu nào khó hơn không.</p><p>Tôi nói là hết giờ rồi. Thực ra là chưa hết giờ.</p></div>
-          <span class="mood">Tâm trạng: khiêm tốn hơn trước</span>
-        </article>
-        <article class="entry" data-month="t8" data-reveal>
-          <span class="tape"></span>
-          <p class="date">NGÀY 17 THÁNG 8</p>
-          <h3>Danh sách những thứ tôi từng tưởng là manh mối</h3>
-          <div class="body"><p>Một sợi tóc trên ghế sofa — của chính tôi. Một vết bùn ngoài hiên — của chính tôi. Một tờ hoá đơn nhàu nát trong thùng rác — tôi vứt sáng hôm đó.</p><p>Hiraku bảo đây vẫn là tiến bộ, vì ít nhất tôi đã nhìn thấy chúng. Phần lớn mọi người còn không nhìn thấy gì cả.</p><p>Tôi nghĩ đó là một lời an ủi. Với Hiraku thì khó nói lắm.</p></div>
-          <span class="mood">Tâm trạng: tạm ổn</span>
-        </article>
-        <article class="entry" data-month="t8" data-reveal data-delay="1">
-          <span class="tape"></span>
-          <p class="date">NGÀY 5 THÁNG 8</p>
-          <h3>Ngày đầu tiên tôi được giao hồ sơ riêng</h3>
-          <div class="body"><p>Hồ sơ 026. Một người đàn ông khai sai ngày sinh của mình ba lần, ba ngày khác nhau, và cả ba lần đều không nói dối.</p><p>Tôi đã đọc lại lời khai mười bảy lần. Đến lần thứ mười tám thì tôi hiểu ra, và cảm giác đó — tôi không biết tả thế nào — giống như khi mắt vừa quen với bóng tối trong phòng.</p><p>Tôi chưa kể cho Hiraku. Tôi muốn giữ riêng cảm giác đó thêm một hôm nữa.</p></div>
-          <span class="mood">Tâm trạng: lần đầu thấy mình giống thám tử</span>
         </article>
       </div>
       <div class="empty-state" id="journalEmpty" hidden>
@@ -147,7 +122,7 @@
     <li><a href="/vu-an/">Vụ án</a></li>
     <li><a href="/cau-do/">Câu đố</a></li>
     <li><a href="/game/">Game</a></li>
-    <li><a href="/blog-ga/">Blog của Gà</a></li>
+    <li><a href="/blog/">Blog của Gà</a></li>
     </ul></div><div>
     <h4>Tủ sách</h4>
     <ul>
@@ -168,7 +143,7 @@
   <dialog class="auth-modal" id="auth-login" aria-labelledby="auth-login-title">
     <button class="auth-close" type="button" data-auth-close aria-label="Đóng">&times;</button>
     <h2 id="auth-login-title">ĐĂNG NHẬP</h2>
-    <form class="contact-form auth-form" novalidate data-auth-form data-ok="Đăng nhập thành công. Trên bản thật, bạn sẽ được chuyển về hồ sơ đang đọc." data-err="Hãy nhập email và mật khẩu.">
+    <form class="contact-form auth-form" novalidate data-auth-form="login" data-err="Hãy nhập email và mật khẩu.">
       <div class="full">
         <label for="li-mail">Email</label>
         <input id="li-mail" name="email" type="email" required autocomplete="email" placeholder="dia-chi@email.com">
@@ -186,10 +161,10 @@
   <dialog class="auth-modal" id="auth-signup" aria-labelledby="auth-signup-title">
     <button class="auth-close" type="button" data-auth-close aria-label="Đóng">&times;</button>
     <h2 id="auth-signup-title">ĐĂNG KÝ THÀNH VIÊN</h2>
-    <form class="contact-form auth-form" novalidate data-auth-form data-ok="Đăng ký thành công. Chào mừng bạn gia nhập Hội Quán Thám Tử!" data-err="Hãy điền đủ thông tin, mật khẩu tối thiểu 6 ký tự và nhập lại cho khớp.">
+    <form class="contact-form auth-form" novalidate data-auth-form="signup" data-err="Hãy điền đủ thông tin, mật khẩu tối thiểu 8 ký tự và nhập lại cho khớp.">
       <div class="full">
         <label for="su-name">Tên hiển thị</label>
-        <input id="su-name" name="name" type="text" required autocomplete="nickname" placeholder="Biệt danh thám tử của bạn">
+        <input id="su-name" name="name" type="text" required minlength="2" maxlength="40" autocomplete="nickname" placeholder="Biệt danh thám tử của bạn">
       </div>
       <div class="full">
         <label for="su-mail">Email</label>
@@ -197,11 +172,11 @@
       </div>
       <div>
         <label for="su-pass">Mật khẩu</label>
-        <input id="su-pass" name="password" type="password" required minlength="6" autocomplete="new-password" placeholder="Tối thiểu 6 ký tự">
+        <input id="su-pass" name="password" type="password" required minlength="8" autocomplete="new-password" placeholder="Tối thiểu 8 ký tự">
       </div>
       <div>
         <label for="su-pass2">Nhập lại mật khẩu</label>
-        <input id="su-pass2" name="password2" type="password" required minlength="6" autocomplete="new-password" data-match="su-pass" placeholder="Nhập lại mật khẩu">
+        <input id="su-pass2" name="password2" type="password" required minlength="8" autocomplete="new-password" data-match="su-pass" placeholder="Nhập lại mật khẩu">
       </div>
       <p class="form-ok" role="status" data-auth-note></p>
       <button type="submit">Đăng ký thành viên</button>

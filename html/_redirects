@@ -1,0 +1,2 @@
+/blog-ga /blog/ 301
+/blog-ga/* /blog/:splat 301

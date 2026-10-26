@@ -1,0 +1,19 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "hoiquanthamtu-api",
+  "main": "src/index.js",
+  "compatibility_date": "2026-10-01",
+  // Chỉ nhận các request /api/* trên tên miền chính; phần còn lại của site vẫn là trang tĩnh.
+  "routes": [
+    { "pattern": "hoiquanthamtu.com/api/*", "zone_name": "hoiquanthamtu.com" }
+  ],
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "hoiquanthamtu",
+      "database_id": "498f3069-70b0-44a1-ad35-eeb5ce968317",
+      "migrations_dir": "./migrations"
+    }
+  ],
+  "observability": { "enabled": true }
+}
