@@ -15,6 +15,7 @@
     badge: $('[data-step-badge]'),
     stepTitle: $('[data-step-title]'),
     stepText: $('[data-step-text]'),
+    stepBtn: $('[data-panel="step"] [data-next]'),
     board: $('.cm-board'),
     read: $('.cm-read'),
     readTitle: $('[data-read-title]'),
@@ -23,6 +24,7 @@
     answer: $('[data-answer]'),
     readStart: $('[data-read-start]'),
     again: $('[data-again]'),
+    count: $('[data-count]'),
     share: $('[data-share]')
   };
 
@@ -30,10 +32,15 @@
      cánh tay, bàn chân, nước, ngôi nhà, rắn lục. */
   var GLYPHS = ['𓆣', '𓅓', '𓆓', '𓋹', '𓊽', '𓇳', '𓃭', '𓅃', '𓆛', '𓇋', '𓂝', '𓃀', '𓈖', '𓉐', '𓆑'];
 
+  /* Thời gian được nhìn bảng số trước khi con mắt tự chuyển sang bước đọc. */
+  var MEMORIZE = 10;
+
   var STEPS = [
     { title: 'Nghĩ một số có 2 chữ số bất kỳ', text: 'Ví dụ 47. Đừng nói ra, cũng đừng viết ra.' },
     { title: 'Lấy số đó trừ đi chữ số đầu tiên', text: 'Ví dụ nghĩ 47 thì lấy 47 − 4. Nhẩm trong đầu thôi, đừng viết ra.' },
-    { title: 'Lấy kết quả trừ tiếp chữ số phía sau', text: 'Với ví dụ 47 thì trừ tiếp đi 7. Nhớ kỹ kết quả cuối cùng.' }
+    { title: 'Lấy kết quả trừ tiếp chữ số phía sau', text: 'Với ví dụ 47 thì trừ tiếp đi 7. Nhớ kỹ kết quả cuối cùng.' },
+    { badge: MEMORIZE + 's', title: 'Chuẩn bị ghi nhớ', btn: 'Tôi đã sẵn sàng',
+      text: 'Bảng số sẽ hiện ra trong ' + MEMORIZE + ' giây. Tìm kết quả của bạn và ghi nhớ thật kỹ ký tự đi kèm. Hết giờ, bảng sẽ biến mất.' }
   ];
 
   /* Mỗi câu khi con mắt quét hiện trong 2,4 giây, cả lượt quét khoảng 7 giây. */
@@ -50,6 +57,7 @@
     step0: ['Số nào cũng được, miễn là có 2 chữ số.', 'Nghĩ xong chưa? Đừng nói cho tôi biết đấy.', 'Con mắt bắt đầu mở to rồi kìa…'],
     step1: ['Nhẩm thôi nhé, đừng viết ra giấy.', 'Bình tĩnh mà trừ, không ai chấm điểm đâu.', 'Con mắt đang nhìn bạn tính nhẩm đấy.'],
     step2: ['Trừ tiếp chữ số còn lại nhé.', 'Nhớ kỹ kết quả cuối cùng, đừng để lẫn.', 'Xong phép trừ là tới phần hay rồi.'],
+    step3: ['Chỉ có 10 giây thôi đấy, tập trung nhé.', 'Sẵn sàng chưa? Bảng số không chờ ai đâu.', 'Hít một hơi thật sâu rồi hẵng bấm.'],
     board: ['Tìm số của bạn trong bảng, nhớ ký tự đi kèm.', 'Ký tự cổ Ai Cập đấy. Chọn đúng con số của bạn nhé.', 'Nhớ hình dáng ký tự thôi, không cần biết nó tên gì.', 'Tôi quay mặt đi rồi, cứ tìm thoải mái.'],
     ready: ['Giờ nhìn thẳng vào con mắt. Không được chớp đâu đấy.', 'Đừng ngừng nghĩ về ký tự đó nhé.'],
     reading: ['Đừng chớp mắt…', 'Tiếp tục nghĩ… con mắt đang thấy nó rồi.', 'Suỵt… nó đang đọc.', 'Đừng nghĩ sang ký tự khác nhé, nó dễ bị nhiễu lắm.'],
@@ -200,7 +208,9 @@
 
   function showStep() {
     var s = STEPS[state.step];
-    els.badge.textContent = state.step + 1;
+    els.badge.textContent = s.badge || state.step + 1;
+    els.stepBtn.textContent = s.btn || 'OK';
+    els.badge.classList.toggle('is-timer', !!s.badge);
     els.stepTitle.textContent = s.title;
     els.stepText.textContent = s.text;
     show('step');
@@ -246,6 +256,22 @@
     say(line('found'));
   }
 
+  /* Đếm ngược 10 giây trên bảng số; mỗi giây con số nhảy lên một nhịp, hết giờ thì sang bước đọc. */
+  function countdown() {
+    clearTimers();
+    for (var s = 0; s <= MEMORIZE; s++) {
+      (function (left) {
+        state.timers.push(setTimeout(function () {
+          if (left === 0) return showRead();
+          els.count.textContent = left;
+          els.count.classList.remove('is-tick');
+          void els.count.offsetWidth;
+          els.count.classList.add('is-tick');
+        }, (MEMORIZE - left) * 1000));
+      })(MEMORIZE - s);
+    }
+  }
+
   function next() {
     var current = '';
     for (var i = 0; i < els.panels.length; i++) {
@@ -261,8 +287,7 @@
       buildBoard();
       show('board');
       say(line('board'));
-    } else if (current === 'board') {
-      showRead();
+      countdown();
     }
   }
 

@@ -662,6 +662,8 @@
   font: clamp(40px, 5.6vw, 76px)/.98 "Special Elite", serif;
   letter-spacing: -1.6px;
   margin: 18px 0 0;
+  /* chừa chỗ cho dấu tiếng Việt trên chữ hoa (Ử, Ẩ…) khỏi đè lên breadcrumb */
+  padding-top: .2em;
   max-width: 16ch;
 }
 
