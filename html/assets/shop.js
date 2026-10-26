@@ -39,3 +39,22 @@
     if (e.key === 'ArrowRight') go(current + 1);
   });
 })();
+
+/* Nút "Mua hàng": link đặt hàng nằm trong JS, không viết vào HTML. */
+(function () {
+  'use strict';
+
+  var LINKS = {
+    deception: 'https://shopee.vn/-Ti%E1%BA%BFng-Vi%E1%BB%87t-Boardgame-Deception-%C3%81n-M%E1%BA%A1ng-%E1%BB%9E-Hong-Kong-Tr%C3%B2-Ch%C6%A1i-Trinh-Th%C3%A1m-%E1%BA%A8n-Vai-Suy-Lu%E1%BA%ADn-C%E1%BB%B1c-Cu%E1%BB%91n-i.225627854.43430096496'
+  };
+
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest('[data-buy]');
+    if (!btn) return;
+    var url = LINKS[btn.getAttribute('data-buy')];
+    if (!url) return;
+    var win = window.open(url, '_blank');
+    if (win) win.opener = null;
+    else location.href = url;
+  });
+})();
