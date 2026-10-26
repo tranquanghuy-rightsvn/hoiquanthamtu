@@ -73,6 +73,10 @@
       <span class="watermark" aria-hidden="true">LONG</span>
     </section>
     <div class="page-main">
+      <div class="story-cta">
+        <p><b>Bạn cũng viết truyện trinh thám?</b> Gửi cho Hội Quán, truyện hay sẽ được đăng lên đây.</p>
+        <button class="primary-btn story-submit" type="button" data-auth-open="story" aria-haspopup="dialog">Đăng truyện trinh thám của bạn <span>&#9998;</span></button>
+      </div>
       <div class="toolbar">
         <div class="filter-bar" role="tablist" aria-label="Lọc theo hình thức đọc"
              data-filter-bar="access" data-filter-target="#storyGrid"
@@ -167,6 +171,35 @@
       <p class="form-ok" role="status" data-auth-note></p>
       <button type="submit">Đăng ký thành viên</button>
       <p class="auth-switch full">Đã có tài khoản? <button type="button" data-auth-open="login">Đăng nhập</button></p>
+    </form>
+  </dialog>
+  <dialog class="auth-modal" id="auth-story" aria-labelledby="auth-story-title">
+    <button class="auth-close" type="button" data-auth-close aria-label="Đóng">&times;</button>
+    <h2 id="auth-story-title">ĐĂNG TRUYỆN CỦA BẠN</h2>
+    <form class="contact-form auth-form" novalidate data-auth-form="demo" data-ok="Đã nhận truyện của bạn. Ban biên tập sẽ đọc qua link Google Docs và phản hồi trong vòng bảy ngày. Nhớ giữ link ở chế độ công khai nhé." data-err="Hãy điền đủ tên truyện, bút danh, email và dán link Google Docs của truyện (bắt đầu bằng https://docs.google.com/document/).">
+      <div class="full">
+        <label for="st-title">Tên truyện</label>
+        <input id="st-title" name="title" type="text" required placeholder="Ví dụ: Vết mực trên tay áo">
+      </div>
+      <div>
+        <label for="st-type">Thể loại</label>
+        <select id="st-type" name="type"><option>Truyện ngắn</option><option selected>Truyện dài</option></select>
+      </div>
+      <div>
+        <label for="st-author">Bút danh</label>
+        <input id="st-author" name="author" type="text" required placeholder="Tên hiển thị khi đăng">
+      </div>
+      <div class="full">
+        <label for="st-mail">Email</label>
+        <input id="st-mail" name="email" type="email" required autocomplete="email" placeholder="dia-chi@email.com">
+      </div>
+      <div class="full">
+        <label for="st-doc">Link Google Docs của truyện</label>
+        <input id="st-doc" name="doc" type="url" required pattern="https://docs\.google\.com/document/.+" placeholder="https://docs.google.com/document/d/...">
+        <p class="story-doc-note">Trong Google Docs, bấm <b>Chia sẻ</b> → mục <b>Quyền truy cập chung</b> chọn <b>“Bất kỳ ai có đường liên kết”</b> (vai trò <b>Người xem</b>) để ban biên tập đọc và duyệt được truyện của bạn.</p>
+      </div>
+      <p class="form-ok" role="status" data-auth-note></p>
+      <button type="submit">Gửi truyện</button>
     </form>
   </dialog>
   <script src="/assets/auth.js"></script>

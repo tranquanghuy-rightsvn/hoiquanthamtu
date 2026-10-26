@@ -314,7 +314,7 @@
   <dialog class="auth-modal" id="auth-story" aria-labelledby="auth-story-title">
     <button class="auth-close" type="button" data-auth-close aria-label="Đóng">&times;</button>
     <h2 id="auth-story-title">ĐĂNG TRUYỆN CỦA BẠN</h2>
-    <form class="contact-form auth-form" novalidate data-auth-form="demo" data-ok="Đã nhận truyện của bạn. Trên bản thật, ban biên tập sẽ đọc và phản hồi trong vòng bảy ngày." data-err="Hãy điền đủ tên truyện, bút danh, email và nội dung.">
+    <form class="contact-form auth-form" novalidate data-auth-form="demo" data-ok="Đã nhận truyện của bạn. Ban biên tập sẽ đọc qua link Google Docs và phản hồi trong vòng bảy ngày. Nhớ giữ link ở chế độ công khai nhé." data-err="Hãy điền đủ tên truyện, bút danh, email và dán link Google Docs của truyện (bắt đầu bằng https://docs.google.com/document/).">
       <div class="full">
         <label for="st-title">Tên truyện</label>
         <input id="st-title" name="title" type="text" required placeholder="Ví dụ: Vết mực trên tay áo">
@@ -332,8 +332,9 @@
         <input id="st-mail" name="email" type="email" required autocomplete="email" placeholder="dia-chi@email.com">
       </div>
       <div class="full">
-        <label for="st-body">Nội dung truyện</label>
-        <textarea id="st-body" name="body" rows="6" required placeholder="Dán nội dung hoặc tóm tắt truyện. Nhớ để mọi manh mối cần thiết xuất hiện trước đoạn giải đáp."></textarea>
+        <label for="st-doc">Link Google Docs của truyện</label>
+        <input id="st-doc" name="doc" type="url" required pattern="https://docs\.google\.com/document/.+" placeholder="https://docs.google.com/document/d/...">
+        <p class="story-doc-note">Trong Google Docs, bấm <b>Chia sẻ</b> → mục <b>Quyền truy cập chung</b> chọn <b>“Bất kỳ ai có đường liên kết”</b> (vai trò <b>Người xem</b>) để ban biên tập đọc và duyệt được truyện của bạn.</p>
       </div>
       <p class="form-ok" role="status" data-auth-note></p>
       <button type="submit">Gửi truyện</button>
