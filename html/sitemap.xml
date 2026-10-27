@@ -251,6 +251,11 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://hoiquanthamtu.com/cua-hang/boardgame/</loc>
+    <lastmod>2026-10-26</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://hoiquanthamtu.com/cua-hang/crazy-sherlock/</loc>
     <lastmod>2026-10-26</lastmod>
     <priority>0.6</priority>
@@ -267,6 +272,16 @@
   </url>
   <url>
     <loc>https://hoiquanthamtu.com/cua-hang/mysterium/</loc>
+    <lastmod>2026-10-26</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://hoiquanthamtu.com/cua-hang/phu-kien-trinh-tham/</loc>
+    <lastmod>2026-10-26</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://hoiquanthamtu.com/cua-hang/sach/</loc>
     <lastmod>2026-10-26</lastmod>
     <priority>0.6</priority>
   </url>

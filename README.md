@@ -84,3 +84,8 @@ duyệt — tất cả lưu trong `localStorage`.
 - Mật khẩu băm PBKDF2-SHA256 có salt; phiên đăng nhập là cookie HttpOnly, D1 chỉ lưu SHA-256 của token; sai mật khẩu 8 lần trong 15 phút thì bị chặn tạm.
 - Chạy thử trên máy: `cd api && npm install && npm run migrate:local && npm run dev`, mở `http://127.0.0.1:8787`.
 - Deploy: đăng nhập wrangler bằng tài khoản Cloudflare đang giữ tên miền, rồi `npm run deploy` và `npm run migrate:remote` trong `api/`.
+
+## Cửa hàng
+
+- 3 quầy: `/cua-hang/boardgame/`, `/cua-hang/sach/`, `/cua-hang/phu-kien-trinh-tham/`. Trang `/cua-hang/` hiện tối đa 6 sản phẩm nổi bật mỗi quầy; quầy chưa có hàng hiện "Sắp có sản phẩm".
+- Sản phẩm vẫn ở `/cua-hang/<tên-sản-phẩm>/` (breadcrumb có thêm cấp quầy). Thêm sản phẩm mới: tạo trang sản phẩm, chép thẻ `.shop-card` vào quầy tương ứng ở `/cua-hang/` và trang quầy, thêm link mua vào `LINKS` trong `assets/shop.js`, cập nhật số sản phẩm trong menu dropdown "Cửa hàng".
