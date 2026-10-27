@@ -1530,3 +1530,77 @@
 .cm-board-wrap .cm-board { margin-bottom: 0; position: relative; z-index: 1; }
 .cm-board-wrap h2, .cm-board-wrap .cm-board-note { position: relative; z-index: 1; }
 .cm-step-num.is-timer { font-size: 22px; background: rgba(231, 183, 75, .12); animation: pb-pop .5s ease; }
+
+/* Game đang khoá (sẽ mở vào dịp đặc biệt) */
+.game-card.is-locked { cursor: default; }
+.game-card.is-locked:hover { transform: none; box-shadow: none; border-color: rgba(244, 239, 227, .14); }
+
+.locked-cover {
+  background: radial-gradient(circle at 50% 45%, rgba(231, 183, 75, .1), transparent 62%), #0a1119;
+}
+
+.locked-art {
+  width: 34%;
+  fill: none;
+  stroke: rgba(244, 239, 227, .28);
+  stroke-width: 1.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.lock-badge {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  margin: -32px 0 0 -32px;
+  border-radius: 50%;
+  background: rgba(11, 20, 32, .85);
+  border: 2px solid var(--gold);
+  box-shadow: 0 0 24px rgba(231, 183, 75, .35);
+}
+
+.lock-icon {
+  width: 28px;
+  fill: none;
+  stroke: var(--gold);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.game-card.is-locked .game-tag { background: rgba(231, 183, 75, .14); color: var(--gold); border-color: rgba(231, 183, 75, .5); }
+.game-card.is-locked .game-body h3 { color: rgba(244, 239, 227, .85); }
+.game-card.is-locked .game-body p { color: rgba(244, 239, 227, .5); }
+
+.locked-note {
+  display: inline-block;
+  margin-top: auto;
+  padding: 10px 14px;
+  border: 1px dashed rgba(231, 183, 75, .5);
+  color: var(--gold);
+  font-size: 13px;
+  font-weight: 700;
+}
+.game-cover svg.locked-art {
+  width: 30%;
+  stroke: rgba(244, 239, 227, .22);
+  stroke-width: 1.3;
+  filter: none;
+}
+
+.game-cover .lock-badge svg.lock-icon {
+  width: 28px;
+  stroke: var(--gold);
+  stroke-width: 2;
+  filter: none;
+}
+
+.game-card.is-locked:hover .game-cover svg { transform: none; }
+.game-cover svg.locked-art { width: 40%; stroke: rgba(244, 239, 227, .4); stroke-width: 1.2; }
+.lock-badge { left: auto; top: auto; right: 16px; bottom: 16px; margin: 0; width: 52px; height: 52px; }
+.game-cover .lock-badge svg.lock-icon { width: 24px; }
