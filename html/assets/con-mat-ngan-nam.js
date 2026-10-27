@@ -37,8 +37,8 @@
 
   var STEPS = [
     { title: 'Nghĩ một số có 2 chữ số bất kỳ', text: 'Ví dụ 47. Đừng nói ra, cũng đừng viết ra.' },
-    { title: 'Lấy số đó trừ đi chữ số đầu tiên', text: 'Ví dụ nghĩ 47 thì lấy 47 − 4. Nhẩm trong đầu thôi, đừng viết ra.' },
-    { title: 'Lấy kết quả trừ tiếp chữ số phía sau', text: 'Với ví dụ 47 thì trừ tiếp đi 7. Nhớ kỹ kết quả cuối cùng.' },
+    { title: 'Lấy số đó trừ đi chữ số đầu tiên', text: 'Ví dụ nghĩ 47 thì lấy 47 − 4. Ghi nhớ kết quả trong đầu, đừng viết ra.' },
+    { title: 'Lấy kết quả vừa rồi trừ tiếp chữ số phía sau', text: 'Với ví dụ 47 thì lấy kết quả lúc nãy trừ tiếp đi 7.' },
     { badge: MEMORIZE + 's', title: 'Chuẩn bị ghi nhớ', btn: 'Tôi đã sẵn sàng',
       text: 'Bảng số sẽ hiện ra trong ' + MEMORIZE + ' giây. Tìm kết quả của bạn và ghi nhớ thật kỹ ký tự đi kèm. Hết giờ, bảng sẽ biến mất.' }
   ];
