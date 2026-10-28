@@ -1,7 +1,7 @@
 /* Game Con Mắt Ngàn Năm: con mắt của Hiraku đoán ký tự cổ người chơi đang nghĩ.
    Số có 2 chữ số ab trừ đi tổng a + b luôn ra 9 × a, tức một bội của 9.
-   Mỗi lượt, các số 9, 18, … 81 trong bảng 0–99 mang cùng một ký tự được chọn ngẫu nhiên;
-   các số còn lại mang ký tự khác. Bảng xếp hàng 8–11 số để các bội của 9 không thẳng cột. */
+   Mỗi lượt lấy ngẫu nhiên 15–16 trong 40 ảnh ký tự; các số 9, 18, … 81 trong bảng 0–99
+   mang cùng một ký tự, các số còn lại mang ký tự khác. Bảng xếp hàng 8–11 số để các bội của 9 không thẳng cột. */
 (function () {
   'use strict';
 
@@ -30,9 +30,11 @@
     share: $('[data-share]')
   };
 
-  /* Bọ hung, cú, rắn hổ mang, ankh, cột djed, mặt trời, sư tử, chim ưng, cá, cây sậy,
-     cánh tay, bàn chân, nước, ngôi nhà, rắn lục. */
-  var GLYPHS = ['𓆣', '𓅓', '𓆓', '𓋹', '𓊽', '𓇳', '𓃭', '𓅃', '𓆛', '𓇋', '𓂝', '𓃀', '𓈖', '𓉐', '𓆑'];
+  /* 40 ảnh ký tự cổ cắt từ một bảng 8 × 5, đánh số 01–40. Mỗi lượt chỉ dùng 15–16 ảnh. */
+  var GLYPHS = 40;
+  var PER_ROUND = [15, 16];
+
+  function glyphSrc(n) { return '/assets/mat/ky-tu/' + (n < 10 ? '0' : '') + n + '.webp'; }
 
   /* Thời gian được nhìn bảng số trước khi con mắt tự chuyển sang bước đọc. */
   var MEMORIZE = 10;
@@ -67,7 +69,7 @@
     again: ['Chơi lại à? Nghĩ số khác đi, nó vẫn đọc ra thôi.', 'Lần này thử số khó hơn xem.', 'Con mắt đang chờ bạn đấy.']
   };
 
-  var state = { step: 0, secret: '', timers: [] };
+  var state = { step: 0, secret: 0, pool: [], timers: [] };
 
   var lastLine = '';
   function line(key) {
@@ -179,9 +181,17 @@
     });
   }
 
+  /* Chọn bộ ảnh cho lượt mới ngay từ bước 1 và tải trước, để lúc bảng hiện ra ảnh đã sẵn sàng. */
+  function pickRound() {
+    var all = [];
+    for (var i = 1; i <= GLYPHS; i++) all.push(i);
+    state.pool = shuffle(all).slice(0, PER_ROUND[rand(PER_ROUND.length)]);
+    state.secret = state.pool[0];
+    state.pool.forEach(function (n) { new Image().src = glyphSrc(n); });
+  }
+
   function buildBoard() {
-    state.secret = GLYPHS[rand(GLYPHS.length)];
-    var others = GLYPHS.filter(function (g) { return g !== state.secret; });
+    var others = state.pool.slice(1);
     var plan;
     do { plan = layout(); } while (!scattered(plan.cells));
     assignGlyphs(plan.cells, others);
@@ -199,9 +209,10 @@
       cell.className = 'cm-cell';
       var num = document.createElement('b');
       num.textContent = c.n;
-      var glyph = document.createElement('i');
+      var glyph = document.createElement('img');
       glyph.className = 'cm-glyph';
-      glyph.textContent = c.glyph;
+      glyph.src = glyphSrc(c.glyph);
+      glyph.alt = '';
       cell.appendChild(num);
       cell.appendChild(glyph);
       rowEl.appendChild(cell);
@@ -210,6 +221,7 @@
 
   function showStep() {
     var s = STEPS[state.step];
+    if (state.step === 0) pickRound();
     els.badge.textContent = s.badge || state.step + 1;
     els.stepBtn.textContent = s.btn || 'OK';
     els.badge.classList.toggle('is-timer', !!s.badge);
@@ -251,7 +263,7 @@
     els.read.classList.add('is-done');
     els.readTitle.textContent = 'Ký tự bạn đang nghĩ là';
     els.readText.hidden = true;
-    els.answer.textContent = state.secret;
+    els.answer.src = glyphSrc(state.secret);
     els.answerBox.hidden = false;
     els.again.hidden = false;
     els.share.hidden = false;

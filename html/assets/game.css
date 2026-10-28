@@ -1207,9 +1207,8 @@
 /* Game Con Mắt Ngàn Năm -------------------------------------------------- */
 
 .cm-glyph {
-  font-family: "Noto Sans Egyptian Hieroglyphs", "Segoe UI Historic", "Noto Sans", sans-serif;
-  font-style: normal;
-  line-height: 1;
+  display: block;
+  object-fit: contain;
 }
 
 .cm-panel {
@@ -1360,8 +1359,8 @@
 }
 
 .cm-answer .cm-glyph {
-  font-size: 84px;
-  color: var(--gold);
+  width: 96px;
+  height: 96px;
 }
 
 /* Các bước nhẩm */
@@ -1412,8 +1411,8 @@
 }
 
 .cm-cell .cm-glyph {
-  font-size: 24px;
-  color: var(--paper);
+  width: 30px;
+  height: 30px;
 }
 
 @media (max-width: 640px) {
@@ -1422,7 +1421,7 @@
   .cm-cell { width: calc((100% - 30px) / 11); padding: 4px 0 5px; }
   .cm-row { transform: translateX(calc(var(--off, 0) * ((100% - 30px) / 11 + 3px))); }
   .cm-cell b { font-size: 10px; }
-  .cm-cell .cm-glyph { font-size: 17px; }
+  .cm-cell .cm-glyph { width: 88%; height: auto; aspect-ratio: 1; }
   .cm-eye { width: 240px; }
   .cm-read .cm-eye { width: 270px; }
   .cm-eye-say b { font-size: 15px; }
