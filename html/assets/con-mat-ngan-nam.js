@@ -1,5 +1,5 @@
 /* Game Con Mắt Ngàn Năm: con mắt của Hiraku đoán ký tự cổ người chơi đang nghĩ.
-   Số có 2 chữ số ab trừ đi a rồi trừ đi b luôn ra 9 × a, tức một bội của 9.
+   Số có 2 chữ số ab trừ đi tổng a + b luôn ra 9 × a, tức một bội của 9.
    Mỗi lượt, các số 9, 18, … 81 trong bảng 0–99 mang cùng một ký tự được chọn ngẫu nhiên;
    các số còn lại mang ký tự khác. Bảng xếp hàng 8–11 số để các bội của 9 không thẳng cột. */
 (function () {
@@ -20,6 +20,8 @@
     read: $('.cm-read'),
     readTitle: $('[data-read-title]'),
     readText: $('[data-read-text]'),
+    sayTitle: $('[data-say-title]'),
+    sayText: $('[data-say-text]'),
     answerBox: $('.cm-answer'),
     answer: $('[data-answer]'),
     readStart: $('[data-read-start]'),
@@ -37,8 +39,8 @@
 
   var STEPS = [
     { title: 'Nghĩ một số có 2 chữ số bất kỳ', text: 'Ví dụ 47. Đừng nói ra, cũng đừng viết ra.' },
-    { title: 'Lấy số đó trừ đi chữ số đầu tiên', text: 'Ví dụ nghĩ 47 thì lấy 47 − 4. Ghi nhớ kết quả trong đầu, đừng viết ra.' },
-    { title: 'Lấy kết quả vừa rồi trừ tiếp chữ số phía sau', text: 'Với ví dụ 47 thì lấy kết quả lúc nãy trừ tiếp đi 7.' },
+    { title: 'Cộng 2 chữ số của số đó lại với nhau', text: 'Ví dụ nghĩ 47 thì tính 4 + 7 = 11. Ghi nhớ tổng này trong đầu, đừng viết ra.' },
+    { title: 'Lấy số ban đầu trừ đi tổng vừa tính', text: 'Với ví dụ 47 thì lấy 47 − 11. Nhớ kỹ kết quả cuối cùng, đừng viết ra.' },
     { badge: MEMORIZE + 's', title: 'Chuẩn bị ghi nhớ', btn: 'Tôi đã sẵn sàng',
       text: 'Bảng số sẽ hiện ra trong ' + MEMORIZE + ' giây. Tìm kết quả của bạn và ghi nhớ thật kỹ ký tự đi kèm. Hết giờ, bảng sẽ biến mất.' }
   ];
@@ -55,8 +57,8 @@
   var LINES = {
     intro: ['Nó nhìn tôi suốt từ hôm qua đến giờ. Hơi rợn, nhưng mà hay lắm.', 'Thử thách nó đi. Tôi cá là nó không sai đâu.'],
     step0: ['Số nào cũng được, miễn là có 2 chữ số.', 'Nghĩ xong chưa? Đừng nói cho tôi biết đấy.', 'Con mắt bắt đầu mở to rồi kìa…'],
-    step1: ['Nhẩm thôi nhé, đừng viết ra giấy.', 'Bình tĩnh mà trừ, không ai chấm điểm đâu.', 'Con mắt đang nhìn bạn tính nhẩm đấy.'],
-    step2: ['Trừ tiếp chữ số còn lại nhé.', 'Nhớ kỹ kết quả cuối cùng, đừng để lẫn.', 'Xong phép trừ là tới phần hay rồi.'],
+    step1: ['Nhẩm thôi nhé, đừng viết ra giấy.', 'Bình tĩnh mà cộng, không ai chấm điểm đâu.', 'Con mắt đang nhìn bạn tính nhẩm đấy.'],
+    step2: ['Lấy số ban đầu trừ đi tổng nhé.', 'Nhớ kỹ kết quả cuối cùng, đừng để lẫn.', 'Xong phép trừ là tới phần hay rồi.'],
     step3: ['Chỉ có 10 giây thôi đấy, tập trung nhé.', 'Sẵn sàng chưa? Bảng số không chờ ai đâu.', 'Hít một hơi thật sâu rồi hẵng bấm.'],
     board: ['Tìm số của bạn trong bảng, nhớ ký tự đi kèm.', 'Ký tự cổ Ai Cập đấy. Chọn đúng con số của bạn nhé.', 'Nhớ hình dáng ký tự thôi, không cần biết nó tên gì.', 'Tôi quay mặt đi rồi, cứ tìm thoải mái.'],
     ready: ['Giờ nhìn thẳng vào con mắt. Không được chớp đâu đấy.', 'Đừng ngừng nghĩ về ký tự đó nhé.'],
@@ -236,8 +238,8 @@
     els.read.classList.add('is-reading');
     READING.forEach(function (r, i) {
       state.timers.push(setTimeout(function () {
-        els.readTitle.textContent = r.title;
-        els.readText.textContent = r.text;
+        els.sayTitle.textContent = r.title;
+        els.sayText.textContent = r.text;
         say(line('reading'));
       }, i * READ_STEP));
     });

@@ -1296,28 +1296,42 @@
   filter: drop-shadow(0 0 30px rgba(69, 224, 200, .55));
 }
 
-/* Lúc quét: lời nhắc viết mờ ngay trên con mắt (phần gạch dưới tròng) để người chơi không phải rời mắt */
-.cm-read.is-reading .cm-eye,
+/* Lúc quét: lời nhắc viết mờ đè ngay lên con mắt để người chơi vừa nhìn vừa đọc */
 .cm-read.is-reading [data-read-title],
-.cm-read.is-reading [data-read-text] { grid-area: 1 / 1; }
+.cm-read.is-reading [data-read-text] { display: none; }
 
-.cm-read.is-reading [data-read-title],
-.cm-read.is-reading [data-read-text] {
-  position: relative;
-  z-index: 1;
-  align-self: start;
+.cm-read .cm-eye-say {
+  position: absolute;
+  left: 50%;
+  top: 47%;
+  z-index: 2;
+  display: none;
+  margin: 0;
   max-width: none;
-  white-space: nowrap;
-  padding: 2px 18px;
+  width: 92%;
+  padding: 18px 10px;
+  transform: translate(-50%, -50%);
+  text-align: center;
   pointer-events: none;
-  color: rgba(255, 248, 225, .85);
-  background: radial-gradient(farthest-side, rgba(8, 14, 20, .82) 55%, rgba(8, 14, 20, 0));
-  text-shadow: 0 0 6px #000, 0 1px 2px #000;
+  color: rgba(255, 248, 225, .92);
+  background: radial-gradient(closest-side, rgba(8, 14, 20, .72) 45%, rgba(8, 14, 20, 0));
+  text-shadow: 0 0 6px #000, 0 0 2px #000, 0 1px 2px #000;
+}
+.cm-read.is-reading .cm-eye-say {
+  display: block;
   animation: cm-whisper 2.4s ease-in-out infinite;
 }
-
-.cm-read.is-reading [data-read-title] { margin: 60% 0 0; font-size: 17px; line-height: 1.3; }
-.cm-read.is-reading [data-read-text] { margin: 68% 0 0; font-size: 12px; line-height: 1.4; }
+.cm-eye-say b {
+  display: block;
+  font-size: 19px;
+  line-height: 1.3;
+}
+.cm-eye-say span {
+  display: block;
+  margin-top: 4px;
+  font-size: 13px;
+  line-height: 1.4;
+}
 
 @keyframes cm-whisper {
   0%, 100% { opacity: .7; }
@@ -1411,8 +1425,8 @@
   .cm-cell .cm-glyph { font-size: 17px; }
   .cm-eye { width: 240px; }
   .cm-read .cm-eye { width: 270px; }
-  .cm-read.is-reading [data-read-title] { font-size: 14px; }
-  .cm-read.is-reading [data-read-text] { font-size: 10.5px; }
+  .cm-eye-say b { font-size: 15px; }
+  .cm-eye-say span { font-size: 11px; }
 }
 
 /* Ảnh bìa Con Mắt Ngàn Năm ở sảnh game */
