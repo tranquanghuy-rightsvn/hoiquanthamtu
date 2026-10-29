@@ -45,9 +45,11 @@
   'use strict';
 
   var LINKS = {
-    'crazy-sherlock': 'https://shopee.vn/Board-Game-Crazy-Sherlock-English-Version-%E2%80%93-Tr%C3%B2-Ch%C6%A1i-Suy-Lu%E1%BA%ADn-Trinh-Th%C3%A1m-%C4%90o%C3%A1n-K%E1%BA%BB-T%C3%ACnh-Nghi-2-4-Ng%C6%B0%E1%BB%9Di-Ch%C6%A1i-B4KIDS-i.458830818.50460235498',
-    mysterium: 'https://shopee.vn/B%E1%BB%99-tr%C3%B2-ch%C6%A1i-Boardgame-Mysterium-(2015)-Become-a-psychic-and-divine-spectral-visions-to-solve-the-murder-of-a-restles-i.970630598.24653970450',
-    deception: 'https://s.shopee.vn/5VWQxxfTT0'
+    'crazy-sherlock': 'https://s.shopee.vn/9KjBEwM2b4',
+    mysterium: 'https://s.shopee.vn/3g4oUhUe3g',
+    deception: 'https://s.shopee.vn/5VWQxxfTT0',
+    'trace-thu-toi': 'https://s.shopee.vn/4B155nbUtm',
+    'trace-khoi-nguon': 'https://s.shopee.vn/3qOEgvrxar'
   };
 
   document.addEventListener('click', function (e) {
