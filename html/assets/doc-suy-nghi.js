@@ -1,7 +1,8 @@
 /* Game Đọc Suy Nghĩ: Hiraku đoán lá bài người chơi nghĩ thầm.
-   Mỗi lượt, 52 lá được gán ngẫu nhiên các số 1–52. Danh sách thứ k gồm những lá
-   có số chứa 2^k khi viết dưới dạng tổng các luỹ thừa của 2. Người chơi trả lời Có
-   ở những danh sách nào thì cộng các 2^k đó lại là ra số của lá bài. */
+   Hiraku giữ danh sách các lá "còn khả năng". Mỗi lần hỏi luôn hiện đúng 20 lá:
+   lần đầu là 20 lá ngẫu nhiên trong 52 lá (Có còn 20 lá, Không còn 32 lá); các lần sau
+   lấy khoảng một nửa số lá còn khả năng, phần còn thiếu bù bằng những lá đã bị loại.
+   Có thì giữ phần được hiện, Không thì giữ phần còn lại, sau 6 lần còn đúng 1 lá. */
 (function () {
   'use strict';
 
@@ -28,6 +29,7 @@
   var RANK_NAME = { a: 'A', j: 'J', q: 'Q', k: 'K' };
   var SUIT_NAME = { s: 'bích', c: 'chuồn', d: 'rô', h: 'cơ' };
   var LISTS = 6;
+  var PER_LIST = 20;
   /* Hai màn xác nhận cho vui trước khi vào danh sách đầu tiên. */
   var CONFIRMS = [
     { text: 'Bạn nghĩ kĩ chưa?', say: 'Chắc chưa đấy? Nghĩ kĩ vào nhé.' },
@@ -38,7 +40,7 @@
   var deck = [];
   RANKS.forEach(function (r) {
     SUITS.forEach(function (s) {
-      deck.push({ id: r + s, name: (RANK_NAME[r] || r) + ' ' + SUIT_NAME[s], num: 0 });
+      deck.push({ id: r + s, name: (RANK_NAME[r] || r) + ' ' + SUIT_NAME[s] });
     });
   });
 
@@ -66,7 +68,7 @@
     return text;
   }
 
-  var state = { order: [], step: 0, total: 0, timer: 0, confirm: 0 };
+  var state = { left: [], shown: [], step: 0, timer: 0, confirm: 0 };
 
   function shuffle(arr) {
     for (var i = arr.length - 1; i > 0; i--) {
@@ -74,12 +76,6 @@
       var t = arr[i]; arr[i] = arr[j]; arr[j] = t;
     }
     return arr;
-  }
-
-  function range(n) {
-    var out = [];
-    for (var i = 0; i < n; i++) out.push(i);
-    return out;
   }
 
   function say(text) {
@@ -99,20 +95,29 @@
     els.reveal.hidden = panel !== els.reveal;
   }
 
-  /* Gán lại số 1–52 ngẫu nhiên cho các lá và xáo thứ tự hỏi các danh sách. */
   function deal() {
-    var nums = shuffle(range(deck.length).map(function (i) { return i + 1; }));
-    deck.forEach(function (card, i) { card.num = nums[i]; });
-    state.order = shuffle(range(LISTS));
+    state.left = deck.slice();
     state.step = 0;
-    state.total = 0;
+  }
+
+  /* Chọn 20 lá cho lần hỏi này. Số lá còn khả năng được hiện (k) phải sao cho
+     dù trả lời Có hay Không, số lá còn lại vẫn đoán được với số lần hỏi còn lại:
+     không quá 2^(số lần còn lại sau lần này). Lần đầu luôn là 20 lá trong 52. */
+  function pickList() {
+    var n = state.left.length;
+    var cap = 1 << (LISTS - state.step - 1);
+    var k = state.step === 0 ? PER_LIST : Math.floor(n / 2) + (n % 2 && Math.random() < .5 ? 1 : 0);
+    k = Math.max(n - cap, Math.min(k, cap, PER_LIST));
+    var left = shuffle(state.left.slice());
+    var out = shuffle(deck.filter(function (c) { return state.left.indexOf(c) < 0; }));
+    state.shown = left.slice(0, k).concat(out.slice(0, PER_LIST - k));
   }
 
   function renderList(lead) {
-    var bit = 1 << state.order[state.step];
+    pickList();
     els.list.textContent = '';
     deck.forEach(function (card) {
-      if (!(card.num & bit)) return;
+      if (state.shown.indexOf(card) < 0) return;
       var li = document.createElement('li');
       var img = document.createElement('img');
       img.className = 'mt-card';
@@ -147,15 +152,14 @@
   }
 
   function answer(yes) {
-    if (yes) state.total += 1 << state.order[state.step];
+    state.left = state.left.filter(function (c) { return (state.shown.indexOf(c) >= 0) === yes; });
     state.step++;
     if (state.step < LISTS) renderList(Math.random() < .35 ? line(yes ? 'yes' : 'no') : '');
     else reveal();
   }
 
   function reveal() {
-    var card = null;
-    deck.forEach(function (c) { if (c.num === state.total) card = c; });
+    var card = state.left.length === 1 ? state.left[0] : null;
     var title = els.reveal.querySelector('h2');
     var note = els.reveal.querySelector('p');
     show(els.reveal);
