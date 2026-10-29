@@ -9,6 +9,9 @@ const FAIL_WINDOW = 15 * 60; // giây
 const AVATAR_MAX = 300 * 1024;
 const AVATAR_TYPES = ['image/jpeg', 'image/png', 'image/webp'];
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const DOC_RE = /^https:\/\/docs\.google\.com\/document\/\S+$/;
+const STORY_TYPES = ['Truyện ngắn', 'Truyện dài'];
+const STORY_MAX = 5; // số truyện tối đa một địa chỉ IP được gửi trong một giờ
 
 export default {
   async fetch(request, env) {
@@ -27,6 +30,7 @@ export default {
         case 'POST /api/avatar': return await uploadAvatar(request, env);
         case 'POST /api/avatar/delete': return await deleteAvatar(request, env);
         case 'POST /api/password': return await changePassword(request, env);
+        case 'POST /api/story': return await submitStory(request, env);
       }
       const avatar = url.pathname.match(/^\/api\/avatar\/(\d+)$/);
       if (request.method === 'GET' && avatar) return await getAvatar(env, Number(avatar[1]));
@@ -157,6 +161,30 @@ async function changePassword(request, env) {
   await env.DB.prepare('DELETE FROM sessions WHERE user_id = ? AND token_hash != ?')
     .bind(user.id, await sha256(token)).run();
   return json({ ok: true });
+}
+
+async function submitStory(request, env) {
+  const body = await readJson(request);
+  const title = String(body.title || '').replace(/\s+/g, ' ').trim();
+  const author = String(body.author || '').replace(/\s+/g, ' ').trim();
+  const email = String(body.email || '').trim().toLowerCase();
+  const doc = String(body.doc || '').trim();
+  const type = STORY_TYPES.includes(body.type) ? body.type : STORY_TYPES[0];
+  if (!title || title.length > 200) return json({ error: 'Tên truyện cần từ 1 đến 200 ký tự.' }, 400);
+  if (!author || author.length > 60) return json({ error: 'Bút danh cần từ 1 đến 60 ký tự.' }, 400);
+  if (!EMAIL_RE.test(email) || email.length > 254) return json({ error: 'Email chưa đúng định dạng.' }, 400);
+  if (!DOC_RE.test(doc) || doc.length > 500) return json({ error: 'Link cần là link Google Docs (https://docs.google.com/document/...).' }, 400);
+
+  const ip = request.headers.get('CF-Connecting-IP') || '';
+  const recent = await env.DB.prepare('SELECT COUNT(*) AS n FROM stories WHERE ip = ? AND created_at > ?')
+    .bind(ip, now() - 3600).first();
+  if (recent.n >= STORY_MAX) return json({ error: 'Bạn đã gửi nhiều truyện trong một giờ qua. Thử lại sau nhé.' }, 429);
+
+  const user = await currentUser(request, env);
+  await env.DB.prepare(
+    'INSERT INTO stories (title, type, author, email, doc_url, user_id, ip, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)'
+  ).bind(title, type, author, email, doc, user ? user.id : null, ip, now()).run();
+  return json({ ok: true }, 201);
 }
 
 /* ---------- Phiên đăng nhập ---------- */

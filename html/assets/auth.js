@@ -1,4 +1,4 @@
-/* Đăng nhập / đăng ký qua /api (Cloudflare Worker), popup gửi truyện vẫn là bản demo.
+/* Đăng nhập, đăng ký và gửi truyện qua /api (Cloudflare Worker).
    Header luôn có sẵn cả nút khách lẫn nút tài khoản; file này chỉ bật/tắt theo trạng thái đăng nhập. */
 (function () {
   'use strict';
@@ -147,9 +147,18 @@
           showNote(note, form.getAttribute('data-err'), true);
           return;
         }
-        if (kind === 'demo') {
-          showNote(note, form.getAttribute('data-ok'));
-          form.reset();
+        if (kind === 'story') {
+          var f = form.elements;
+          submit.disabled = true;
+          api('/api/story', { method: 'POST', json: { title: f.title.value, type: f.type.value, author: f.author.value, email: f.email.value, doc: f.doc.value } }).then(function (res) {
+            submit.disabled = false;
+            if (!res.ok) {
+              showNote(note, res.data.error || 'Có lỗi xảy ra, bạn thử lại nhé.', true);
+              return;
+            }
+            showNote(note, form.getAttribute('data-ok'));
+            form.reset();
+          });
           return;
         }
         var payload = { email: form.elements.email.value, password: form.elements.password.value };
