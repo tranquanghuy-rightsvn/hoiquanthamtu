@@ -48,6 +48,7 @@ html/
 | `boc-soi.js` | Game Bốc Sỏi: lượt chơi, thoại và nước đi của Hiraku |
 | `doc-suy-nghi.js` | Game Đọc Suy Nghĩ: Hiraku đoán lá bài người chơi nghĩ (ảnh lá bài trong `assets/bai/`) |
 | `con-mat-ngan-nam.js` | Game Con Mắt Ngàn Năm: bảng 100 số kèm ký tự cổ, con mắt đoán ký tự |
+| `tim-thoi-vang-gia.js` | Game Tìm Thỏi Vàng Giả: kéo thả thỏi vàng lên cân, máy không chọn trước thỏi giả; mỗi vòng 3 lượt theo 3 kịch bản cân cố định, xáo thứ tự |
 | `share.js` | Nút chia sẻ Facebook và copy link ở cuối các game (ảnh con mắt ở `assets/mat/`) |
 | `shop.css`, `shop.js` | Cửa hàng: thẻ sản phẩm, trang chi tiết dạng khối, khung ảnh trượt (ảnh ở `assets/cua-hang/`) |
 | `auth.js` | Popup đăng nhập / đăng ký (demo, không gửi dữ liệu) |
