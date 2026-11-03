@@ -705,7 +705,11 @@
     if ((t = e.target.closest('[data-level]')) && !t.disabled) return setLevel(parseInt(t.getAttribute('data-level'), 10));
     if ((t = e.target.closest('[data-start]'))) return start(t.getAttribute('data-start') === 'you');
     if (e.target.closest('[data-again]')) return showSetup('Làm lại ' + level().name.toLowerCase() + ' chứ? Cậu muốn đi trước hay sau?');
-    if (e.target.closest('[data-next-level]')) return setLevel(state.level + 1);
+    if (e.target.closest('[data-next-level]')) {
+      /* Sang vòng 3: hiện popup ủng hộ HQTT (assets/qc.js). */
+      if (state.level === 2 && window.hqQC) window.hqQC.show('Click để ủng hộ đội ngũ HQTT', 'boc-soi');
+      return setLevel(state.level + 1);
+    }
   });
 
   /* Mở thẳng vòng đã mở khoá qua #vong-2. */

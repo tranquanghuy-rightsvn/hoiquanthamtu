@@ -51,6 +51,7 @@ html/
 | `tim-thoi-vang-gia.js` | Game Tìm Thỏi Vàng Giả: kéo thả thỏi vàng lên cân, máy không chọn trước thỏi giả; mỗi vòng 3 lượt theo 3 kịch bản cân cố định, xáo thứ tự |
 | `share.js` | Nút chia sẻ Facebook và copy link ở cuối các game (ảnh con mắt ở `assets/mat/`) |
 | `shop.css`, `shop.js` | Cửa hàng: thẻ sản phẩm, trang chi tiết dạng khối, khung ảnh trượt (ảnh ở `assets/cua-hang/`) |
+| `qc.js` | Popup quảng cáo ủng hộ HQTT (ảnh Gundam `assets/qc/gundam.webp`, link Shopee): Bốc Sỏi vòng 2 sang 3, Cân Vàng vòng 1 sang 2, đọc truyện sau 30 giây. Khối Donate trang chủ hiện ảnh + nút mua hàng thay cho số tài khoản. Trang truyện mới phải thêm `<script src="/assets/qc.js">` |
 | `auth.js` | Popup đăng nhập / đăng ký (demo, không gửi dữ liệu) |
 
 Header (menu) và footer viết cứng trong HTML của từng trang, không dùng

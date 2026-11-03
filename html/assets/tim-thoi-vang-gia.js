@@ -585,7 +585,11 @@
 
   els.again.addEventListener('click', function () { start(state.level, true); });
   els.nextLevel.addEventListener('click', function () {
-    if (state.streak >= plays()) start(state.level + 1, true);
+    if (state.streak >= plays()) {
+      /* Vòng 1 lên vòng 2: hiện popup ủng hộ HQTT (assets/qc.js). */
+      if (state.level === 1 && window.hqQC) window.hqQC.show('Click để ủng hộ đội ngũ HQTT', 'can-vang');
+      start(state.level + 1, true);
+    }
     else start(state.level);
   });
 
