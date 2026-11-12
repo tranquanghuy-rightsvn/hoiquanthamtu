@@ -942,6 +942,18 @@ $('start').onclick = async () => {
   setTimeout(() => { $('help').style.transition = 'opacity 2s'; $('help').style.opacity = '0.35'; }, 15000);
 };
 
+/* Keep held items inside the frame on narrow (portrait) screens */
+const HELD = [[hand, 0.2, -0.19], [handFlash, 0.22, -0.2], [handMirror, 0.24, -0.2]];
+function fitHeld(){
+  const th = Math.tan(cam.fov / 2) * engine.getAspectRatio(cam);
+  const narrow = th < 0.8, k = narrow ? Math.max(0.6, th / 0.8) : 1;
+  HELD.forEach(([m, x, y]) => {
+    m.position.x = Math.min(x, m.position.z * th * 0.5);
+    m.position.y = narrow ? y * 0.6 : y;
+    m.scaling.setAll(k);
+  });
+}
+fitHeld();
 engine.runRenderLoop(() => scene.render());
-window.addEventListener('resize', () => engine.resize());
+window.addEventListener('resize', () => { engine.resize(); fitHeld(); });
 })();
