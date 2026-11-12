@@ -52,13 +52,37 @@
     'trace-khoi-nguon': 'https://s.shopee.vn/3qOEgvrxar'
   };
 
+  /* Thẻ boardgame ở trang Cửa hàng và quầy Boardgame: bấm "Xem chi tiết" đi thẳng tới Shopee.
+     Trang chi tiết sản phẩm vẫn giữ nguyên (link trong HTML vẫn trỏ tới đó cho SEO). */
+  var CARD_KEY = {
+    'crazy-sherlock': 'crazy-sherlock',
+    mysterium: 'mysterium',
+    'deception-an-mang-o-hong-kong': 'deception',
+    'trace-thu-toi': 'trace-thu-toi',
+    'trace-khoi-nguon': 'trace-khoi-nguon'
+  };
+
+  function open(url) {
+    var win = window.open(url, '_blank');
+    if (win) win.opener = null;
+    else location.href = url;
+  }
+
   document.addEventListener('click', function (e) {
+    var card = e.target.closest('a.shop-card');
+    if (card) {
+      var slug = (card.getAttribute('href') || '').split('/')[2];
+      var link = LINKS[CARD_KEY[slug]];
+      if (link) {
+        e.preventDefault();
+        open(link);
+      }
+      return;
+    }
     var btn = e.target.closest('[data-buy]');
     if (!btn) return;
     var url = LINKS[btn.getAttribute('data-buy')];
     if (!url) return;
-    var win = window.open(url, '_blank');
-    if (win) win.opener = null;
-    else location.href = url;
+    open(url);
   });
 })();
