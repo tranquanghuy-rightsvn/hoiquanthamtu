@@ -564,6 +564,14 @@ window.addEventListener('keydown', e => {
 });
 window.addEventListener('keyup', e => { held[e.code] = false; });
 window.addEventListener('blur', () => { for (const k in held) held[k] = false; });
+document.querySelectorAll('#dpad [data-k]').forEach(b => {
+  const k = b.dataset.k;
+  const on = e => { e.preventDefault(); if (modal) return; held[k] = true; b.classList.add('on'); try { b.setPointerCapture(e.pointerId); } catch (_) {} };
+  const off = () => { held[k] = false; b.classList.remove('on'); };
+  b.addEventListener('pointerdown', on);
+  ['pointerup','pointercancel','lostpointercapture'].forEach(t => b.addEventListener(t, off));
+  b.addEventListener('contextmenu', e => e.preventDefault());
+});
 function walk(dt){
   const s = Math.min(dt, 50) / 1000;
   let fx = 0, fz = 0;
