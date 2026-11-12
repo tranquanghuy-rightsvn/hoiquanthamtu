@@ -52,8 +52,8 @@
     'trace-khoi-nguon': 'https://s.shopee.vn/3qOEgvrxar'
   };
 
-  /* Thẻ boardgame ở trang Cửa hàng và quầy Boardgame: bấm "Xem chi tiết" đi thẳng tới Shopee.
-     Trang chi tiết sản phẩm vẫn giữ nguyên (link trong HTML vẫn trỏ tới đó cho SEO). */
+  /* Thẻ boardgame ở trang Cửa hàng và quầy Boardgame: bấm thẻ ("Xem chi tiết") đi thẳng tới Shopee;
+     link "Xem giới thiệu" riêng trong thẻ vẫn dẫn về trang giới thiệu sản phẩm. */
   var CARD_KEY = {
     'crazy-sherlock': 'crazy-sherlock',
     mysterium: 'mysterium',
@@ -69,7 +69,7 @@
   }
 
   document.addEventListener('click', function (e) {
-    var card = e.target.closest('a.shop-card');
+    var card = e.target.closest('a.shop-card, a.shop-card-main');
     if (card) {
       var slug = (card.getAttribute('href') || '').split('/')[2];
       var link = LINKS[CARD_KEY[slug]];
