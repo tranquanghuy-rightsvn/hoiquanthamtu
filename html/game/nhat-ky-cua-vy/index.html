@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-N0KPT7HK1S"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-N0KPT7HK1S');
+</script>
+<meta name="theme-color" content="#000000">
+<meta name="description" content="Bạn tỉnh dậy trong một căn phòng khóa kín, không nhớ mình là ai. Lục soát từng món đồ, giải bảng mã và hộp khóa trượt để tìm đường ra trong Nhật Ký Của Vỹ.">
+<title>Nhật Ký Của Vỹ — Hội Quán Thám Tử</title>
+<!-- seo -->
+<link rel="canonical" href="https://hoiquanthamtu.com/game/nhat-ky-cua-vy/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Hội Quán Thám Tử">
+<meta property="og:locale" content="vi_VN">
+<meta property="og:title" content="Nhật Ký Của Vỹ">
+<meta property="og:description" content="Bạn tỉnh dậy trong một căn phòng khóa kín, không nhớ mình là ai. Lục soát từng món đồ, giải bảng mã và hộp khóa trượt để tìm đường ra trong Nhật Ký Của Vỹ.">
+<meta property="og:url" content="https://hoiquanthamtu.com/game/nhat-ky-cua-vy/">
+<meta property="og:image" content="https://hoiquanthamtu.com/assets/og/game--nhat-ky-cua-vy.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Nhật Ký Của Vỹ">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Nhật Ký Của Vỹ">
+<meta name="twitter:description" content="Bạn tỉnh dậy trong một căn phòng khóa kín, không nhớ mình là ai. Lục soát từng món đồ, giải bảng mã và hộp khóa trượt để tìm đường ra trong Nhật Ký Của Vỹ.">
+<meta name="twitter:image" content="https://hoiquanthamtu.com/assets/og/game--nhat-ky-cua-vy.jpg">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Trang chủ","item":"https://hoiquanthamtu.com/"},{"@type":"ListItem","position":2,"name":"Game","item":"https://hoiquanthamtu.com/game/"},{"@type":"ListItem","position":3,"name":"Nhật Ký Của Vỹ","item":"https://hoiquanthamtu.com/game/nhat-ky-cua-vy/"}]}]}</script>
+<!-- /seo -->
+<link rel="icon" type="image/webp" href="/assets/icon.webp">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600&family=Patrick+Hand&display=swap">
+<link rel="stylesheet" href="/assets/nhat-ky-cua-vy.css">
+</head>
+<body>
+<a id="back" href="/game/">← Sảnh game</a>
+<canvas id="c" tabindex="1" aria-label="Căn phòng 3D"></canvas>
+<div id="vig"></div>
+<div id="fade"></div>
+<div id="flash"></div>
+<div id="help">Di chuyển: W A S D hoặc phím mũi tên. Nhìn quanh: giữ chuột và kéo. Tương tác: click vào đồ vật. Chọn món đồ để cầm trên tay: click ô ở góc dưới hoặc phím 1, 2, 3 (phím G cho súng). Mở sổ “Viết cho Vỹ”: phím N.</div>
+<div id="inv" aria-label="Đồ đang mang"></div>
+<div id="hover"></div>
+<div id="sub" aria-live="polite"></div>
+
+<div id="intro" class="modal">
+  <h1>Nhật Ký Của Vỹ</h1>
+  <p>Màn 1: Phòng thẩm vấn</p>
+  <p>Bạn tỉnh dậy trong một căn phòng khóa kín. Bạn không nhớ mình là ai. Hãy lục soát mọi thứ và tìm cách mở cửa.</p>
+  <button class="go" id="start">Mở mắt</button>
+</div>
+
+<div id="pad" class="modal" hidden>
+  <div>
+    <div class="box" id="padBox">
+      <div class="lcd" id="lcd"></div>
+      <div class="keys" id="keys"></div>
+    </div>
+    <button class="close" id="padClose">Rời bảng mã</button>
+  </div>
+</div>
+
+<div id="boxp" class="modal" hidden>
+  <div class="wrap">
+    <p>Nắp hộp bị khóa bằng các thanh gỗ trượt. Hãy đưa thanh đồng ra khỏi khe bên phải. Click vào đầu nào của một thanh thì thanh trượt về phía đó một ô.</p>
+    <svg id="boxSvg" viewBox="0 0 300 300" role="group" aria-label="Khóa trượt trên nắp hộp gỗ">
+      <rect x="10" y="10" width="280" height="280" rx="6" fill="#5a3d22" stroke="#2a1b0d" stroke-width="3"/>
+      <rect x="18" y="18" width="264" height="264" fill="#4a321b"/>
+      <rect x="282" y="108" width="18" height="40" fill="#4a321b"/>
+    </svg>
+    <div id="boxMsg"></div>
+    <div class="row">
+      <button class="close" id="boxReset">Xếp lại từ đầu</button>
+      <button class="close" id="boxClose">Đặt hộp xuống</button>
+    </div>
+  </div>
+</div>
+
+<div id="letter" class="modal" hidden>
+  <div class="wrap">
+    <div class="page">
+      <p>Lê-ô ơi, anh có khỏe không?</p>
+      <p>Ở nơi này, ngày nào em cũng nhớ anh, nhớ cả cái cách anh cau mày mỗi khi nghĩ ngợi. Nếu sáng nay anh thức dậy mà thấy mọi thứ xa lạ, xin anh đừng sợ, vì vẫn có một người đang đợi anh. Anh cứ đi chậm thôi, từng cánh cửa một, em tin anh sẽ tìm được đường.</p>
+      <p>Mong một ngày nắng lên, mình lại được gặp nhau.</p>
+      <p class="sign">Giang</p>
+    </div>
+    <button class="close" id="letterClose">Gấp thư lại</button>
+  </div>
+</div>
+
+<div id="diary" class="modal" hidden>
+  <div class="wrap">
+    <button class="cover" id="diaryCover" aria-label="Mở cuốn sổ Viết cho Vỹ">Viết cho Vỹ</button>
+    <div class="page" id="diaryPage" hidden>
+      <textarea id="diaryText" rows="9" aria-label="Trang sổ trống"></textarea>
+    </div>
+    <button class="close" id="diaryClose">Cất sổ</button>
+  </div>
+</div>
+
+<div id="end" class="modal" hidden>
+  <h1>Hết màn 1</h1>
+  <p>Cuối hành lang là một chiếc giường. Cơn buồn ngủ ập đến.</p>
+  <p class="note">Số hiệu 0371. Kẻ tên J đã bắn mình. Phải nhớ.</p>
+  <button class="go" id="again">Chơi lại màn 1</button>
+</div>
+
+<div id="err" hidden>Không tải được engine 3D. Hãy kiểm tra kết nối mạng rồi tải lại trang.</div>
+
+<script src="https://cdn.jsdelivr.net/npm/babylonjs@7.0.0/babylon.js"></script>
+<script src="/assets/nhat-ky-cua-vy.js"></script>
+</body>
+</html>
