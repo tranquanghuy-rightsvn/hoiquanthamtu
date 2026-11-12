@@ -580,6 +580,9 @@ function walk(dt){
     if (held.KeyS || held.ArrowDown) fz -= 1;
     if (held.KeyD || held.ArrowRight) fx += 1;
     if (held.KeyA || held.ArrowLeft) fx -= 1;
+    const tr = (held.TurnR ? 1 : 0) - (held.TurnL ? 1 : 0), lk = (held.LookD ? 1 : 0) - (held.LookU ? 1 : 0);
+    if (tr) cam.rotation.y += tr * 1.9 * s;
+    if (lk) cam.rotation.x = Math.max(-1.2, Math.min(1.2, cam.rotation.x + lk * 1.3 * s));
   }
   const len = Math.hypot(fx, fz) || 1; fx /= len; fz /= len;
   const yaw = cam.rotation.y, sn = Math.sin(yaw), cs = Math.cos(yaw);
