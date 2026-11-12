@@ -43,7 +43,7 @@
     pick: ['Đây. Đây chính là lá bạn đã nghĩ.', 'Tìm thấy rồi. Lá này là lá bạn đang nghĩ.'],
     burn: ['Và bây giờ… nó sẽ biến mất.', 'Lá bài này không nên tồn tại nữa. Tạm biệt.'],
     burned: ['Lá của bạn đã cháy thành tro. Bạn xem đúng không nhé?', 'Cháy rồi. Bạn xem đúng không nhé?'],
-    reveal: ['Thấy chưa? Lá bạn nghĩ không còn ở đây nữa, hihi.', 'Ảo thuật hay đọc suy nghĩ? Bạn tự đoán đi.', 'Đọc suy nghĩ qua màn hình là nghề của tôi.'],
+    reveal: ['Tôi đã đốt lá bài của bạn.'],
     again: ['Chưa phục à? Lần này nhớ lá khác xem.', 'Thêm ván nữa nhé. Tôi vẫn sẽ đọc ra thôi.']
   };
 
@@ -54,8 +54,8 @@
     ready: ['Nghĩ thật rõ lá bài của bạn', 'Nhìn thẳng vào Hiraku và giữ hình ảnh lá bài đó trong đầu.', ''],
     read: ['Hiraku đang đọc suy nghĩ của bạn…', 'Đừng nghĩ sang lá khác.', ''],
     pick: ['Đây là lá bạn đã nghĩ', 'Hiraku không cần lật nó lên.', ''],
-    burned: ['Lá bài của bạn đã biến mất', 'Hiraku vừa đốt đúng lá bạn đang nghĩ. Bạn xem đúng không nhé?', ''],
-    final: ['Lá bài của bạn không còn ở đây!', 'Tôi biết chính xác lá bài mà bạn nghĩ.', 'again']
+    burned: ['Lá bài của bạn đã cháy', 'Hiraku vừa đốt đúng lá bạn đang nghĩ. Bạn xem đúng không nhé?', ''],
+    final: ['Tôi đã đốt lá bài của bạn', '', 'again']
   };
 
   var lastLine = '';
@@ -174,6 +174,7 @@
     var p = PANELS[key];
     title.textContent = p[0];
     text.textContent = p[1];
+    text.hidden = !p[1];
     Object.keys(buttons).forEach(function (k) { buttons[k].hidden = k !== p[2]; });
     share.hidden = key !== 'final';
     panel.classList.remove('is-in');
@@ -196,7 +197,11 @@
 
   /* Mỗi ván có một mã riêng; đổi ván thì mọi chuỗi hoạt cảnh của ván cũ dừng lại. */
   var run = 0;
+  /* Nhịp biểu diễn: mọi khoảng chờ và chuyển động nhân với hệ số này (lớn hơn 1 là chậm hơn). */
+  var PACE = 1.4;
+
   function wait(ms) {
+    ms *= PACE;
     var my = run;
     return new Promise(function (resolve, reject) {
       setTimeout(function () { if (my === run) resolve(); else reject(new Error('stop')); }, ms);
@@ -239,7 +244,7 @@
 
   function place(card, x, y, r, s, ms) {
     var st = card.el.style;
-    st.transitionDuration = (ms == null ? 550 : ms) + 'ms';
+    st.transitionDuration = (ms == null ? 550 : ms) * PACE + 'ms';
     st.setProperty('--x', x);
     st.setProperty('--y', y);
     st.setProperty('--r', r || 0);
@@ -254,14 +259,14 @@
 
   /* Dựng lá bài đứng lên hoặc đặt nằm xuống bàn. */
   function stand(card, up, ms) {
-    card.el.style.transitionDuration = (ms || 500) + 'ms';
+    card.el.style.transitionDuration = (ms || 500) * PACE + 'ms';
     card.el.classList.toggle('is-stand', up);
   }
 
   /* Lật bài: co bề ngang lại, đổi mặt, giãn ra. Lá bài không lúc nào biến mất. */
   function flip(card, up, ms) {
     if (card.up === up) return Promise.resolve();
-    var half = (ms || 340) / 2;
+    var half = (ms || 340) * PACE / 2;
     var my = run;
     var a = card.inner.animate([{ transform: 'scaleX(1)' }, { transform: 'scaleX(.06) translateY(-4%)' }], { duration: half, easing: 'ease-in' });
     return a.finished.then(function () {
@@ -636,7 +641,7 @@
 
   function burn(card) {
     var my = run;
-    var DURATION = 3400;
+    var DURATION = 3400 * PACE;
     var sr = scene.getBoundingClientRect();
     var cr = card.el.getBoundingClientRect();
     var left = cr.left - sr.left;
