@@ -47,6 +47,7 @@ html/
 | `reader.js` | Cỡ chữ và nền khi đọc truyện |
 | `boc-soi.js` | Game Bốc Sỏi: lượt chơi, thoại và nước đi của Hiraku |
 | `doc-suy-nghi.js` | Game Đọc Suy Nghĩ: Hiraku đoán lá bài người chơi nghĩ (ảnh lá bài trong `assets/bai/`) |
+| `la-bai-boc-chay.js` | Game Lá Bài Bốc Cháy: 6 lá J, Q, K, khi úp bài cả 6 lá bị đổi sang lá cùng chữ cùng màu khác chất; Hiraku đốt 1 lá (lửa bằng mask + hạt), lật 5 lá còn lại |
 | `con-mat-ngan-nam.js` | Game Con Mắt Ngàn Năm: bảng 100 số kèm ký tự cổ, con mắt đoán ký tự |
 | `tim-thoi-vang-gia.js` | Game Tìm Thỏi Vàng Giả: kéo thả thỏi vàng lên cân, máy không chọn trước thỏi giả; mỗi vòng 3 lượt theo 3 kịch bản cân cố định, xáo thứ tự |
 | `share.js` | Nút chia sẻ Facebook và copy link ở cuối các game (ảnh con mắt ở `assets/mat/`) |

@@ -2029,3 +2029,464 @@
 .gw-plays i { background: transparent; box-shadow: inset 0 0 0 2px rgba(244, 239, 227, .25); }
 .gw-plays i.is-now { box-shadow: inset 0 0 0 2px var(--neon); }
 .gw-plays i.is-done { background: var(--neon); box-shadow: 0 0 10px rgba(69, 224, 200, .5); }
+
+/* Game Lá Bài Bốc Cháy ----------------------------------------- */
+/* Góc nhìn của người chơi: Hiraku ngồi bên kia bàn, mặt bàn lùi xa theo phối cảnh. */
+
+.dc-game { overflow: hidden; }
+
+.dc-scene {
+  position: relative;
+  height: clamp(440px, 62vw, 620px);
+  overflow: hidden;
+  perspective: 1000px;
+  perspective-origin: 50% 0%;
+  background:
+    radial-gradient(ellipse 60% 70% at 50% 0%, rgba(255, 214, 140, .26), transparent 70%),
+    radial-gradient(ellipse at 50% 40%, #1d2c40, #0d1622 75%);
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Vệt tường ốp gỗ phía sau */
+.dc-scene:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 38%;
+  height: 2px;
+  background: rgba(231, 183, 75, .16);
+  box-shadow: 0 60px 0 rgba(231, 183, 75, .07);
+}
+
+.dc-hiraku {
+  --lx: 0;
+  --ly: 0;
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: clamp(200px, 30%, 290px);
+  aspect-ratio: 595 / 1027;
+  transform: translateX(-50%);
+  transform-origin: 50% 100%;
+  transition: transform .6s cubic-bezier(.3, .8, .3, 1), filter .5s;
+  filter: drop-shadow(0 10px 30px rgba(0, 0, 0, .55));
+}
+
+/* Hiraku ghép từ nhiều lớp: thân, hốc mắt + tròng mắt, miệng; tư thế suy tư là một bộ khác */
+.dc-pose { position: absolute; inset: 0; }
+.dc-pose img { position: absolute; display: block; max-width: none; height: auto; }
+.dc-pose-a .dc-body { left: 0; top: 0; width: 100%; }
+.dc-pose-b { visibility: hidden; }
+.dc-pose-b .dc-body { left: -5.55%; top: 5.06%; width: 97.8%; }
+.dc-hiraku.is-think .dc-pose-a { visibility: hidden; }
+.dc-hiraku.is-think .dc-pose-b { visibility: visible; }
+
+.dc-eye {
+  position: absolute;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.dc-pose-a .dc-eye-l { left: 31.76%; top: 39.73%; width: 11.93%; height: 7.98%; }
+.dc-pose-a .dc-eye-r { left: 55.97%; top: 39.53%; width: 11.93%; height: 8.18%; }
+.dc-pose-b .dc-eye-l { left: 28.07%; top: 42.45%; width: 13.71%; height: 7.56%; }
+.dc-pose-b .dc-eye-r { left: 54.02%; top: 39.1%; width: 12.64%; height: 7.79%; }
+
+.dc-pose .dc-pupil {
+  left: 50%;
+  top: 50%;
+  width: 46%;
+  transform: translate(calc(-50% + var(--lx) * 48%), calc(-50% + var(--ly) * 34%));
+  transition: transform .16s ease-out;
+}
+
+/* Tay chống cằm khi suy nghĩ */
+.dc-pose-b .dc-hand-chin {
+  left: 50%;
+  top: 57%;
+  width: 40%;
+  transform: scaleX(-1) rotate(-12deg);
+  transform-origin: 10% 12%;
+}
+
+.dc-mouth {
+  position: absolute;
+  left: 50.6%;
+  top: 57.4%;
+  width: calc(var(--mw, 65) / 595 * 100%);
+  height: auto;
+  max-width: none;
+  transform: translate(-50%, -50%);
+}
+
+.dc-hiraku.is-think .dc-mouth { left: 51.4%; top: 58.2%; transform: translate(-50%, -50%) rotate(-8deg); }
+
+.dc-hiraku:before {
+  content: "";
+  position: absolute;
+  left: 5%;
+  right: 5%;
+  top: 5%;
+  bottom: 30%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(69, 224, 200, .5), transparent 65%);
+  opacity: 0;
+  transition: opacity .5s;
+}
+
+.dc-hiraku.is-lean { transform: translateX(-50%) translateY(14px) scale(1.05); }
+.dc-hiraku.is-focus:before { opacity: 1; animation: dc-aura 1.2s ease-in-out infinite; }
+.dc-hiraku.is-focus { filter: drop-shadow(0 0 18px rgba(69, 224, 200, .55)); }
+.dc-rig { position: absolute; inset: 0; }
+.dc-hiraku.is-talking .dc-rig { animation: dc-talk .45s ease; }
+
+@keyframes dc-talk { 40% { transform: translateY(-4px) rotate(-1deg); } }
+@keyframes dc-aura { 50% { transform: scale(1.08); opacity: .6; } }
+
+/* Bàn tay Hiraku trên bàn: tay chọn bài và tay cầm bật lửa */
+.dc-hand {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 2;
+  max-width: none;
+  height: auto;
+  pointer-events: none;
+  opacity: 0;
+  transition: left .2s ease-out, top .2s ease-out, opacity .3s, transform .3s;
+  filter: drop-shadow(0 12px 14px rgba(0, 0, 0, .45));
+}
+
+.dc-hand.is-on { opacity: 1; }
+
+.dc-lighter { position: absolute; left: 0; top: 0; z-index: 2; pointer-events: none; opacity: 0; transition: left .5s cubic-bezier(.3, .8, .3, 1), top .5s cubic-bezier(.3, .8, .3, 1), opacity .3s; }
+.dc-lighter.is-on { opacity: 1; }
+.dc-lighter.is-flip { transform: scaleX(-1); }
+.dc-lighter .dc-lighter-hand { display: block; width: 100%; height: auto; filter: drop-shadow(0 12px 14px rgba(0, 0, 0, .45)); }
+.dc-lighter .dc-flame {
+  position: absolute;
+  left: 60.1%;
+  bottom: 71.4%;
+  width: 23.7%;
+  height: auto;
+  max-width: none;
+  transform: translateX(-50%) scale(0);
+  transform-origin: 50% 100%;
+  filter: drop-shadow(0 0 10px rgba(255, 150, 40, .9)) drop-shadow(0 0 24px rgba(255, 110, 20, .6));
+  transition: transform .25s cubic-bezier(.3, 1.6, .5, 1);
+}
+
+.dc-lighter.is-lit .dc-flame { transform: translateX(-50%) scale(1); animation: dc-flame .14s ease-in-out infinite alternate .25s; }
+
+@keyframes dc-flame {
+  from { transform: translateX(-50%) scale(1, 1) skewX(-3deg); }
+  to { transform: translateX(-50%) scale(.94, 1.08) skewX(3deg); }
+}
+
+.dc-spark {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #fff6c8;
+  box-shadow: 0 0 6px 2px #ffb52e;
+  transform: translate(-50%, -50%);
+  animation: dc-spark .35s ease-out forwards;
+  pointer-events: none;
+}
+
+@keyframes dc-spark {
+  to { opacity: 0; transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(.3); }
+}
+
+/* Mặt bàn và lớp lá bài dùng chung một khung phối cảnh */
+.dc-surface {
+  position: absolute;
+  left: -8%;
+  right: -8%;
+  bottom: 34px;
+  height: 76%;
+  transform-origin: 50% 100%;
+  transform: rotateX(58deg);
+}
+
+.dc-table {
+  border-radius: 40px 40px 0 0;
+  border: 22px solid #5a3820;
+  border-bottom: 0;
+  background:
+    radial-gradient(ellipse 50% 45% at 50% 55%, rgba(255, 232, 160, .2), transparent 75%),
+    repeating-linear-gradient(35deg, rgba(0, 0, 0, .06) 0 2px, transparent 2px 5px),
+    radial-gradient(ellipse at 50% 60%, #1f6e4f 0%, #134a3a 60%, #0b3027 100%);
+  box-shadow: inset 0 0 0 3px rgba(231, 183, 75, .35), inset 0 30px 60px rgba(0, 0, 0, .35);
+}
+
+.dc-table:after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 70%, rgba(255, 140, 40, .55), transparent 55%);
+  opacity: 0;
+  transition: opacity .5s;
+}
+
+.dc-scene.is-fire .dc-table:after { opacity: 1; animation: dc-flicker .18s steps(2) infinite; }
+
+@keyframes dc-flicker { 50% { opacity: .7; } }
+
+/* Mép bàn ngay trước mặt người chơi */
+.dc-apron {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 34px;
+  background: linear-gradient(#7a4c2b, #4a2c18 40%, #2c190d);
+  box-shadow: 0 -2px 0 #9a6a42;
+}
+
+.dc-plane {
+  --cw: 90px;
+  --stand: -58;
+  pointer-events: none;
+  transform-style: preserve-3d;
+}
+
+/* Lá bài nằm trên bàn */
+.dc-card {
+  --x: 50;
+  --y: 50;
+  --r: 0;
+  --s: 1;
+  --z: 1;
+  --tilt: 0;
+  position: absolute;
+  left: calc(var(--x) * 1%);
+  top: calc(var(--y) * 1%);
+  width: var(--cw);
+  aspect-ratio: 222 / 323;
+  pointer-events: auto;
+  transform-origin: 50% 100%;
+  /* translateZ nhỏ theo thứ tự chồng bài để các lá nằm chồng không giành nhau hiển thị */
+  transform: translate(-50%, -50%) translateZ(calc(var(--z) * .6px)) rotate(calc(var(--r) * 1deg)) scale(var(--s)) rotateX(calc(var(--tilt) * 1deg));
+  transition-property: left, top, transform;
+  transition-duration: .55s;
+  transition-timing-function: cubic-bezier(.3, .8, .3, 1);
+}
+
+.dc-card.is-touchable { cursor: not-allowed; }
+
+/* Lá bài dựng đứng trên bàn, quay thẳng về phía người chơi */
+.dc-card.is-stand { --tilt: var(--stand); }
+.dc-card.is-stand .dc-inner { box-shadow: 0 14px 22px rgba(0, 0, 0, .45); }
+
+.dc-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 7px;
+  box-shadow: 0 4px 0 rgba(0, 0, 0, .28), 0 10px 18px rgba(0, 0, 0, .35);
+}
+
+.dc-face {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 7px;
+}
+
+.dc-back {
+  border: 5px solid #fff;
+  background:
+    radial-gradient(circle at 50% 50%, transparent 0 20%, rgba(255, 255, 255, .22) 20% 23%, transparent 23%),
+    repeating-linear-gradient(45deg, #8f1d1d 0 5px, #b3292a 5px 10px);
+}
+
+.dc-front { padding: 4%; background: #fff; visibility: hidden; }
+.dc-card.is-up .dc-front { visibility: visible; }
+.dc-card.is-up .dc-back { visibility: hidden; }
+
+.dc-card.is-scan .dc-inner { box-shadow: 0 0 0 4px var(--neon), 0 0 34px rgba(69, 224, 200, .85); }
+
+/* Lá bài cháy: phần đã cháy bị khoét dần bằng mask, viền than hồng chạy theo */
+.dc-card.is-burning {
+  -webkit-mask-image: radial-gradient(circle at var(--bx, 55%) var(--by, 100%), transparent var(--burn, 0%), #000 calc(var(--burn, 0%) + .5%));
+  mask-image: radial-gradient(circle at var(--bx, 55%) var(--by, 100%), transparent var(--burn, 0%), #000 calc(var(--burn, 0%) + .5%));
+}
+
+.dc-char {
+  position: absolute;
+  inset: 0;
+  border-radius: 7px;
+  opacity: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at var(--bx, 55%) var(--by, 100%),
+    transparent var(--burn, 0%),
+    #fff3c4 calc(var(--burn, 0%) + .5%),
+    #ff9a1f calc(var(--burn, 0%) + 2.5%),
+    #6a1c06 calc(var(--burn, 0%) + 5%),
+    rgba(40, 14, 4, .75) calc(var(--burn, 0%) + 9%),
+    rgba(70, 30, 10, .25) calc(var(--burn, 0%) + 16%),
+    transparent calc(var(--burn, 0%) + 24%));
+}
+
+.dc-card.is-burning .dc-char { opacity: 1; }
+.dc-card.is-ash { visibility: hidden; }
+
+/* Lửa, tàn và khói: lớp phẳng phủ trên cảnh để lửa bốc thẳng lên */
+.dc-fx {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.dc-fx span {
+  position: absolute;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-out;
+}
+
+.dc-fire {
+  background: radial-gradient(circle at 50% 60%, #fffbe0 0 12%, #ffc23a 30%, #ff6a12 55%, rgba(255, 60, 0, 0) 72%);
+  mix-blend-mode: screen;
+  filter: blur(1px);
+  animation-name: dc-rise;
+}
+
+.dc-ember {
+  background: #ffcf5a;
+  box-shadow: 0 0 6px #ff8a1c;
+  animation-name: dc-rise;
+}
+
+.dc-smoke {
+  background: radial-gradient(circle, rgba(170, 170, 170, .5), rgba(120, 120, 120, 0) 70%);
+  filter: blur(4px);
+  animation-name: dc-smoke;
+}
+
+.dc-ash {
+  border-radius: 2px !important;
+  background: #2a2522;
+  animation-name: dc-ash;
+}
+
+.dc-flash {
+  background: radial-gradient(circle, rgba(255, 245, 200, .95), rgba(255, 150, 40, .5) 35%, transparent 70%);
+  mix-blend-mode: screen;
+  animation-name: dc-flash;
+}
+
+@keyframes dc-rise {
+  from { opacity: 1; }
+  to { opacity: 0; transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(.25); }
+}
+
+@keyframes dc-smoke {
+  from { opacity: 0; transform: translate(-50%, -50%) scale(.5); }
+  25% { opacity: .8; }
+  to { opacity: 0; transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1.8); }
+}
+
+@keyframes dc-ash {
+  from { opacity: 1; }
+  to { opacity: 0; transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) rotate(220deg); }
+}
+
+@keyframes dc-flash {
+  from { opacity: 0; transform: translate(-50%, -50%) scale(.2); }
+  30% { opacity: 1; }
+  to { opacity: 0; transform: translate(-50%, -50%) scale(2.4); }
+}
+
+/* Nút xác nhận đã nhớ lá bài: nằm giữa cảnh, trên mặt bàn giữa Hiraku và hàng bài */
+.dc-cta {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 44%;
+  width: max-content;
+  min-width: 200px;
+  margin: 0 auto;
+  z-index: 4;
+  padding: 16px 28px;
+  font-size: 15px;
+  box-shadow: 0 0 0 4px rgba(69, 224, 200, .25), 0 12px 30px rgba(0, 0, 0, .5);
+  animation: pb-pop .4s ease;
+}
+
+.dc-cta[hidden] { display: none; }
+.dc-cta:disabled { opacity: 0; pointer-events: none; }
+
+/* Bong bóng thoại cạnh đầu Hiraku */
+.dc-speech {
+  position: absolute;
+  left: calc(50% + clamp(90px, 13%, 130px));
+  top: 34px;
+  width: min(300px, 40%);
+  min-height: 0;
+  z-index: 3;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, .35);
+}
+
+.dc-speech.is-talking { animation: pb-pop .35s ease; }
+
+/* Lời dẫn và nút bấm của người chơi */
+.dc-panel {
+  position: relative;
+  z-index: 6;
+  min-height: 170px;
+  display: grid;
+  justify-items: center;
+  align-content: start;
+  text-align: center;
+  padding: 22px 12px 26px;
+}
+
+.dc-panel.is-in { animation: pb-pop .4s ease; }
+
+.dc-panel h2 {
+  font: clamp(26px, 3.4vw, 36px)/1.2 "Xanh Mono", serif;
+  margin: 0 0 8px;
+  color: var(--gold);
+}
+
+.dc-panel p {
+  max-width: 50ch;
+  margin: 0 0 20px;
+  line-height: 1.7;
+  color: rgba(244, 239, 227, .65);
+}
+
+.dc-panel .pb-btn { min-width: 180px; }
+.dc-panel [hidden] { display: none; }
+.dc-panel .game-share { margin-top: 6px; }
+
+@media (max-width: 640px) {
+  .dc-scene { height: 440px; perspective: 700px; }
+  .dc-hiraku { width: 200px; }
+  .dc-speech { position: relative; left: auto; top: auto; width: auto; margin: 10px 10px 0; padding: 8px 12px 10px; }
+  .dc-speech:before { display: none; }
+  .dc-speech .pb-bubble { font-size: 12.5px; line-height: 1.45; }
+  .dc-surface { left: -14%; right: -14%; bottom: 26px; height: 74%; transform: rotateX(54deg); }
+  .dc-plane { --stand: -54; }
+  .dc-table { border-width: 14px; }
+  .dc-apron { height: 26px; }
+  .dc-cta { top: 40%; min-width: 0; padding: 13px 20px; font-size: 14px; }
+}
+
+/* Ảnh bìa ở sảnh game */
+.dc-cover { background: radial-gradient(ellipse at 50% 60%, #1d6a4c, #0b3027 75%); }
+.dc-cover .mt-card { position: absolute; top: 50%; width: 17%; transition: transform .45s; }
+.dc-cover .mt-card:nth-of-type(1) { left: 12%; transform: translateY(-50%) rotate(-12deg); }
+.dc-cover .mt-card:nth-of-type(2) { left: 31%; transform: translateY(-58%) rotate(-4deg); }
+.dc-cover .mt-card:nth-of-type(3) { left: 52%; transform: translateY(-58%) rotate(4deg); }
+.dc-cover .dc-cover-burn { position: absolute; left: 71%; top: 50%; width: 17%; aspect-ratio: 222 / 323; transform: translateY(-50%) rotate(12deg); border-radius: 6px; border: 4px solid #fff; background: repeating-linear-gradient(45deg, #8f1d1d 0 4px, #b3292a 4px 8px); -webkit-mask-image: radial-gradient(circle at 60% 100%, transparent 38%, #000 39%); mask-image: radial-gradient(circle at 60% 100%, transparent 38%, #000 39%); box-shadow: 0 0 24px rgba(255, 130, 30, .8); }
+.dc-cover .dc-cover-burn:after { content: ""; position: absolute; inset: -4px; background: radial-gradient(circle at 60% 100%, transparent 38%, #ffcf6a 39.5%, #ff7a1a 42%, rgba(60, 20, 5, .8) 46%, transparent 56%); }
+.game-card:hover .dc-cover .mt-card:nth-of-type(1) { transform: translateY(-50%) rotate(-18deg); }
+.game-card:hover .dc-cover .mt-card:nth-of-type(3) { transform: translateY(-62%) rotate(8deg); }
