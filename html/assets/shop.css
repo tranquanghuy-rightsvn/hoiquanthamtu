@@ -89,23 +89,55 @@
 
 .shop-card-main .shop-card-body { flex: 1; }
 
-.shop-card-intro {
-  align-self: flex-start;
-  margin: -6px 22px 22px;
-  padding: 9px 12px;
-  border: 1px solid var(--ink);
-  color: var(--ink);
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: 1.3px;
-  text-transform: uppercase;
-  text-decoration: none;
-  transition: background .2s, color .2s;
+.shop-card-main .shop-card-price { margin-bottom: 0; }
+
+/* Hàng nút cuối thẻ: "Xem chi tiết" (Shopee) nổi bật, "Xem giới thiệu" viền mảnh */
+.shop-card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 0 22px 24px;
 }
 
-.shop-card-intro span { color: var(--red); margin-left: 6px; }
-.shop-card-intro:hover { background: var(--ink); color: var(--paper); }
-.shop-card-intro:hover span { color: var(--gold); }
+.shop-card-buy,
+.shop-card-intro {
+  display: inline-flex;
+  align-items: center;
+  padding: 11px 14px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: transform .15s, box-shadow .15s, background .2s, color .2s;
+}
+
+.shop-card-buy {
+  background: var(--red);
+  border: 1px solid var(--ink);
+  color: #fff;
+  box-shadow: 3px 3px 0 var(--ink);
+}
+
+.shop-card-buy span { margin-left: 8px; color: var(--gold); }
+.shop-card-buy:hover { transform: translate(-2px, -2px); box-shadow: 5px 5px 0 var(--ink); }
+
+.shop-card-intro {
+  border: 1px solid rgba(16, 28, 43, .35);
+  color: #4c5661;
+}
+
+.shop-card-intro:hover { border-color: var(--ink); color: var(--ink); }
+
+.shop-card-buy,
+.shop-card-intro { justify-content: center; white-space: nowrap; }
+
+@media (max-width: 480px) {
+  .shop-card-actions { flex-wrap: nowrap; gap: 8px; }
+  .shop-card-buy,
+  .shop-card-intro { flex: 1 1 auto; padding: 11px 8px; font-size: 11px; letter-spacing: .5px; }
+  .shop-card-buy span { margin-left: 5px; }
+}
 
 /* ---------- Trang chi tiết ---------- */
 .sp-wrap {

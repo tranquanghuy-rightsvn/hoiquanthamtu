@@ -69,7 +69,7 @@
   }
 
   document.addEventListener('click', function (e) {
-    var card = e.target.closest('a.shop-card, a.shop-card-main');
+    var card = e.target.closest('a.shop-card, a.shop-card-main, a[data-shopee]');
     if (card) {
       var slug = (card.getAttribute('href') || '').split('/')[2];
       var link = LINKS[CARD_KEY[slug]];
