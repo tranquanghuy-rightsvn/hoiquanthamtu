@@ -37,6 +37,9 @@ cam.checkCollisions = true; cam.ellipsoid = V3(0.3,0.8,0.3);
 
 /* ---------- Lights ---------- */
 const hemi = new BABYLON.HemisphericLight('hemi', V3(0,1,0), scene);
+/* Phone screens are small and dim: lift the exposure a little there */
+const TOUCH = window.matchMedia && matchMedia('(hover:none) and (pointer:coarse)').matches;
+if (TOUCH) scene.imageProcessingConfiguration.exposure = 1.3;
 hemi.intensity = 0.3; hemi.groundColor = C3(0.08,0.08,0.1);
 const bulbLight = new BABYLON.PointLight('bulbLight', V3(0,2.4,0), scene);
 bulbLight.diffuse = C3(1,0.86,0.62); bulbLight.intensity = 0.9; bulbLight.range = 14;
@@ -244,14 +247,14 @@ flashP.setEnabled(false);
 /* Mirror tray (east side): swivels in 45° steps, 8 positions */
 const MIR_TILT = 0.07;                          /* mirror leans back a little, so reflections rise */
 const MIR_X = 2.5, MIR_Y = 1.2, MIR_Z = 1.2;
-tag(box('pedestal', 0.3,0.95,0.3, MIR_X,0.475,MIR_Z, mSteel, true), 'tray', 'Giá xoay');
+tag(box('pedestal', 0.3,0.95,0.3, MIR_X,0.475,MIR_Z, mSteel, true), 'tray', 'Giá kim loại');
 const swivel = new BABYLON.TransformNode('swivel', scene);
 swivel.position.set(MIR_X,1.03,MIR_Z);
 const tray = box('tray', 0.44,0.03,0.44, 0,0,0, mSteel, false);
-tray.parent = swivel; tray.position.set(0.024,MIR_Y - 1.03,0); tray.rotation.z = Math.PI/2 - MIR_TILT; tag(tray, 'tray', 'Giá xoay');
+tray.parent = swivel; tray.position.set(0.024,MIR_Y - 1.03,0); tray.rotation.z = Math.PI/2 - MIR_TILT; tag(tray, 'tray', 'Giá kim loại');
 const mirrorP = box('mirrorP', 0.38,0.015,0.38, 0,0,0, mMirror, false);
 mirrorP.parent = swivel; mirrorP.position.set(0,MIR_Y - 1.03,0); mirrorP.rotation.z = Math.PI/2 - MIR_TILT;
-tag(mirrorP, 'tray', 'Tấm gương (xoay)'); mirrorP.setEnabled(false);
+tag(mirrorP, 'tray', 'Tấm gương'); mirrorP.setEnabled(false);
 const MIR_STEP = Math.PI / 4;
 let mirrorIdx = 5, turning = false;             /* 0 = facing the flashlight; starts turned away */
 swivel.rotation.y = mirrorIdx * MIR_STEP;
@@ -737,12 +740,7 @@ function refresh(){
   if (code && !S.codeSeen) {
     S.codeSeen = true; REFL[hitIdx].seen = true;
     tween(1400, k => { mCode.alpha = k; });
-    say('Tia sáng hắt lên bức tường cạnh cửa. Có mấy nét sáng hiện ra… là chữ gì vậy?');
   } else if (code) mCode.alpha = 1;
-  else if (hitIdx >= 0 && !REFL[hitIdx].seen) {
-    REFL[hitIdx].seen = true;
-    say('Tia sáng hắt lên tường, chỉ là một vệt sáng trống trơn. Có lẽ chưa đúng góc.');
-  }
   drawInv();
 }
 function shoot(){
@@ -758,7 +756,8 @@ function shoot(){
     m.isPickable = false;
     shards.push({m:m, v:V3((Math.random()-0.5)*2.4, Math.random()*1.2, (Math.random()-0.5)*2.4)});
   }
-  tween(500, k => { hemi.intensity = 0.32 - 0.14*k; });
+  const h0 = hemi.intensity, h1 = TOUCH ? 0.34 : 0.18;
+  tween(500, k => { hemi.intensity = h0 + (h1 - h0)*k; });
   say('Bóng đèn vỡ tan. Căn phòng tối sầm lại.');
   refresh();
 }
@@ -816,11 +815,10 @@ function use(id){
         if (S.held === 'flash') {
           S.placedFlash = true; S.flashOn = true; flashP.setEnabled(true); sfx.click(); setHeld(null);
           slotHit.metadata.label = 'Đèn pin (bật / tắt)';
-          say(S.dark ? 'Vừa khít. Tia sáng chĩa thẳng sang bên kia phòng.' : 'Vừa khít.');
+          say('Vừa khít.');
           refresh();
         } else if (S.held === 'mirror') say('Tấm gương không vừa cái kẹp này.');
-        else if (S.hasFlash) say('Phải cầm đèn pin trên tay đã.');
-        else say('Một cái kẹp kim loại trên tường, vừa một vật hình trụ.');
+        else say('Một cái kẹp kim loại trên tường.');
       } else {
         S.flashOn = !S.flashOn; sfx.click();
         say(S.flashOn ? 'Bật đèn pin.' : 'Tắt đèn pin.');
@@ -831,10 +829,9 @@ function use(id){
       if (!S.placedMirror) {
         if (S.held === 'mirror') {
           S.placedMirror = true; mirrorP.setEnabled(true); sfx.click(); setHeld(null);
-          say('Tấm gương khớp vào giá. Cái giá này xoay được.'); refresh();
+          say('Tấm gương khớp vào giá.'); refresh();
         } else if (S.held === 'flash') say('Đèn pin không nằm yên được trên cái giá nghiêng này.');
-        else if (S.hasMirror) say('Phải cầm tấm gương trên tay đã.');
-        else say('Một cái giá nghiêng gắn trên trục xoay. Thứ gì đó phẳng từng được đặt ở đây.');
+        else say('Một cái giá kim loại.');
       } else if (!turning) {
         turning = true;
         const a0 = swivel.rotation.y, next = (mirrorIdx + 1) % 8;
@@ -845,8 +842,7 @@ function use(id){
     case 'cctv': say('Một cái camera. Đèn đỏ vẫn nhấp nháy. Có ai đó đang xem.'); break;
     case 'bulb':
       if (S.dark) say('Chỉ còn cái đuôi đèn.');
-      else if (S.hasGun) say('Bóng đèn treo quá cao. Phải cầm súng lên đã (phím G).');
-      else say('Bóng đèn treo quá cao, không với tới. Phòng này cũng chẳng có công tắc nào.');
+      else say('Bóng đèn treo quá cao, không với tới.');
       break;
     case 'door':
     case 'keypad':
@@ -1065,8 +1061,6 @@ $('start').onclick = async () => {
   $('fade').style.opacity = '0';
   await wait(1200);
   say('Đầu mình… Đây là đâu? Mình là ai?');
-  await wait(4600);
-  if (!S.solved && !S.hasFlash && !S.hasGun && !S.hasMirror) say('Trên bàn có một cuốn sổ và một cái hộp gỗ.');
   setTimeout(() => { $('help').style.transition = 'opacity 2s'; $('help').style.opacity = '0.35'; }, 15000);
 };
 
