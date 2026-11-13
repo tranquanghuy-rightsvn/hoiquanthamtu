@@ -663,7 +663,7 @@ window.addEventListener('keydown', e => {
 });
 window.addEventListener('keyup', e => { held[e.code] = false; });
 window.addEventListener('blur', () => { for (const k in held) held[k] = false; });
-document.querySelectorAll('#dpad [data-k]').forEach(b => {
+document.querySelectorAll('.pad [data-k]').forEach(b => {
   const k = b.dataset.k;
   const on = e => { e.preventDefault(); if (modal) return; held[k] = true; b.classList.add('on'); try { b.setPointerCapture(e.pointerId); } catch (_) {} };
   const off = () => { held[k] = false; b.classList.remove('on'); };
@@ -1031,6 +1031,7 @@ async function win(){
   mKey.emissiveColor = C3(0.2,1,0.5);
   await wait(500);
   closeModal('pad'); modal = true; cam.detachControl();
+  document.body.classList.add('ending');
   $('help').hidden = true; refresh();
   sfx.door();
   door.checkCollisions = false; exitGlow.setEnabled(true);

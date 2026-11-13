@@ -70,19 +70,30 @@ button:focus-visible{outline:2px solid var(--amber);outline-offset:3px}
 #err{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;padding:24px;text-align:center;z-index:20;background:#000}
 #back{position:fixed;right:16px;top:calc(12px + env(safe-area-inset-top,0px));z-index:4;color:var(--fog);font-size:13px;text-decoration:none;background:rgba(20,24,27,.75);border:1px solid #57503f;border-radius:4px;padding:6px 12px}
 #back:hover{color:var(--amber);border-color:var(--amber)}
-#dpad{display:none;position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:3;grid-template-columns:repeat(4,48px);grid-template-rows:repeat(2,48px);gap:6px;touch-action:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
-#dpad button{background:rgba(20,24,27,.7);border:1px solid #57503f;color:var(--fog);border-radius:8px;font-size:18px;padding:0;touch-action:none;-webkit-tap-highlight-color:transparent}
-#dpad button.on{background:rgba(58,46,22,.92);border-color:var(--amber);color:#fff}
-#dpad .lu{grid-column:1;grid-row:1}#dpad .ld{grid-column:1;grid-row:2}#dpad .tl{grid-column:2;grid-row:1}#dpad .up{grid-column:3;grid-row:1}#dpad .tr{grid-column:4;grid-row:1}#dpad .lt{grid-column:2;grid-row:2}#dpad .dn{grid-column:3;grid-row:2}#dpad .rt{grid-column:4;grid-row:2}
-#dpad .lu,#dpad .ld,#dpad .tl,#dpad .tr{font-size:22px;color:var(--amber)}
 #help .h-touch{display:none}
+.pad{display:none;position:fixed;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:3;grid-template-columns:repeat(3,46px);grid-template-rows:repeat(3,46px);gap:4px;touch-action:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
+#look{left:16px}#move{right:16px}
+.pad button{background:rgba(20,24,27,.7);border:1px solid #57503f;color:var(--fog);border-radius:8px;font-size:18px;padding:0;touch-action:none;-webkit-tap-highlight-color:transparent}
+.pad button.on{background:rgba(58,46,22,.92);border-color:var(--amber);color:#fff}
+.pad .u{grid-area:1/2}.pad .l{grid-area:2/1}.pad .r{grid-area:2/3}.pad .d{grid-area:3/2}
+#look button{font-size:22px;color:var(--amber)}
 @media (hover:none) and (pointer:coarse){
-  #dpad{display:grid}
+  .pad{display:grid}
   #help{right:120px;font-size:12px}
   #help .h-pc{display:none}#help .h-touch{display:inline}
-  #inv{max-width:calc(100vw - 260px)}
+  /* Portrait: look pad bottom-left, move pad bottom-right, items in a row above the look pad */
+  #inv{bottom:calc(172px + env(safe-area-inset-bottom,0px));max-width:calc(100vw - 32px)}
   #inv button{width:72px}
-  #sub{bottom:calc(140px + env(safe-area-inset-bottom,0px));font-size:16px}
-  #hover{bottom:calc(200px + env(safe-area-inset-bottom,0px))}
+  #sub{bottom:calc(278px + env(safe-area-inset-bottom,0px));font-size:16px}
+  #hover{bottom:calc(344px + env(safe-area-inset-bottom,0px))}
   #next{bottom:calc(84px + env(safe-area-inset-bottom,0px))}
+  .ending #inv,.ending .pad{display:none}
+}
+@media (hover:none) and (pointer:coarse) and (orientation:landscape){
+  /* Landscape: items sit between the two pads */
+  #inv{left:50%;transform:translateX(-50%);bottom:calc(16px + env(safe-area-inset-bottom,0px));max-width:calc(100vw - 360px);justify-content:center;flex-wrap:nowrap}
+  #inv button{width:64px}
+  #inv button svg{width:34px;height:34px}
+  #sub{bottom:calc(104px + env(safe-area-inset-bottom,0px))}
+  #hover{bottom:calc(168px + env(safe-area-inset-bottom,0px))}
 }
