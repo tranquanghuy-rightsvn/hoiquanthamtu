@@ -49,6 +49,7 @@
 <div id="inv" aria-label="Đồ đang mang"></div>
 <div id="hover"></div>
 <div id="sub" aria-live="polite"></div>
+<button type="button" id="next" hidden>Tiếp ›</button>
 
 <div id="intro" class="modal">
   <h1>Nhật Ký Của Vỹ</h1>
@@ -69,7 +70,7 @@
 
 <div id="boxp" class="modal" hidden>
   <div class="wrap">
-    <p>Nắp hộp bị khóa bằng các thanh gỗ trượt. Hãy đưa thanh đồng ra khỏi khe bên phải. Click vào đầu nào của một thanh thì thanh trượt về phía đó một ô.</p>
+    <p>Nắp hộp bị khóa bằng các thanh gỗ trượt. Hãy đưa thanh đồng ra khỏi khe bên phải. Kéo các thanh dọc theo rãnh, hoặc click vào đầu nào của một thanh thì thanh trượt về phía đó một ô.</p>
     <svg id="boxSvg" viewBox="0 0 300 300" role="group" aria-label="Khóa trượt trên nắp hộp gỗ">
       <rect x="10" y="10" width="280" height="280" rx="6" fill="#5a3d22" stroke="#2a1b0d" stroke-width="3"/>
       <rect x="18" y="18" width="264" height="264" fill="#4a321b"/>
@@ -80,18 +81,6 @@
       <button class="close" id="boxReset">Xếp lại từ đầu</button>
       <button class="close" id="boxClose">Đặt hộp xuống</button>
     </div>
-  </div>
-</div>
-
-<div id="letter" class="modal" hidden>
-  <div class="wrap">
-    <div class="page">
-      <p>Lê-ô ơi, anh có khỏe không?</p>
-      <p>Ở nơi này, ngày nào em cũng nhớ anh, nhớ cả cái cách anh cau mày mỗi khi nghĩ ngợi. Nếu sáng nay anh thức dậy mà thấy mọi thứ xa lạ, xin anh đừng sợ, vì vẫn có một người đang đợi anh. Anh cứ đi chậm thôi, từng cánh cửa một, em tin anh sẽ tìm được đường.</p>
-      <p>Mong một ngày nắng lên, mình lại được gặp nhau.</p>
-      <p class="sign">Giang</p>
-    </div>
-    <button class="close" id="letterClose">Gấp thư lại</button>
   </div>
 </div>
 

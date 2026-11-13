@@ -178,8 +178,6 @@ wHinge.position.set(0.38,0.925,0.21);
 const flashItem = MB.CreateCylinder('flashItem', {height:0.2, diameter:0.05}, scene);
 flashItem.rotation.z = Math.PI/2; flashItem.position.set(0.33,0.952,0.04); flashItem.material = mDark;
 tag(flashItem, 'flashItem', 'Đèn pin'); flashItem.setEnabled(false);
-const letterItem = box('letterItem', 0.12,0.004,0.16, 0.47,0.929,0.1, mPaper, false);
-letterItem.rotation.y = 0.2; tag(letterItem, 'letterItem', 'Lá thư'); letterItem.setEnabled(false);
 
 /* Carton, bin, one-way mirror, speaker, calendar */
 tag(box('carton', 0.6,0.4,0.5, 2.5,0.2,-2.05, mCarton, true), 'carton', 'Thùng carton');
@@ -243,47 +241,84 @@ fHead.parent = flashP; fHead.rotation.z = Math.PI/2; fHead.position.set(-2.65,1.
 fBody.isPickable = false; fHead.isPickable = false;
 flashP.setEnabled(false);
 
-/* Mirror tray (east side) */
-tag(box('pedestal', 0.3,1.1,0.3, 2.2,0.55,1.2, mSteel, true), 'tray', 'Giá xoay');
+/* Mirror tray (east side): swivels in 45° steps, 8 positions */
+const MIR_TILT = 0.07;                          /* mirror leans back a little, so reflections rise */
+const MIR_X = 2.5, MIR_Y = 1.2, MIR_Z = 1.2;
+tag(box('pedestal', 0.3,0.95,0.3, MIR_X,0.475,MIR_Z, mSteel, true), 'tray', 'Giá xoay');
 const swivel = new BABYLON.TransformNode('swivel', scene);
-swivel.position.set(2.2,1.2,1.2);
+swivel.position.set(MIR_X,1.03,MIR_Z);
 const tray = box('tray', 0.44,0.03,0.44, 0,0,0, mSteel, false);
-tray.parent = swivel; tray.position.set(0,0.05,0); tray.rotation.z = 1.1; tag(tray, 'tray', 'Giá xoay');
+tray.parent = swivel; tray.position.set(0.024,MIR_Y - 1.03,0); tray.rotation.z = Math.PI/2 - MIR_TILT; tag(tray, 'tray', 'Giá xoay');
 const mirrorP = box('mirrorP', 0.38,0.015,0.38, 0,0,0, mMirror, false);
-mirrorP.parent = swivel; mirrorP.position.set(-0.018,0.059,0); mirrorP.rotation.z = 1.1;
+mirrorP.parent = swivel; mirrorP.position.set(0,MIR_Y - 1.03,0); mirrorP.rotation.z = Math.PI/2 - MIR_TILT;
 tag(mirrorP, 'tray', 'Tấm gương (xoay)'); mirrorP.setEnabled(false);
-let mirrorIdx = 2, turning = false;   /* 0 = facing the flashlight; starts facing away */
-swivel.rotation.y = Math.PI;
-tag(box('cglass', 0.6,0.02,0.6, 0.7,2.99,1.2, mGlass, false), 'cglass', 'Tấm kính trên trần');
+const MIR_STEP = Math.PI / 4;
+let mirrorIdx = 5, turning = false;             /* 0 = facing the flashlight; starts turned away */
+swivel.rotation.y = mirrorIdx * MIR_STEP;
 
-/* Beams: flashlight -> mirror -> ceiling glass -> floor */
-const pA = V3(-2.62,1.2,1.2), pM = V3(2.16,1.2,1.2), pC = V3(0.7,2.97,1.2), pF = V3(-1.75,0.03,1.2);
+/* Beams: flashlight -> mirror -> a wall. Only 3 mirror positions face the light: 7, 0, 1.
+   Each throws a spot on a different wall; only position 0 (west wall) shows the code. */
+const pA = V3(-2.62,1.2,1.2), pM = V3(MIR_X - 0.01,MIR_Y,MIR_Z);
 const beam1 = MB.CreateTube('beam1', {path:[pA,pM], radius:0.025, tessellation:12}, scene);
-const beam2 = MB.CreateTube('beam2', {path:[pM,pC], radius:0.025, tessellation:12}, scene);
-const beam3 = MB.CreateTube('beam3', {path:[pC,pF], radius:0.04, tessellation:12}, scene);
-const floorGlow = box('floorGlow', 1.9,0.004,0.95, -1.75,0.006,1.2, mSpot, false);
-[beam1, beam2, beam3].forEach(b => { b.material = mBeam; });
-[beam1, beam2, beam3, floorGlow].forEach(b => { b.isPickable = false; b.setEnabled(false); });
-beamGlow.position.set(-1.75,0.6,1.2);
-
-/* Hidden code on the floor, built from seven-segment bars.
-   Read from the starting side (looking north) it spells I L E O; read from the door side it is 0 3 7 1. */
-const mSeg = mat('seg', 0.72,1,0.82, {emissiveColor: C3(0.72,1,0.82), disableLighting: true, alpha: 0});
-const floorCode = new BABYLON.TransformNode('floorCode', scene);
-(function(){
-  const W = 0.30, H = 0.55, G = 0.1, T = 0.05, x0 = -2.5, zb = 0.925;
-  const SEG = {a:[W/2,H,W+T,T], g:[W/2,H/2,W+T,T], d:[W/2,0,W+T,T],
-               f:[0,H*0.75,T,H/2], e:[0,H*0.25,T,H/2], b:[W,H*0.75,T,H/2], c:[W,H*0.25,T,H/2]};
-  ['ef','def','adefg','abcdef'].forEach((segs, i) => {
-    const cx = x0 + i*(W+G);
-    segs.split('').forEach(k => {
-      const q = SEG[k];
-      const m = box('seg'+i+k, q[2],0.006,q[3], cx+q[0],0.014,zb+q[1], mSeg, false);
-      m.isPickable = false; m.parent = floorCode;
-    });
+beam1.material = mBeam; beam1.isPickable = false; beam1.setEnabled(false);
+const CODE_IDX = 1;                              /* mirror turned toward the wall beside the door */
+function reflect(idx){
+  const yaw = idx * MIR_STEP, c = Math.cos(MIR_TILT);
+  const n = V3(-c*Math.cos(yaw), Math.sin(MIR_TILT), c*Math.sin(yaw));
+  const d = V3(1,0,0);
+  if (BABYLON.Vector3.Dot(d, n) >= 0) return null;
+  return d.subtract(n.scale(2 * BABYLON.Vector3.Dot(d, n)));
+}
+function wallHit(o, r){
+  const W = [[0, 2.985, V3(-1,0,0)], [0, -2.985, V3(1,0,0)], [2, 2.485, V3(0,0,-1)], [2, -2.485, V3(0,0,1)], [1, 2.985, V3(0,-1,0)]];
+  let best = null;
+  W.forEach(w => {
+    const k = ['x','y','z'][w[0]], dk = r[k];
+    if (Math.abs(dk) < 1e-6) return;
+    const t = (w[1] - o[k]) / dk;
+    if (t > 0.05 && (!best || t < best.t)) best = {t:t, n:w[2]};
   });
+  return {p:o.add(r.scale(best.t)), n:best.n};
+}
+const REFL = {};
+[7, 0, 1].forEach(idx => {
+  const r = reflect(idx), hit = wallHit(pM, r);
+  const beam = MB.CreateTube('beamR'+idx, {path:[pM, hit.p], radius:0.03, tessellation:12}, scene);
+  beam.material = mBeam;
+  const spot = MB.CreateDisc('spotR'+idx, {radius: idx === CODE_IDX ? 0.36 : 0.32, tessellation:40}, scene);
+  spot.material = mSpot;
+  spot.position = hit.p.add(hit.n.scale(0.006));
+  spot.lookAt(spot.position.subtract(hit.n));      /* disc front faces the room */
+  [beam, spot].forEach(m => { m.isPickable = false; m.setEnabled(false); });
+  REFL[idx] = {beam:beam, spot:spot, p:hit.p, n:hit.n, seen:false};
+});
+
+/* Hidden code on the wall, drawn with seven-segment bars: it reads I L E O.
+   Turned upside down it is 0 3 7 1. */
+const codeTex = new BABYLON.DynamicTexture('codeTex', {width:480, height:192}, scene, true);
+codeTex.hasAlpha = true;
+(function(){
+  const g = codeTex.getContext();
+  g.clearRect(0,0,480,192);
+  const W = 64, H = 128, T = 13, GAP = 46, x0 = (480 - (4*W + 3*GAP)) / 2, y0 = 32;
+  const SEG = {a:[0,0,W,T], g:[0,(H-T)/2,W,T], d:[0,H-T,W,T],
+               f:[0,0,T,H/2], e:[0,H/2,T,H/2], b:[W-T,0,T,H/2], c:[W-T,H/2,T,H/2]};
+  g.shadowColor = 'rgba(200,255,220,.9)'; g.shadowBlur = 14; g.fillStyle = '#d8ffe4';
+  ['ef','def','adefg','abcdef'].forEach((segs, n) => {
+    segs.split('').forEach(k => { const q = SEG[k]; g.fillRect(x0 + n*(W+GAP) + q[0], y0 + q[1], q[2], q[3]); });
+  });
+  codeTex.update();
 })();
-floorCode.setEnabled(false);
+const mCode = new BABYLON.StandardMaterial('codeM', scene);
+mCode.diffuseTexture = codeTex; mCode.emissiveTexture = codeTex; mCode.opacityTexture = codeTex;
+mCode.disableLighting = true; mCode.alpha = 0; mCode.backFaceCulling = false;
+const wallCode = MB.CreatePlane('wallCode', {width:0.6, height:0.24}, scene);
+(function(){
+  const h = REFL[CODE_IDX];
+  wallCode.position = h.p.add(h.n.scale(0.01));
+  wallCode.lookAt(wallCode.position.subtract(h.n));
+})();
+wallCode.material = mCode; wallCode.isPickable = false; wallCode.setEnabled(false);
 
 /* ================= Decoration ================= */
 function deco(m){ m.isPickable = false; return m; }
@@ -384,9 +419,9 @@ tape.parent = lidHinge; tape.position.set(0,0.022,0.26); tag(tape, 'carton', 'Th
 [[2.3,0.05,0.04, 0.7,2.125,-2.478],[2.3,0.05,0.04, 0.7,1.075,-2.478],[0.05,1.0,0.04, -0.425,1.6,-2.478],[0.05,1.0,0.04, 1.825,1.6,-2.478]]
   .forEach((d, i) => deco(box('glassFrame'+i, d[0],d[1],d[2], d[3],d[4],d[5], mSteel, false)));
 deco(box('calBind', 0.024,0.03,0.38, 2.976,1.86,-0.6, mDark, false));
-deco(box('standBase', 0.46,0.03,0.46, 2.2,0.015,1.2, mSteel, false));
-const standJoint = deco(MB.CreateCylinder('standJoint', {height:0.14, diameter:0.07}, scene));
-standJoint.position.set(2.2,1.15,1.2); standJoint.material = mDark;
+deco(box('standBase', 0.46,0.03,0.46, MIR_X,0.015,MIR_Z, mSteel, false));
+const standJoint = deco(MB.CreateCylinder('standJoint', {height:0.08, diameter:0.07}, scene));
+standJoint.position.set(MIR_X,0.98,MIR_Z); standJoint.material = mDark;
 /* Pipes and wall vent */
 const pipeH = deco(MB.CreateCylinder('pipeH', {height:5, diameter:0.07}, scene));
 pipeH.rotation.x = Math.PI/2; pipeH.position.set(2.93,2.72,0); pipeH.material = mPipe;
@@ -415,7 +450,7 @@ try { const glow = new BABYLON.GlowLayer('glow', scene); glow.intensity = 0.4; }
 try {
   const sg = new BABYLON.ShadowGenerator(1024, bulbLight);
   sg.usePoissonSampling = true; sg.setDarkness(0.45);
-  const SKIP = /^(wall|floor|ceil|beam|seg|hand|hf|bulb|wire|shade|conduit|exit|cglass|slotHit|cal|gun|skirt|frame|glassFrame|oneway|vent|pipe|cctv|speaker|flashItem|letterItem|mirrorItem|mirrorP|fBody|fHead|fLens|shelf|cabInner|key)/;
+  const SKIP = /^(wall|floor|ceil|beam|seg|hand|hf|bulb|wire|shade|conduit|exit|spot|slotHit|cal|gun|skirt|frame|glassFrame|oneway|vent|pipe|cctv|speaker|muzzle|flashItem|mirrorItem|mirrorP|fBody|fHead|fLens|shelf|cabInner|key)/;
   scene.meshes.forEach(m => { if (!SKIP.test(m.name)) sg.addShadowCaster(m); });
 } catch (e) {}
 
@@ -469,7 +504,7 @@ const sfx = {
 /* ---------- Subtitles ---------- */
 const sub = $('sub');
 let typeTimer = null, hideTimer = null;
-function say(text, who){
+function say(text, who, keep){
   clearInterval(typeTimer); clearTimeout(hideTimer);
   sub.className = who ? 'j' : '';
   sub.textContent = '';
@@ -478,8 +513,24 @@ function say(text, who){
   let i = 0;
   typeTimer = setInterval(() => {
     i++; holder.textContent = text.slice(0, i);
-    if (i >= text.length) { clearInterval(typeTimer); hideTimer = setTimeout(() => { sub.textContent = ''; }, 3200 + text.length * 35); }
+    if (i >= text.length) { clearInterval(typeTimer); typeDone = null; if (!keep) hideTimer = setTimeout(() => { sub.textContent = ''; }, 3200 + text.length * 35); }
   }, who ? 34 : 20);
+  typeDone = () => { clearInterval(typeTimer); typeDone = null; holder.textContent = text; };
+}
+let typeDone = null;
+/* "Tiếp" button: first press finishes the line being typed, the next press moves on */
+function nextLine(){
+  const btn = $('next');
+  btn.hidden = false; btn.focus();
+  return new Promise(res => {
+    const go = () => {
+      if (typeDone) { typeDone(); return; }
+      btn.onclick = null; window.removeEventListener('keydown', key);
+      btn.hidden = true; res();
+    };
+    const key = e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); } };
+    btn.onclick = go; window.addEventListener('keydown', key);
+  });
 }
 const wait = ms => new Promise(r => setTimeout(r, ms));
 
@@ -537,16 +588,64 @@ function toggleHeld(id){
   if (S.held === 'gun') say('Cầm súng lên. Click để bắn, bấm G để cất.');
 }
 let lastShot = 0;
-function fire(t){
+const mBullet = mat('bullet', 1,0.55,0.15, {emissiveColor: C3(1,0.5,0.12)});
+const mTrail = mat('trail', 1,0.85,0.5, {emissiveColor: C3(1,0.85,0.5), disableLighting: true, alpha: 0.55});
+const mMuzzle = mat('muzzle', 1,0.9,0.5, {emissiveColor: C3(1,0.9,0.55), disableLighting: true, alpha: 0.9});
+const muzzle = MB.CreateSphere('muzzle', {diameter:0.07, segments:8}, scene);
+muzzle.parent = hand; muzzle.position.set(0.24,0.035,0); muzzle.material = mMuzzle;
+muzzle.renderingGroupId = 1; muzzle.isPickable = false; muzzle.setEnabled(false);
+const bullets = [], pellets = [];
+function fire(t, p){
   const now = Date.now();
   if (now - lastShot < 350) return;
   lastShot = now;
   tween(180, k => { const r = Math.sin(k * Math.PI); hand.position.z = 0.48 - 0.05*r; hand.rotation.x = -0.18*r; });
-  if (t && t.id === 'bulb' && !S.dark) { shoot(); return; }
+  muzzle.setEnabled(true); muzzle.scaling.setAll(1);
+  tween(90, k => { muzzle.scaling.setAll(1 + k); }, () => muzzle.setEnabled(false));
   sfx.shot();
-  if (t && t.id === 'bulb') say('Chỉ còn cái đuôi đèn.');
-  else if (t) say('Đang cầm súng. Bấm G để cất rồi mới lục soát được.');
-  else say('Viên đạn nhựa nảy ra, chẳng để lại gì.');
+  /* Bullet leaves the muzzle and flies to where the player aimed */
+  hand.computeWorldMatrix(true); muzzle.computeWorldMatrix(true);
+  const from = muzzle.getAbsolutePosition().clone();
+  let to;
+  if (p && p.hit) to = p.pickedPoint.clone();
+  else { const ray = scene.createPickingRay(scene.pointerX, scene.pointerY, null, cam); to = ray.origin.add(ray.direction.scale(8)); }
+  if (BABYLON.Vector3.Distance(cam.position, to) < BABYLON.Vector3.Distance(cam.position, from) + 0.05) to = from.add(cam.getDirection(V3(0,0,1)).scale(0.3));
+  const node = new BABYLON.TransformNode('bulletN', scene);
+  node.position = from.clone(); node.lookAt(to);
+  const ball = MB.CreateSphere('bullet', {diameter:0.03, segments:8}, scene);
+  ball.parent = node; ball.material = mBullet;
+  const trail = MB.CreateCylinder('trail', {height:0.22, diameterTop:0.018, diameterBottom:0.002, tessellation:8}, scene);
+  trail.parent = node; trail.rotation.x = Math.PI/2; trail.position.z = -0.12; trail.material = mTrail;
+  [ball, trail].forEach(m => { m.isPickable = false; });
+  const dist = BABYLON.Vector3.Distance(from, to);
+  const dir = to.subtract(from).normalize();
+  bullets.push({node:node, from:from, dir:dir, dist:dist, d:0, speed:22, onHit: () => {
+    if (t && t.id === 'bulb' && !S.dark) { shoot(); return; }
+    tone(1800, 0.04, 'square', 0.03);
+    spawnPellet(to, dir, p && p.hit ? p.getNormal(true) : null);
+    if (t && t.id === 'bulb') say('Chỉ còn cái đuôi đèn.');
+    else if (t) say('Đang cầm súng. Bấm G để cất rồi mới lục soát được.');
+    else say('Viên đạn nhựa nảy ra, chẳng để lại gì.');
+  }});
+}
+function spawnPellet(at, dir, n){
+  const m = MB.CreateSphere('pellet', {diameter:0.025, segments:6}, scene);
+  m.material = mBullet; m.isPickable = false;
+  m.position = at.subtract(dir.scale(0.03));
+  let v = dir.scale(-1.6);
+  if (n) v = dir.subtract(n.scale(2 * BABYLON.Vector3.Dot(dir, n))).scale(1.8);
+  v.x += (Math.random() - 0.5) * 0.6; v.z += (Math.random() - 0.5) * 0.6; v.y += 0.6;
+  shards.push({m:m, v:v});
+  pellets.push(m);
+  if (pellets.length > 12) pellets.shift().dispose();
+}
+function moveBullets(dt){
+  for (let i = bullets.length - 1; i >= 0; i--) {
+    const b = bullets[i];
+    b.d = Math.min(b.dist, b.d + b.speed * dt / 1000);
+    b.node.position = b.from.add(b.dir.scale(b.d));
+    if (b.d >= b.dist) { bullets.splice(i,1); b.node.dispose(false, true); b.onHit(); }
+  }
 }
 
 /* ---------- Movement ---------- */
@@ -602,6 +701,7 @@ let flick = 1;
 scene.onBeforeRenderObservable.add(() => {
   const dt = engine.getDeltaTime();
   walk(dt);
+  moveBullets(dt);
   for (let i = tweens.length - 1; i >= 0; i--) {
     const w = tweens[i]; w.t += dt;
     const k = Math.min(1, w.t / w.ms);
@@ -626,37 +726,41 @@ scene.onBeforeRenderObservable.add(() => {
 /* ---------- Puzzle logic ---------- */
 function refresh(){
   const on = S.placedFlash && S.flashOn && S.dark;
-  const refl = on && S.placedMirror && mirrorIdx === 0;
+  const hitIdx = (on && S.placedMirror && REFL[mirrorIdx]) ? mirrorIdx : -1;
   beam1.setEnabled(on);
-  beam2.setEnabled(refl); beam3.setEnabled(refl);
-  floorGlow.setEnabled(refl); beamGlow.setEnabled(refl); floorCode.setEnabled(refl);
+  Object.keys(REFL).forEach(k => { const r = REFL[k], v = Number(k) === hitIdx; r.beam.setEnabled(v); r.spot.setEnabled(v); });
+  beamGlow.setEnabled(hitIdx >= 0);
+  if (hitIdx >= 0) beamGlow.position = REFL[hitIdx].p.add(REFL[hitIdx].n.scale(0.5));
+  const code = hitIdx === CODE_IDX;
+  wallCode.setEnabled(code);
   camLight.setEnabled(S.dark && S.held === 'flash' && !S.solved);
-  if (refl && !S.codeSeen) {
-    S.codeSeen = true;
-    tween(1400, k => { mSeg.alpha = k; });
-    say('Ánh sáng dội lên tấm kính trên trần rồi hắt xuống sàn. Có chữ gì đó hiện lên.');
-  } else if (refl) { mSeg.alpha = 1; }
+  if (code && !S.codeSeen) {
+    S.codeSeen = true; REFL[hitIdx].seen = true;
+    tween(1400, k => { mCode.alpha = k; });
+    say('Tia sáng hắt lên bức tường cạnh cửa. Có mấy nét sáng hiện ra… là chữ gì vậy?');
+  } else if (code) mCode.alpha = 1;
+  else if (hitIdx >= 0 && !REFL[hitIdx].seen) {
+    REFL[hitIdx].seen = true;
+    say('Tia sáng hắt lên tường, chỉ là một vệt sáng trống trơn. Có lẽ chưa đúng góc.');
+  }
   drawInv();
 }
 function shoot(){
-  sfx.shot();
   const fl = $('flash'); fl.style.transition = 'none'; fl.style.opacity = '0.5';
   setTimeout(() => { fl.style.transition = 'opacity .5s'; fl.style.opacity = '0'; }, 40);
-  setTimeout(() => {
-    sfx.glass();
-    S.dark = true;
-    bulb.setEnabled(false); bulbHit.metadata.label = 'Đuôi đèn';
-    bulbLight.intensity = 0;
-    if (hum) hum.gain.value = 0.004;
-    for (let i = 0; i < 10; i++) {
-      const m = box('shard'+i, 0.03,0.004,0.04, 0,2.45,0, mGlass, false);
-      m.isPickable = false;
-      shards.push({m:m, v:V3((Math.random()-0.5)*2.4, Math.random()*1.2, (Math.random()-0.5)*2.4)});
-    }
-    tween(500, k => { hemi.intensity = 0.32 - 0.25*k; });
-    say('Bóng đèn vỡ tan. Căn phòng chìm vào bóng tối.');
-    refresh();
-  }, 140);
+  sfx.glass();
+  S.dark = true;
+  bulb.setEnabled(false); bulbHit.metadata.label = 'Đuôi đèn';
+  bulbLight.intensity = 0;
+  if (hum) hum.gain.value = 0.004;
+  for (let i = 0; i < 10; i++) {
+    const m = box('shard'+i, 0.03,0.004,0.04, 0,2.45,0, mGlass, false);
+    m.isPickable = false;
+    shards.push({m:m, v:V3((Math.random()-0.5)*2.4, Math.random()*1.2, (Math.random()-0.5)*2.4)});
+  }
+  tween(500, k => { hemi.intensity = 0.32 - 0.14*k; });
+  say('Bóng đèn vỡ tan. Căn phòng tối sầm lại.');
+  refresh();
 }
 
 function use(id){
@@ -695,15 +799,14 @@ function use(id){
       break;
     case 'wbox':
       if (!S.boxOpen) { sfx.click(); openModal('boxp'); }
-      else if (!S.hasFlash) say('Trong hộp có một cây đèn pin và một lá thư.');
-      else say('Trong hộp chỉ còn lá thư.');
+      else if (!S.hasFlash) use('flashItem');
+      else say('Hộp đã trống.');
       break;
     case 'flashItem':
       S.hasFlash = true; flashItem.setEnabled(false); sfx.pick(); setHeld('flash');
       say('Một cây đèn pin, vẫn còn pin. Mình cầm nó trên tay.');
       refresh();
       break;
-    case 'letterItem': sfx.click(); openModal('letter'); break;
     case 'bin': say('Thùng rác trống. Sạch đến mức đáng ngờ.'); break;
     case 'oneway': say('Kính một chiều. Mình chỉ thấy chính mình. Có ai đang đứng ở phía bên kia không?'); break;
     case 'speaker': say('Một cái loa gắn trên trần. Nó đang im lặng.'); break;
@@ -734,13 +837,12 @@ function use(id){
         else say('Một cái giá nghiêng gắn trên trục xoay. Thứ gì đó phẳng từng được đặt ở đây.');
       } else if (!turning) {
         turning = true;
-        const a0 = swivel.rotation.y, next = (mirrorIdx + 1) % 4;
+        const a0 = swivel.rotation.y, next = (mirrorIdx + 1) % 8;
         mirrorIdx = -1; refresh(); sfx.metal();
-        tween(350, k => { swivel.rotation.y = a0 + k * Math.PI / 2; }, () => { mirrorIdx = next; turning = false; refresh(); });
+        tween(300, k => { swivel.rotation.y = a0 + k * MIR_STEP; }, () => { mirrorIdx = next; swivel.rotation.y = next * MIR_STEP; turning = false; refresh(); });
       }
       break;
     case 'cctv': say('Một cái camera. Đèn đỏ vẫn nhấp nháy. Có ai đó đang xem.'); break;
-    case 'cglass': say('Một tấm kính gắn trên trần. Ai lại lắp kính ở đó?'); break;
     case 'bulb':
       if (S.dark) say('Chỉ còn cái đuôi đèn.');
       else if (S.hasGun) say('Bóng đèn treo quá cao. Phải cầm súng lên đã (phím G).');
@@ -756,7 +858,7 @@ function use(id){
 
 /* ---------- Pointer ---------- */
 const hover = $('hover');
-const FAR = {bulb:1, speaker:1, cglass:1, cctv:1};
+const FAR = {bulb:1, speaker:1, cctv:1};
 function findTag(mesh){ let m = mesh; while (m) { if (m.metadata && m.metadata.id) return m.metadata; m = m.parent; } return null; }
 let downX = 0, downY = 0;
 scene.onPointerObservable.add(pi => {
@@ -773,7 +875,7 @@ scene.onPointerObservable.add(pi => {
     return;
   }
   if (Math.hypot(scene.pointerX - downX, scene.pointerY - downY) > 8) return;
-  if (S.held === 'gun') { fire(t); return; }
+  if (S.held === 'gun') { fire(t, p); return; }
   if (!t) return;
   if (p.distance > 3.2 && !FAR[t.id]) { say('Xa quá. Phải lại gần hơn.'); return; }
   use(t.id);
@@ -789,7 +891,6 @@ $('diaryClose').onclick = () => {
   closeModal('diary');
   if (!S.diarySeen) { S.diarySeen = true; say('Sổ trống trơn. Mình giữ nó bên người. Bấm N để mở lại.'); }
 };
-$('letterClose').onclick = () => { closeModal('letter'); say('Giang… Cô ấy gọi mình là Lê-ô. Cái tên đó làm ngực mình nhói lên.'); };
 
 /* ---------- Wooden box lock: sliding blocks, shortest solution is 17 slides ---------- */
 const RH_INIT = [
@@ -809,20 +910,21 @@ function rhBusy(r, c, skip){
 }
 function openBox(){
   closeModal('boxp'); S.boxOpen = true; sfx.ok();
-  flashItem.setEnabled(true); letterItem.setEnabled(true);
+  flashItem.setEnabled(true);
   tween(700, k => { wHinge.rotation.x = 1.9 * k; });
-  say('Nắp hộp bật mở. Bên trong có một cây đèn pin và một lá thư.');
+  say('Nắp hộp bật mở. Bên trong có một cây đèn pin.');
 }
-function rhMove(i, dir){
-  if (rhDone) return;
+function rhMove(i, dir, quiet){
+  if (rhDone) return false;
   const b = rh[i];
   const r = b.h ? b.r : (dir > 0 ? b.r + b.len : b.r - 1);
   const c = b.h ? (dir > 0 ? b.c + b.len : b.c - 1) : b.c;
   if (rhBusy(r, c, i)) {
+    if (quiet) return false;
     tone(150, 0.08, 'square', 0.04);
     const inner = rhEls[i].firstChild;
     inner.classList.remove('no'); void inner.getBoundingClientRect(); inner.classList.add('no');
-    return;
+    return false;
   }
   if (b.h) b.c += dir; else b.r += dir;
   rhMoves++; noise(0.08, 900, 0.1); rhPlace(i); rhMsg();
@@ -834,6 +936,7 @@ function rhMove(i, dir){
     }, 250);
     setTimeout(openBox, 1400);
   }
+  return true;
 }
 (function(){
   const NS = 'http://www.w3.org/2000/svg', svg = $('boxSvg');
@@ -851,7 +954,30 @@ function rhMove(i, dir){
       '<polygon points="' + a2 + '" fill="#2a1b0d" fill-opacity=".45"/>' +
       (b.key ? '<circle cx="' + (w/2+2) + '" cy="' + (h/2+2) + '" r="6" fill="#2a1b0d"/>' : '');
     g.appendChild(inner); svg.appendChild(g); rhEls.push(g);
+    /* Drag a block along its track; a plain click still slides it one cell */
+    let drag = null, dragged = false;
+    g.addEventListener('pointerdown', e => {
+      drag = {x:e.clientX, y:e.clientY, steps:0, blocked:false}; dragged = false;
+      try { g.setPointerCapture(e.pointerId); } catch (_) {}
+    });
+    g.addEventListener('pointermove', e => {
+      if (!drag) return;
+      const raw = b.h ? e.clientX - drag.x : e.clientY - drag.y;
+      if (Math.abs(raw) > 6) dragged = true;
+      if (!dragged) return;
+      const cells = raw / (svg.getBoundingClientRect().width / 300) / CELL;
+      while (cells - drag.steps > 0.5 || cells - drag.steps < -0.5) {
+        const dir = cells > drag.steps ? 1 : -1;
+        if (!rhMove(i, dir, true)) {
+          if (!drag.blocked) { drag.blocked = true; tone(150, 0.08, 'square', 0.04); }
+          break;
+        }
+        drag.steps += dir; drag.blocked = false;
+      }
+    });
+    ['pointerup','pointercancel'].forEach(t => g.addEventListener(t, () => { drag = null; }));
     g.addEventListener('click', e => {
+      if (dragged) { dragged = false; return; }
       const rc = g.getBoundingClientRect();
       const dir = b.h ? (e.clientX < rc.left + rc.width/2 ? -1 : 1) : (e.clientY < rc.top + rc.height/2 ? -1 : 1);
       rhMove(i, dir);
@@ -919,7 +1045,8 @@ async function win(){
     'Cho đến cái đêm anh đụng độ tôi. Một phát súng, và anh quên sạch.',
     'Tôi là J. Ngủ ngon nhé. Mai gặp lại.'
   ];
-  for (const l of lines) { sfx.stat(); say(l, 'Ngài J'); await wait(1600 + l.length * 62); }
+  for (const l of lines) { sfx.stat(); say(l, 'Ngài J', true); await nextLine(); }
+  sub.textContent = '';
   say('J… Mình từng là cảnh sát. Và hắn là kẻ đã bắn mình.');
   await wait(4200);
   $('fade').style.opacity = '1';
@@ -938,7 +1065,7 @@ $('start').onclick = async () => {
   await wait(1200);
   say('Đầu mình… Đây là đâu? Mình là ai?');
   await wait(4600);
-  if (!S.hasFlash && !S.hasGun && !S.hasMirror) say('Trên bàn có một cuốn sổ và một cái hộp gỗ.');
+  if (!S.solved && !S.hasFlash && !S.hasGun && !S.hasMirror) say('Trên bàn có một cuốn sổ và một cái hộp gỗ.');
   setTimeout(() => { $('help').style.transition = 'opacity 2s'; $('help').style.opacity = '0.35'; }, 15000);
 };
 
